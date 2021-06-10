@@ -1,9 +1,10 @@
 import './App.css';
+import Search from './Components/Search';
 
 const App = () => {
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Search />
     </div>
   );
 }
