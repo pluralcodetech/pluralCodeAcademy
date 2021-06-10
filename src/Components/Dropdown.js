@@ -2,7 +2,6 @@ import React from 'react'
 import CustomLink from './CustomLink'
 
 const Dropdown = ({data, title}) => {
-    console.log(data)
     return (
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
