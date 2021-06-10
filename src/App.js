@@ -1,13 +1,12 @@
-import './App.css';
-import Dropdown from './Components/Dropdown';
-import Search from './Components/Search';
-import headerData from './data/header_data';
+import './App.scss';
+
+import Header from './Components/Header/Header';
+
 
 const App = () => {
   return (
     <div className="App">
-      <Search />
-      <Dropdown data={headerData.creatNew} title='Create New'/>
+      <Header/>
     </div>
   );
 }

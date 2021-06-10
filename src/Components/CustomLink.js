@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const CustomLink = ({children, label, path}) => {
+const CustomLink = ({children, label, path, className}) => {
     return (
-        <Link to={path} >
+        <Link to={path} className={className ? "dropdown-item" : null} >
             {children || label}
         </Link>
     )
