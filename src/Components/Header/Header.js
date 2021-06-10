@@ -4,6 +4,7 @@ import headerData from '../../data/header_data'
 // import Dropdown from '../Dropdown'
 import Search from '../Search'
 import { IoIosNotificationsOutline } from "react-icons/io";
+import pluralcode_logo from "../../Assets/image/logo/pluralCode_logo.jfif"
 
 
 
@@ -14,6 +15,7 @@ import MobileSearch from '../Dropdown/MobileSearch';
 import FullScreen from './FullScreen';
 import AppsDropdown from '../Dropdown/AppsDropdown';
 import User from './User';
+import LogoComponent from '../LogoComponent';
 
 const Header = () => {
     return (
@@ -37,21 +39,30 @@ const Header = () => {
             
                 
                 <div class="logo-box">
+                    {/* <LogoComponent 
+                        src={pluralcode_logo}
+                        alt='plural code logo'
+                        path='/' 
+                        text={true} 
+                        logoText="PLURALCODE"
+                    /> */}
                     <a href="index.html" class="logo logo-dark text-center">
                         <span class="logo-sm">
-                            <img src="../assets/images/logo-sm.png" alt="" height="22"/>
+                            <img src={pluralcode_logo} alt="" height="22"/>
+                            {/* <span class="logo-lg-text-light">PLURALCODE</span> */}
                         </span>
                         <span class="logo-lg">
-                            <img src="../assets/images/logo-dark.png" alt="" height="20"/>
+                            <img src={pluralcode_logo} alt="" height="20"/>
+                            {/* <span class="logo-lg-text-light">PLURALCODE</span> */}
                         </span>
                     </a>
             
                     <a href="index.html" class="logo logo-light text-center">
                         <span class="logo-sm">
-                            <img src="../assets/images/logo-sm.png" alt="" height="22"/>
+                            <img src={pluralcode_logo} alt="" height="22"/>
                         </span>
                         <span class="logo-lg">
-                            <img src="../assets/images/logo-light.png" alt="" height="20"/>
+                            <img src={pluralcode_logo} alt="" height="20"/>
                         </span>
                     </a>
                 </div>
