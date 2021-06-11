@@ -1,5 +1,6 @@
 import React from 'react'
 import CustomLink from '../CustomLink'
+import CommunityDropdown from '../Dropdown/CommunityDropdown'
 import DashBoard from '../Dropdown/DashBoard'
 import DiscountDropdown from '../Dropdown/DiscountDropdown'
 import EventDropdown from '../Dropdown/EventDropdown'
@@ -16,6 +17,7 @@ const SidebarMenu = () => {
             <DiscountDropdown/>
             <li class="menu-title mt-2">Apps</li>
             <UserManagementDropdown/>
+            <CommunityDropdown/>
         </ul>
     )
 }

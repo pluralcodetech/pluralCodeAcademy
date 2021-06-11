@@ -1,20 +1,19 @@
 import React from 'react'
 import CustomLink from '../CustomLink'
-import { FiAirplay } from "react-icons/fi";
+import { GiField } from "react-icons/gi";
 
-
-const DashBoard = () => {
+const CommunityDropdown = () => {
     return (
         <li>
             <a href="#sidebarDashboards" data-bs-toggle="collapse">
-                <FiAirplay/>
+                <GiField/>
                 <span class="badge bg-success rounded-pill float-end">1</span>
-                <span> Dashboards </span>
+                <span> Community </span>
             </a>
             <div class="collapse" id="sidebarDashboards">
-                <ul class="nav-second-level">
-                    <CustomLink className={true} path="/dashboard">
-                        DashBoard
+                <ul class="nav-second-level ">
+                    <CustomLink className={true}  path="/community">
+                        List 
                     </CustomLink>
                 </ul>
             </div>
@@ -22,4 +21,4 @@ const DashBoard = () => {
     )
 }
 
-export default DashBoard
+export default CommunityDropdown

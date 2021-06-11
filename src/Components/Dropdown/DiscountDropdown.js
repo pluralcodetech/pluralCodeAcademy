@@ -1,11 +1,12 @@
 import React from 'react'
 import CustomLink from '../CustomLink'
+import { FiActivity } from "react-icons/fi";
 
 const DiscountDropdown = () => {
     return (
         <li>
             <a href="#sidebarDashboards" data-bs-toggle="collapse">
-                <i data-feather="airplay"></i>
+                <FiActivity/>
                 <span class="badge bg-success rounded-pill float-end">2</span>
                 <span> Discount </span>
             </a>
