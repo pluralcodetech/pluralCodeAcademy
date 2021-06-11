@@ -8,6 +8,17 @@
   width: 4rem;
 }
 
+#left-side-menu {
+  width: 240px;
+  background: #ffffff;
+  bottom: 0;
+  padding: 20px 0;
+  position: fixed;
+  transition: all .1s ease-out;
+  
+  top: 70px;
+  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15); }
+
 
 
 /*
@@ -3699,7 +3710,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: flex-start; }
