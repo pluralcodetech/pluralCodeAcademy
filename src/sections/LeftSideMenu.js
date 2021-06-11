@@ -5,7 +5,7 @@ import Profile from '../Components/Profile'
 const LeftSideMenu = () => {
     return (
         <div id="left-side-menu">
-            <div class="" data-simplebar>
+            <div  data-simplebar>
                 <Profile/>
             </div>
 

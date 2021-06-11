@@ -1,21 +1,18 @@
 import React from 'react'
 import CustomLink from '../CustomLink'
 
-const DiscountDropdown = () => {
+const UserManagementDropdown = () => {
     return (
         <li>
             <a href="#sidebarDashboards" data-bs-toggle="collapse">
                 <i data-feather="airplay"></i>
-                <span class="badge bg-success rounded-pill float-end">2</span>
-                <span> Discount </span>
+                <span class="badge bg-success rounded-pill float-end">1</span>
+                <span> User Management </span>
             </a>
             <div class="collapse" id="sidebarDashboards">
                 <ul class="nav-second-level ">
-                    <CustomLink className={true}  path="/discount_List">
+                    <CustomLink className={true}  path="/UserManagementt_List">
                         List 
-                    </CustomLink>
-                    <CustomLink className={true} path="/detail">
-                        Details
                     </CustomLink>
                 </ul>
             </div>
@@ -23,4 +20,4 @@ const DiscountDropdown = () => {
     )
 }
 
-export default DiscountDropdown
+export default UserManagementDropdown

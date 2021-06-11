@@ -3,15 +3,19 @@ import CustomLink from '../CustomLink'
 import DashBoard from '../Dropdown/DashBoard'
 import DiscountDropdown from '../Dropdown/DiscountDropdown'
 import EventDropdown from '../Dropdown/EventDropdown'
+import UserManagementDropdown from '../Dropdown/UserManagementDropdown'
 
 const SidebarMenu = () => {
     return (
-        <ul id="side-menu">
+        
+        <ul id="side-menu" >
+            
             <li class="menu-title">Navigation</li>
             <DashBoard/>
             <EventDropdown/>
             <DiscountDropdown/>
-            
+            <li class="menu-title mt-2">Apps</li>
+            <UserManagementDropdown/>
         </ul>
     )
 }
