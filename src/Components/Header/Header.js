@@ -16,8 +16,19 @@ import FullScreen from './FullScreen';
 import AppsDropdown from '../Dropdown/AppsDropdown';
 import User from './User';
 import LogoComponent from '../LogoComponent';
+import leftSideMenuAction from '../../Redux Statemenet/actions/leftSideMenuAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = () => {
+    const dispatch = useDispatch()
+
+    const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
+    console.log(leftSideMenuContent);
+    
+    const handleopen = (e) => {
+        e.preventDefault()
+        dispatch(leftSideMenuAction(true));
+    }
     return (
         <div class="navbar-custom">
             <div class="container-fluid">
@@ -70,7 +81,10 @@ const Header = () => {
                 <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                     
                     <li>
-                        <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <a class="navbar-toggle nav-link" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#topnav-menu-content"
+                            onClick={(e) => handleopen(e)}>
                             <HiOutlineMenu/>
                         </a>
                     </li>  
