@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import CustomLink from '../CustomLink'
 import { GiField } from "react-icons/gi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import communityDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/communityDropdownAction';
 
 const CommunityDropdown = () => {
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
-    const [state, setState] = useState(false);
+    const communityDropdownContent = useSelector(state => state.communityDropdown.cySwitch);
+    // const [state, setState] = useState(false);
     
+
+    const dispatch = useDispatch();
 
     const handleCYIconText = (e) => {
         e.preventDefault();
-        setState(true);
+        dispatch(communityDropdownAction(true))
+        // setState(true);
     }
     return (
         <>
@@ -36,7 +41,7 @@ const CommunityDropdown = () => {
                     <a href="#sidebarDiscount" data-bs-toggle="collapse" data-bs-toggle="dropdown" aria-expanded="false">
                         <GiField onClick={(e)=>handleCYIconText(e)}/>
                         {
-                            state? (<span> Discount </span>) : null
+                            communityDropdownContent? (<span> Discount </span>) : null
                         }
                         
                     </a>

@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 import CustomLink from '../CustomLink'
 import { FiCalendar } from "react-icons/fi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import eventDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/eventDropdownAction';
 
 const EventDropdown = () => {
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
-    const [state, setState] = useState(false);
+    const eventDropdownContent = useSelector(state => state.eventDropdown.etSwitch);
+    console.log(eventDropdownContent);
+    // const [state, setState] = useState(false);
     
+    const dispatch = useDispatch()
 
     const handleETIconText = (e) => {
         e.preventDefault();
-        setState(true);
+        // setState(true);
+        dispatch(eventDropdownAction(true))
+        
     }
     return (
         <>
@@ -38,7 +44,7 @@ const EventDropdown = () => {
                     <a href="#sidebarDiscount" data-bs-toggle="collapse" data-bs-toggle="dropdown" aria-expanded="false">
                         <FiCalendar onClick={(e)=>handleETIconText(e)}/>
                         {
-                            state? (<span> Event </span>) : null
+                            eventDropdownContent? (<span> Event </span>) : null
                         }
                         
                     </a>

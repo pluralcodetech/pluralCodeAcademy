@@ -5,6 +5,7 @@ import headerData from '../../data/header_data'
 import Search from '../Search'
 import { IoIosNotificationsOutline } from "react-icons/io";
 import pluralcode_logo from "../../Assets/image/logo/pluralCode_logo.jfif"
+import { HiOutlineX } from "react-icons/hi";
 
 
 
@@ -18,17 +19,40 @@ import User from './User';
 import LogoComponent from '../LogoComponent';
 import leftSideMenuAction from '../../Redux Statemenet/actions/leftSideMenuAction';
 import { useDispatch, useSelector } from 'react-redux';
+import dashBoardDropDownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/dashBoardDropDownAction';
+import { useHistory } from 'react-router-dom';
+import eventDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/eventDropdownAction';
+import discountDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/discountDropdownAction';
+import userManagementDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/userManagementDropdownAction';
+import communityDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/communityDropdownAction';
 
 const Header = () => {
     const dispatch = useDispatch()
+    // let history = useHistory()
 
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
     console.log(leftSideMenuContent);
     
     const handleopen = (e) => {
         e.preventDefault()
-        dispatch(leftSideMenuAction(true));
+        dispatch(
+            leftSideMenuAction(true)
+        );
+        
+    };
+
+    const handleclose = (e) => {
+        e.preventDefault()
+        // history.push("/");
+        dispatch(leftSideMenuAction(false));
+        dispatch(dashBoardDropDownAction(false));
+        dispatch(eventDropdownAction(false));
+        dispatch(discountDropdownAction(false));
+        dispatch(userManagementDropdownAction(false));
+        dispatch(communityDropdownAction(false));
     }
+
+    
     return (
         <div class="navbar-custom">
             <div class="container-fluid">
@@ -81,12 +105,26 @@ const Header = () => {
                 <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                     
                     <li>
-                        <a class="navbar-toggle nav-link" 
-                            data-bs-toggle="collapse" 
-                            data-bs-target="#topnav-menu-content"
-                            onClick={(e) => handleopen(e)}>
-                            <HiOutlineMenu/>
-                        </a>
+                        {
+                            !leftSideMenuContent ? (
+                                <a class="navbar-toggle nav-link" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#topnav-menu-content"
+                                    onClick={(e) => handleopen(e)}>
+                                    <HiOutlineMenu/>
+                                </a>
+                            ) : (
+                                <a class="navbar-toggle nav-link" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#topnav-menu-content"
+                                    onClick={(e) => handleclose(e)}>
+                                    <HiOutlineX/>
+                                </a>
+                            )
+                        }
+                        
+                        
+                       
                     </li>  
 
                     {/* Create New Dropdow */}

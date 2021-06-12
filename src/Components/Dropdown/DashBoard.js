@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import CustomLink from '../CustomLink'
 import { FiAirplay } from "react-icons/fi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import dashBoardDropDownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/dashBoardDropDownAction';
 
 
 const DashBoard = () => {
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
-    const [state, setState] = useState(false);
+    const dashBoardDropDownContent = useSelector(state => state.dashBoardDropDown.dbSwitch);
+    // const [state, setState] = useState(false);
     
+    const dispatch = useDispatch();
 
     const handleDBIconText = (e) => {
         e.preventDefault();
-        setState(true);
+        dispatch(dashBoardDropDownAction(true))
+        // setState(true);
     }
     return (
         <>
@@ -36,7 +40,7 @@ const DashBoard = () => {
                     <a href="#sidebarDiscount" data-bs-toggle="collapse" data-bs-toggle="dropdown" aria-expanded="false">
                     <FiAirplay onClick={(e)=>handleDBIconText(e)}/>
                         {
-                            state? (<span> DashBoard </span>) : null
+                            dashBoardDropDownContent? (<span> DashBoard </span>) : null
                         }
                         
                     </a>
