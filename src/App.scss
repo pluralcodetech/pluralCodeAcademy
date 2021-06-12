@@ -10,11 +10,10 @@
 
 #left-side-menu {
   margin: auto;
-  text-align: center;
+  // text-align: center;
   
   // width: 240px;
-  // display: flex;
-  // flex-direction: column;
+  
 
   background: #ffffff;
   bottom: 0;
@@ -23,7 +22,13 @@
   transition: all .1s ease-out;
   // overflow-y: scroll;
   top: 70px;
-  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15); }
+  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15); 
+}
+
+#side-menu {
+  display: flex;
+  flex-direction: column;
+}
 
 
 

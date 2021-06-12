@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import CustomLink from '../CustomLink'
 import { GrUserManager } from "react-icons/gr";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import userManagementDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/userManagementDropdownAction';
 
 const UserManagementDropdown = () => {
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
-    const [state, setState] = useState(false);
+    const userManagementDropdownContent = useSelector(state => state.userManagementDropdown.umSwitch);
+    // const [state, setState] = useState(false);
     
+
+    const dispatch = useDispatch();
 
     const handleUMIconText = (e) => {
         e.preventDefault();
-        setState(true);
+        dispatch(userManagementDropdownAction(true))
+        // setState(true);
     }
     return (
         <>
@@ -37,7 +42,7 @@ const UserManagementDropdown = () => {
                     <a href="#sidebarDiscount" data-bs-toggle="collapse" data-bs-toggle="dropdown" aria-expanded="false">
                         <GrUserManager onClick={(e)=>handleUMIconText(e)}/>
                         {
-                            state? (<span> User Management </span>) : null
+                            userManagementDropdownContent? (<span> User Management </span>) : null
                         }
                         
                     </a>

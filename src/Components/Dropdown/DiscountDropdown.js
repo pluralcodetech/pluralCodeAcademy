@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import CustomLink from '../CustomLink'
 import { FiActivity } from "react-icons/fi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import discountDropdownAction from '../../Redux Statemenet/actions/left-Side-Menu-Dropdowns/discountDropdownAction';
 
 const DiscountDropdown = () => {
     const leftSideMenuContent = useSelector(state => state.leftMenuToggle.open);
-    const [state, setState] = useState(false);
+    const discountDropdownContent = useSelector(state => state.discountDropdown.dtSwitch);
+    // const [state, setState] = useState(false);
     
+
+    const dispatch = useDispatch()
 
     const handleIconText = (e) => {
         e.preventDefault();
-        setState(true);
+        dispatch(discountDropdownAction(true))
+        // setState(true);
     }
 
     return (
@@ -40,7 +45,7 @@ const DiscountDropdown = () => {
                     <a href="#sidebarDiscount" data-bs-toggle="collapse" data-bs-toggle="dropdown" aria-expanded="false">
                         <FiActivity onClick={(e)=>handleIconText(e)}/>
                         {
-                            state? (<span> Discount </span>) : null
+                            discountDropdownContent? (<span> Discount </span>) : null
                         }
                         
                     </a>
