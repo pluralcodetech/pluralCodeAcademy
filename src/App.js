@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
 
-<<<<<<< HEAD
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
-=======
-import Header from './Components/Header/Header';
-import LeftSideMenu from './sections/LeftSideMenu';
-
-import { useState } from 'react';
-
->>>>>>> main
 
 // Containers
 const TheLayout = React.lazy(() => import('./containers/TheLayout'));
 
-<<<<<<< HEAD
 // Pages
 const Login = React.lazy(() => import('./views/pages/login/Login'));
 const Register = React.lazy(() => import('./views/pages/register/Register'));
@@ -43,21 +34,6 @@ class App extends Component {
       </HashRouter>
     );
   }
-=======
-const App = () => {
- 
-  return (
-    <div className="App">
-      <Header/>
-      
-      <LeftSideMenu/>
-
-
-
-      
-    </div>
-  );
->>>>>>> main
 }
 
 export default App;
