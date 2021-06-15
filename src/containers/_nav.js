@@ -68,7 +68,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Create Discount',
-        to: '/base/carousels',
+        to: '/create_discount',
       }
     ],
   },

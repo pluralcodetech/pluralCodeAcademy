@@ -5,7 +5,8 @@ const CourseDetails = React.lazy(() => import('./views/Courses/course_details'))
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
 
 const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
-const DiscountDetails = React.lazy(() => import('./views/Discount/discount_details'))
+const DiscountDetails = React.lazy(() => import('./views/Discount/discount_details'));
+const CreateDiscount = React.lazy(() => import('./views/Discount/create_discount'))
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -52,6 +53,7 @@ const routes = [
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
   { path: '/discount_list', name: "Discount List", component: DiscountList},
   { path: '/discount_details', name: "Discount List", component: DiscountDetails},
+  { path: '/create_discount', name: "Create Courses", component: CreateDiscount},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
