@@ -101,7 +101,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'User Management',
-    to: '/dashboard',
+    to: '/user_management',
     icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} />,
     badge: {
       color: 'info',
