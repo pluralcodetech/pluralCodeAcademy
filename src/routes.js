@@ -11,7 +11,9 @@ const CreateDiscount = React.lazy(() => import('./views/Discount/create_discount
 const Calender = React.lazy(() => import('./views/Events/calender'));
 const EventDashBoard = React.lazy(() => import('./views/Events/event_dashBoard'));
 
-const UserManagement = React.lazy(() => import('./views/UserManagement/UserManagement'))
+const UserManagement = React.lazy(() => import('./views/UserManagement/UserManagement'));
+
+const Community = React.lazy(() => import('./views/Community/Community'))
 
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -62,6 +64,7 @@ const routes = [
   { path: '/event_calendar', name: "Calendar", component: Calender},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
+  { path: '/community', name: "Community", component: Community},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

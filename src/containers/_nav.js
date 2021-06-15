@@ -112,7 +112,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Community',
-    to: '/dashboard',
+    to: '/community',
     icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cil-graph'} />,
     badge: {
       color: 'info',
