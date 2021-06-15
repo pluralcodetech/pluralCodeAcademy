@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import logo from '../assets/logo/pluralCode_logo.jfif'
 import {
   CCreateElement,
   CSidebar,
@@ -30,11 +31,13 @@ const TheSidebar = () => {
         <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
+          src={logo}
           height={35}
         />
         <CIcon
           className="c-sidebar-brand-minimized"
           name="sygnet"
+          src={logo}
           height={35}
         />
       </CSidebarBrand>
