@@ -87,7 +87,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Event Dash Board',
-        to: '/buttons/brand-button',
+        to: '/event_dashBoard',
       }
     ],
   },
