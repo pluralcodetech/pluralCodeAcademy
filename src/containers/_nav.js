@@ -51,14 +51,14 @@ const _nav =  [
 
   {
     _tag: 'CSidebarNavDropdown',
-    name: 'Disoount',
+    name: 'Discount',
     route: '/base',
     icon: <CIcon name="cil-cursor" customClasses="c-sidebar-nav-icon"/>,
     _children: [
       {
         _tag: 'CSidebarNavItem',
         name: 'List',
-        to: '/base/cards',
+        to: '/discount_list',
       },
       {
         _tag: 'CSidebarNavItem',
