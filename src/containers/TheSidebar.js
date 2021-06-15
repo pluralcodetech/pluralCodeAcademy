@@ -21,18 +21,11 @@ import sidebarShowAction from 'src/Redux Statement/actions/sidebarShowAction'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
-  const show = useSelector(state => state.nav.sidebarShow)
-  console.log(show);
+  const show = useSelector(state => state.nav.sidebarShow);
 
-  // const handleShow = (e, val) => {
-  //   e.preventDefault()
-  //   dispatch(sidebarShowAction(val))
-  // }
-  // 
   return (
     <CSidebar
     show={show}
-    // onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     onShowChange={(val) => dispatch(sidebarShowAction(val))}
     >
       <CSidebarBrand className="d-md-down-none" to="/">

@@ -1,5 +1,7 @@
 import React from 'react';
 
+const CourseList = React.lazy(() => import('./views/Courses/course_list'));
+
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
 
@@ -40,6 +42,7 @@ const User = React.lazy(() => import('./views/users/User'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
+  {path: '/course_list', name: 'Course List', component: CourseList},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
