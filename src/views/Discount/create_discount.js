@@ -9,3 +9,4 @@ const CreateDiscount = () => {
 }
 
 export default CreateDiscount
+

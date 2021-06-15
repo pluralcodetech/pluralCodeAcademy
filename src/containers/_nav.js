@@ -82,7 +82,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Calender',
-        to: '/buttons/buttons',
+        to: '/event_calendar',
       },
       {
         _tag: 'CSidebarNavItem',
