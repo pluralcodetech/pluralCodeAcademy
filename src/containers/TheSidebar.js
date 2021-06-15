@@ -17,15 +17,23 @@ import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
 import navigation from './_nav'
+import sidebarShowAction from 'src/Redux Statement/actions/sidebarShowAction'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
-  const show = useSelector(state => state.sidebarShow)
+  const show = useSelector(state => state.nav.sidebarShow)
+  console.log(show);
 
+  // const handleShow = (e, val) => {
+  //   e.preventDefault()
+  //   dispatch(sidebarShowAction(val))
+  // }
+  // 
   return (
     <CSidebar
-      show={show}
-      onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
+    show={show}
+    // onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
+    onShowChange={(val) => dispatch(sidebarShowAction(val))}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
