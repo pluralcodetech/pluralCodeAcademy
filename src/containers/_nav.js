@@ -63,7 +63,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Details',
-        to: '/base/cards',
+        to: '/discount_details',
       },
       {
         _tag: 'CSidebarNavItem',
