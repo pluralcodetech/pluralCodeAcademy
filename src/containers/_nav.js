@@ -32,7 +32,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'List',
-        to: '/base/breadcrumbs',
+        to: '/course_list',
       },
       {
         _tag: 'CSidebarNavItem',
