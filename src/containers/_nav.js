@@ -42,7 +42,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Create Course',
-        to: '/base/cards',
+        to: '/create_course',
       }
     ],
   },
