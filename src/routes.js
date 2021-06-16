@@ -1,8 +1,10 @@
 import React from 'react';
 
 const CourseList = React.lazy(() => import('./views/Courses/course_list'));
+const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
+
 
 const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
 const DiscountDetails = React.lazy(() => import('./views/Discount/discount_details'));
@@ -55,7 +57,8 @@ const User = React.lazy(() => import('./views/users/User'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  {path: '/course_list', name: 'Course List', component: CourseList},
+  {path: '/course_list', name: 'Course List', component: CourseLists},
+  { path: '/course_list/:id', exact: true, name: 'Course Lists', component: CourseList },
   {path: '/course_details', name: 'Course List', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
   { path: '/discount_list', name: "Discount List", component: DiscountList},
