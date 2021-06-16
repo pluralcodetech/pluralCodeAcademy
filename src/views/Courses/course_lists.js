@@ -48,7 +48,6 @@ const CourseLists = () => {
     }, [currentPage, page])
 
     const columns = [
-        {datafield: 'image', text: 'Image'},
         {datafield: 'name', text: 'Title'},
         {datafield: 'description', text: 'Description'},
         {datafield: 'price', text: 'Price'},
@@ -68,8 +67,8 @@ const CourseLists = () => {
                 <CDataTable
                     items={courseListContent}
                     fields={[
-                    { key: 'image', _classes: 'font-weight-bold' },
-                    'name', 'description', 'price', 'start_date', 'end_date'
+                    { key: 'name', _classes: 'font-weight-bold' },
+                     'description', 'price', 'start_date', 'end_date'
                     ]}
                     columnFilter
                     tableFilter
