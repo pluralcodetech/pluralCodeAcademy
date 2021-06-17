@@ -1,10 +1,37 @@
-import { CBadge, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { CBadge, CCard, CCardBody, CCardHeader, CCol, CDataTable, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CPagination, CRow } from '@coreui/react';
 import { Avatar } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiDotsHorizontal } from "react-icons/hi";
-// const [isOpen, setIsOpen] = useState(false);
+import usersData from '../users/UsersData';
+import { useHistory, useLocation } from 'react-router-dom'
+
+
+const getBadge = status => {
+    switch (status) {
+      case 'Active': return 'success'
+      case 'Inactive': return 'secondary'
+      case 'Pending': return 'warning'
+      case 'Banned': return 'danger'
+      default: return 'primary'
+    }
+}
 
 const CourseList = () => {
+
+
+    const history = useHistory()
+  const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
+  const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
+  const [page, setPage] = useState(currentPage)
+
+  const pageChange = newPage => {
+    currentPage !== newPage && history.push(`/users?page=${newPage}`)
+  }
+
+  useEffect(() => {
+    currentPage !== page && setPage(currentPage)
+  }, [currentPage, page])
     return (
         <div class="content-page">
             <div class="content">
@@ -156,51 +183,52 @@ const CourseList = () => {
                                     <h5 class="card-title font-16 mb-3">Memebers</h5>
 
                                     <div class="card mb-1 shadow-none border">
-                                        <div class="p-2">
-                                            <div class="row align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="avatar-sm">
-                                                        <span class="avatar-title badge-soft-primary text-primary rounded">
-                                                            JPG
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col ps-0">
-                                                    <a href="javascript:void(0);" class="text-muted fw-bold">Dashboard-design.jpg</a>
-                                                    <p class="mb-0 font-12">3.25 MB</p>
-                                                </div>
-                                                <div class="col-auto">
-                                                    
-                                                    <a href="javascript:void(0);" class="btn btn-link font-16 text-muted">
-                                                        <i class="dripicons-download"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
+                                        <CRow>
+                                            <CCol xl={12}>
+                                                <CCard>
+                                                <CCardHeader>
+                                                    Users
+                                                    <small className="text-muted"> example</small>
+                                                </CCardHeader>
+                                                <CCardBody>
+                                                    <CDataTable
+                                                        items={usersData}
+                                                        fields={[
+                                                        { key: 'name', _classes: 'font-weight-bold' },
+                                                        'registered', 'role', 'status'
+                                                        ]}
+                                                        hover
+                                                        striped
+                                                        itemsPerPage={5}
+                                                        activePage={page}
+                                                        clickableRows
+                                                        onRowClick={(item) => history.push(`/users/${item.id}`)}
+                                                        scopedSlots = {{
+                                                        'status':
+                                                            (item)=>(
+                                                            <td>
+                                                                <CBadge color={getBadge(item.status)}>
+                                                                {item.status}
+                                                                </CBadge>
+                                                            </td>
+                                                            )
+                                                        }}
+                                                    />
+                                                    <CPagination
+                                                        activePage={page}
+                                                        onActivePageChange={pageChange}
+                                                        pages={5}
+                                                        doubleArrows={false} 
+                                                        align="center"
+                                                    />
+                                                </CCardBody>
+                                                </CCard>
+                                            </CCol>
+                                            </CRow>
+
                                     </div>
                     
-                                    <div class="card mb-0 shadow-none border">
-                                        <div class="p-2">
-                                            <div class="row align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="avatar-sm">
-                                                        <span class="avatar-title bg-secondary rounded">
-                                                            .MP4
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col ps-0">
-                                                    <a href="javascript:void(0);" class="text-muted fw-bold">Admin-bug-report.mp4</a>
-                                                    <p class="mb-0 font-12">7.05 MB</p>
-                                                </div>
-                                                <div class="col-auto"> 
-                                                    <a href="javascript:void(0);" class="btn btn-link font-16 text-muted">
-                                                        <i class="dripicons-download"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
