@@ -11,11 +11,11 @@ const Calender = () => {
         currentEvents: []
     });
 
-    const handleWeekendsToggle = () => {
-        setState({
-          weekendsVisible: !this.state.weekendsVisible
-        })
-    }
+    // const handleWeekendsToggle = () => {
+    //     setState({
+    //       weekendsVisible: !state.weekendsVisible
+    //     })
+    // }
     
     const handleDateSelect = (selectInfo) => {
         let title = prompt('Please enter a new title for your event')
