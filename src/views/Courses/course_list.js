@@ -162,23 +162,7 @@ const CourseList = () => {
                         <div class="col-xl-4 col-lg-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="dropdown float-end">
-                                        <a href="#" class="dropdown-toggle arrow-none text-muted" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="mdi mdi-dots-horizontal font-18"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            
-                                            <a href="#" class="dropdown-item">Attachment </a>
-                                            
-                                            <a href="#" class="dropdown-item">Edit </a>
-                                            
-                                            <a href="#" class="dropdown-item">Mark as Duplicate </a>
-                                            <div class="dropdown-divider"></div>
-                                            
-                                            <a href="#" class="dropdown-item text-danger">Delete </a>
-                                        </div>
-                                        
-                                    </div>
+                                    
 
                                     <h5 class="card-title font-16 mb-3">Memebers</h5>
 

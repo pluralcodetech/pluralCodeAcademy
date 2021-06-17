@@ -1,4 +1,5 @@
 import React from 'react'
+import CourseDetailsCard from './CourseDetailsCard'
 import CourseList from './course_list'
 
 const CourseDetails = () => {
@@ -6,7 +7,11 @@ const CourseDetails = () => {
         <div>
             {/* <h1>Course Details</h1> */}
 
-            <CourseList/>
+            {/* <CourseList/> */}
+
+            <CourseDetailsCard/>
+
+            
         </div>
     )
 }
