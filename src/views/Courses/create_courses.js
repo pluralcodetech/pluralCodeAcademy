@@ -51,18 +51,18 @@ const CreateCourses = () => {
         isDragActive,
         isDragAccept,
         isDragReject
-      } = useDropzone({accept: 'image/*'});
+    } = useDropzone({accept: 'image/*'});
     
-      const style = useMemo(() => ({
+    const style = useMemo(() => ({
         ...baseStyle,
         ...(isDragActive ? activeStyle : {}),
         ...(isDragAccept ? acceptStyle : {}),
         ...(isDragReject ? rejectStyle : {})
-      }), [
+    }), [
         isDragActive,
         isDragReject,
         isDragAccept
-      ]);
+    ]);
     
     return (
         
@@ -204,6 +204,7 @@ const CreateCourses = () => {
                 </div> 
             </div>
         </div>
+    
     )
 }
 

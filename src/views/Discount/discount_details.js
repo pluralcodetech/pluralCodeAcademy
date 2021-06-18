@@ -6,6 +6,6 @@ const DiscountDetails = () => {
             Discount Details
         </div>
     )
-}
+};
 
 export default DiscountDetails
