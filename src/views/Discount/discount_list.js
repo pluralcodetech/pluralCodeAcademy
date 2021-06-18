@@ -115,6 +115,7 @@ const DiscountList = () => {
                 </CCard>
             </CCol>
         </CRow>
+    
     )
 }
 
