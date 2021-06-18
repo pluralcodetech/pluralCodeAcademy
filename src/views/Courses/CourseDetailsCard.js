@@ -19,7 +19,7 @@ const CourseDetailsCard = () => {
             </p>
 
 
-            <CBadge color="primary" shape="pill">click to read more...</CBadge>
+            <sm style={{cursor: 'pointer'}}>click to read more...</sm>
             
           </CCardBody>
         </CCard>
