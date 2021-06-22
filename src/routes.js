@@ -10,7 +10,6 @@ const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
 const DiscountDetails = React.lazy(() => import('./views/Discount/discount_details'));
 const CreateDiscount = React.lazy(() => import('./views/Discount/create_discount'));
 
-const Calender = React.lazy(() => import('./views/Events/calender'));
 const EventDashBoard = React.lazy(() => import('./views/Events/event_dashBoard'));
 
 const UserManagement = React.lazy(() => import('./views/UserManagement/UserManagement'));
@@ -64,7 +63,6 @@ const routes = [
   { path: '/discount_list', name: "Discount List", component: DiscountList},
   { path: '/discount_details', name: "Discount List", component: DiscountDetails},
   { path: '/create_discount', name: "Create Courses", component: CreateDiscount},
-  { path: '/event_calendar', name: "Calendar", component: Calender},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
   { path: '/community', name: "Community", component: Community},
