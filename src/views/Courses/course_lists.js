@@ -51,6 +51,7 @@ import { CCard, CCol, CRow } from '@coreui/react';
 
     // Columns
     const columns = [
+        { title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
         {title: 'Price', field: 'price'},
