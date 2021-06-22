@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -17,10 +17,19 @@ import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
-import { CCard, CCol, CRow } from '@coreui/react';
+import { CButton, CCard, CCol, CRow } from '@coreui/react';
+import AddEventModal from './AddEventModal';
 
 const EventDashBoard = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
+    console.log(courseListContent)
+
+    const [modal, setModal] = useState(false);
+    
+    const toggle = () =>{
+        setModal(!modal);
+        console.log(modal);
+    }
 
     const dispatch = useDispatch();
 
@@ -51,6 +60,7 @@ const EventDashBoard = () => {
 
     // Columns
     const columns = [
+        { title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
         {title: 'Price', field: 'price'},
@@ -67,7 +77,9 @@ const EventDashBoard = () => {
     return (
         <CRow>
             <CCol xl={12}>
+
                 <CCard>
+                    <CButton color='primary' size={'lg'} className="m-2 primary" onClick={() => toggle()}>Add Event</CButton>
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
@@ -113,6 +125,9 @@ const EventDashBoard = () => {
                     
                     />
                 </CCard>
+                <AddEventModal modal={modal} 
+                    toggle={toggle}
+                />
             </CCol>
         </CRow>
     
