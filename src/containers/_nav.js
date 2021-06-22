@@ -81,11 +81,6 @@ const _nav =  [
     _children: [
       {
         _tag: 'CSidebarNavItem',
-        name: 'Calender',
-        to: '/event_calendar',
-      },
-      {
-        _tag: 'CSidebarNavItem',
         name: 'Event Dash Board',
         to: '/event_dashBoard',
       }
