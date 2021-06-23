@@ -8,8 +8,12 @@ const courseListAction = () => async dispatch => {
     });
 
     try {
+        
         const response = await axios.get('http://codesandbox.com.ng/academyAPI/api/courses.php');
+        // const response = await axios.get('https://randomuser.me/api/');
         const {data} = response
+
+        // console.log(data)
 
         dispatch({
             type: COURSE_LIST.GET_LIST_SUCCESS, 

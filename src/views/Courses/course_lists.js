@@ -18,9 +18,23 @@ import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CCard, CCol, CRow } from '@coreui/react';
+import {
+    Link, useHistory
+  } from "react-router-dom";
 
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
+    console.log(courseListContent);
+    
+    // console.log(courseListContent[0].name)
+
+    // courseListContent.map(({id}) => {
+    //     console.log(id)
+    // });
+    
+
+
+    let history = useHistory();
 
     const dispatch = useDispatch();
 
@@ -28,6 +42,15 @@ import { CCard, CCol, CRow } from '@coreui/react';
         dispatch(courseListAction());
      
     }, [])
+
+    const handleOPenDetails =(item) => {
+        history.push(`/course_details/${item}`);
+        // courseListContent.map(({id}) => {
+        //     history.push(`/course_details/${id}`);
+        // })
+        
+    }
+    
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -51,9 +74,9 @@ import { CCard, CCol, CRow } from '@coreui/react';
 
     // Columns
     const columns = [
-        { title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
+        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date'},
         {title: 'End Date', field: 'end_date',
