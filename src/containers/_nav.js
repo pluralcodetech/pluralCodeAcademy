@@ -36,11 +36,6 @@ const _nav =  [
       },
       {
         _tag: 'CSidebarNavItem',
-        name: 'Details',
-        to: '/course_details/:id',
-      },
-      {
-        _tag: 'CSidebarNavItem',
         name: 'Create Course',
         to: '/create_course',
       }
