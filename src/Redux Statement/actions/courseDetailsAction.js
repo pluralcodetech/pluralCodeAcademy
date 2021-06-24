@@ -15,7 +15,6 @@ const courseDetailsAction = (parseId) => async dispatch => {
         });
 
         const {data} = response
-        console.log(typeof data);
 
         dispatch({
             type: COURSE_DETAILS.GET_DETAILS_SUCCESS,
