@@ -35,6 +35,7 @@ const User = ({match}) => {
         </CCard>
       </CCol>
     </CRow>
+  
   )
 }
 
