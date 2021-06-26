@@ -1,121 +1,185 @@
-import React, {useMemo} from 'react';
-import {useDropzone} from 'react-dropzone';
-import { useQuill } from 'react-quilljs';
-import 'quill/dist/quill.snow.css';
+import React, { useState} from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import parse from 'html-react-parser';
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import axios from 'axios';
 
-
-const baseStyle = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-  };
-  
-  const activeStyle = {
-    borderColor: '#2196f3'
-  };
-  
-  const acceptStyle = {
-    borderColor: '#00e676'
-  };
-  
-  const rejectStyle = {
-    borderColor: '#ff1744'
-  };
 
 const CreateCourses = () => {
-    // 
-    const { quill, quillRef } = useQuill();
+
+
+    const [description, setDescription] = useState('');
+
+    const {children} = description;
     
 
-    React.useEffect(() => {
-        if (quill) {
-        quill.on('text-change', () => {
-            console.log('Text change!');
+    const handleChange = (text) => {
+        setDescription(parse(text).props);
+    } 
+
+    /* Datetime State */
+
+    const [startDate, startDateOnChange] = useState(new Date());
+    const [endDate, setEndOnChange] = useState(new Date());
+    const [discountStartDate, setDiscountStartDateOnChange] = useState(new Date());
+    const [discountEndDate, setDiscountEndDateOnChange] = useState(new Date());
+
+    // Create Course Form state
+
+    const [createCourse, setCreateCourse] = useState({
+        courseName : '', 
+        categoryName : '', 
+        price : '', 
+        start_Date : startDate, 
+        end_Date : endDate, 
+        discountPrice : '', 
+        discount_StartDate : discountStartDate, 
+        discount_EndDate : discountEndDate
+    });
+
+    // Destructuring from Create Course State
+
+    const {courseName, categoryName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate} = createCourse
+
+
+    
+    // Handle Form value change
+    const handleOnChange = (event) => {
+        const getValue = {...createCourse}
+        getValue[event.target.name]=event.target.value;
+
+        setCreateCourse(getValue);
+        console.log(getValue);
+    }
+
+    // Image value has a seperate state
+    const [picture, setPicture] = useState({
+        picturePreview: '',
+        pictureAsFile: ''
+      });
+    
+    //   Handle Image value change
+    const uploadPicture = (e) => {
+        setPicture({
+          ...picture,
+          picturePreview: URL.createObjectURL(e.target.files[0]),
+          /* this contains the file we want to send */
+          pictureAsFile: e.target.files[0],
         });
-        }
-    }, [quill]);
+    };
 
-    const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject
-    } = useDropzone({accept: 'image/*'});
-    
-    const style = useMemo(() => ({
-        ...baseStyle,
-        ...(isDragActive ? activeStyle : {}),
-        ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {})
-    }), [
-        isDragActive,
-        isDragReject,
-        isDragAccept
-    ]);
+    // To Form Data before posting the Data
+    let createForm = new FormData();
+
+    // Append all value to FormData
+    createForm.append('coursename', courseName);
+    createForm.append('coursedescription', children);
+    createForm.append('categoryname', categoryName);
+    createForm.append('price', price);
+    createForm.append('image', picture.pictureAsFile);
+    createForm.append('startdate', start_Date);
+    createForm.append('enddate', end_Date);
+    createForm.append('discountprice', discountPrice);
+    createForm.append('discountstartdate', discount_StartDate);
+    createForm.append('discountenddate', discount_EndDate);
+
+    // Actions for Submit button
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(createCourse)
+
+        axios({
+            method: "post",
+            url: 'http://codesandbox.com.ng/academyAPI/api/create_courses.php',
+            data: createForm,
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+
+
     
     return (
-        <div class="row">
-            <div class="col-lg-6 m-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+        <form className="row" onSubmit={handleSubmit}>
+            <div className="col-lg-6">
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
 
-                        <div class="mb-3">
-                            <label for="product-name" class="form-label">Course Name <span class="text-danger">*</span></label>
-                            <input type="text" id="product-name" class="form-control" placeholder="e.g : Web Development"/>
+                        <div className="mb-3">
+                            <label className="form-label">Course Name <span className="text-danger">*</span></label>
+                            <input type="text" name='courseName' className="form-control" onChange={(e) => handleOnChange(e)} placeholder="e.g : Web Development"/>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="product-description" class="form-label">Course Description <span class="text-danger">*</span></label>
-                            {/* <div id="snow-editor" style="height: 150px;"></div>  */}
-                            <div ref={quillRef} style={{  height: 100 }}/>
-                            
+                        <div className="mb-3">
+                            <label className="form-label">Categories <span className="text-danger">*</span></label>
+                            <input type="text" name='categoryName' className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter categories"/>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="product-category" class="form-label">Categories <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Enter categories"/>
+                        <div className="mb-3">
+                            <label>Price <span className="text-danger">*</span></label>
+                            <input type="text" name="price" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="product-price">Price <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Enter amount"/>
+                        <div className="mb-3">
+                            <label>Start Date <span className="text-danger">*</span></label>
+                            <Datetime value={startDate} onChange={date => startDateOnChange(date)} /> 
                         </div>
 
-                        <div class="card">
-                    <div class="card-body">
-                        <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Course Images</h5>
-
-                        <div {...getRootProps({style})}>
-                            <input {...getInputProps()} />
-                            <p>Drag 'n' drop some files here, or click to select files</p>
+                        <div className="mb-3">
+                            <label>End Date <span className="text-danger">*</span></label>
+                            <Datetime value={endDate} onChange={date => setEndOnChange(date)} /> 
                         </div>
+                        <div className="mb-3">
+                            <label className="form-label">Course Description <span className="text-danger">*</span></label>
+                            <ReactQuill  
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
+
                     </div>
                 </div> 
-                    
-                    </div>
-                </div> 
-                <div class="row">
-                    <div class="col-12">
-                        <div className=" mb-3">
-                            <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
-                            <button type="button" class="btn w-sm btn-success waves-effect waves-light ml-3">Save</button>
-                        </div>
-                    </div> 
-                </div>
             </div> 
-        </div>
+            <div className="col-lg-6">
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="mt-0 mb-3 bg-light p-2">Discount</h5>
+                        <div className="mb-3">
+                            <label>Discount Price</label>
+                            <input type="text" name='discountPrice' onChange={(e) => handleOnChange(e)} className="form-control" placeholder="Enter amount"/>
+                        </div>
+                        <div className="mb-3">
+                            <label>Discount State Date </label>
+                            <Datetime value={discountStartDate} onChange={date => setDiscountStartDateOnChange(date)} /> 
+                        </div>
+                        <div className="mb-3">
+                            <label>Discount End Date </label>
+                            <Datetime value={discountEndDate} onChange={date => setDiscountEndDateOnChange(date)} /> 
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Course Images <span className="text-danger">*</span></label>
+                            <input type="file" accept="image/png, image/jpeg, image/jpg" className="form-control" placeholder="Choose File" onChange={uploadPicture}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row m-auto">
+                <div className="col-12">
+                    <div className=" mt-4 mb-2">
+                        <button type="button" className="btn w-sm btn-light waves-effect">Cancel</button>
+                        <button type="submit" className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                    </div>
+                </div> 
+            </div>
+        </form>
     
     )
 }
