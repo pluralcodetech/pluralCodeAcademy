@@ -55,16 +55,7 @@ const _nav =  [
         name: 'List',
         to: '/discount_list/:id',
       },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Details',
-        to: '/discount_details',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Create Discount',
-        to: '/create_discount',
-      }
+      
     ],
   },
 
