@@ -19,10 +19,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow } from '@coreui/react';
 import AddEventModal from './AddEventModal';
+import eventListAction from 'src/Redux Statement/actions/eventListAction';
 
 const EventDashBoard = () => {
-    const courseListContent = useSelector(state => state.courseListData.courseList);
-    console.log(courseListContent)
+    const eventListContent = useSelector(state => state.eventListData.eventList);
+    // console.log(courseListContent)
 
     const [modal, setModal] = useState(false);
     
@@ -34,7 +35,7 @@ const EventDashBoard = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(courseListAction());
+        dispatch(eventListAction());
      
     }, [])
 
@@ -83,7 +84,7 @@ const EventDashBoard = () => {
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {courseListContent}
+                    data = {eventListContent}
                     title="Event List"
                     options={{
                         exportButton: true,
