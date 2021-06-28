@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import parse from 'html-react-parser';
-import Datetime from 'react-datetime';
+// import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import axios from 'axios';
 
@@ -21,10 +21,7 @@ const CreateCourses = () => {
 
     /* Datetime State */
 
-    const [startDate, startDateOnChange] = useState(new Date());
-    const [endDate, setEndOnChange] = useState(new Date());
-    const [discountStartDate, setDiscountStartDateOnChange] = useState(new Date());
-    const [discountEndDate, setDiscountEndDateOnChange] = useState(new Date());
+
 
     // Create Course Form state
 
@@ -32,11 +29,11 @@ const CreateCourses = () => {
         courseName : '', 
         categoryName : '', 
         price : '', 
-        start_Date : startDate, 
-        end_Date : endDate, 
+        start_Date : '', 
+        end_Date : '', 
         discountPrice : '', 
-        discount_StartDate : discountStartDate, 
-        discount_EndDate : discountEndDate
+        discount_StartDate : '', 
+        discount_EndDate : ''
     });
 
     // Destructuring from Create Course State
@@ -131,12 +128,14 @@ const CreateCourses = () => {
 
                         <div className="mb-3">
                             <label>Start Date <span className="text-danger">*</span></label>
-                            <Datetime value={startDate} onChange={date => startDateOnChange(date)} /> 
+                            {/* <Datetime value={startDate} onChange={date => startDateOnChange(date)} />  */}
+                            <input type="datetime-local" name="start_Date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
 
                         <div className="mb-3">
                             <label>End Date <span className="text-danger">*</span></label>
-                            <Datetime value={endDate} onChange={date => setEndOnChange(date)} /> 
+                            {/* <Datetime value={endDate} onChange={date => setEndOnChange(date)} />  */}
+                            <input type="datetime-local" name="end_Date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Course Description <span className="text-danger">*</span></label>
@@ -158,11 +157,13 @@ const CreateCourses = () => {
                         </div>
                         <div className="mb-3">
                             <label>Discount State Date </label>
-                            <Datetime value={discountStartDate} onChange={date => setDiscountStartDateOnChange(date)} /> 
+                            {/* <Datetime value={discountStartDate} onChange={date => setDiscountStartDateOnChange(date)} />  */}
+                            <input type="datetime-local" name="discount_StartDate" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">
                             <label>Discount End Date </label>
-                            <Datetime value={discountEndDate} onChange={date => setDiscountEndDateOnChange(date)} /> 
+                            {/* <Datetime value={discountEndDate} onChange={date => setDiscountEndDateOnChange(date)} />  */}
+                            <input type="datetime-local" name="discount_EndDate" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
