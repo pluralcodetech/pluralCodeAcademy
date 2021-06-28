@@ -17,15 +17,16 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import courseListAction from 'src/Redux Statement/actions/courseListAction';
+// import courseListAction from 'src/Redux Statement/actions/courseListAction';
+import discountListAction from 'src/Redux Statement/actions/discountListAction';
 
 const DiscountList = () => {
-    const courseListContent = useSelector(state => state.courseListData.courseList);
+    const discountListContent = useSelector(state => state.discountListData.discountList);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(courseListAction());
+        dispatch(discountListAction());
      
     }, [])
 
@@ -71,7 +72,7 @@ const DiscountList = () => {
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {courseListContent}
+                    data = {discountListContent}
                     title="Course List"
                     options={{
                         exportButton: true,

@@ -100,10 +100,7 @@ const CreateCourses = () => {
             console.log(error)
         })
     }
-
-
-
-    
+ 
     return (
         <form className="row" onSubmit={handleSubmit}>
             <div className="col-lg-6">
