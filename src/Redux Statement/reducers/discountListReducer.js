@@ -24,7 +24,8 @@ const discountListReducer = (state=discountListState, action) => {
             return {
                 ...state,
                 loading : false,
-                error: action.error
+                error: action.error,
+                discountList : []
             }
         default:
             return state
