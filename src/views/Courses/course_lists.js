@@ -44,12 +44,8 @@ import {
     }, [])
 
     const handleOPenDetails =(item) => {
-        history.push(`/course_details/${item}`);
-        // courseListContent.map(({id}) => {
-        //     history.push(`/course_details/${id}`);
-        // })
-        
-    }
+        history.push(`/course_details/${item}`);   
+    };
     
 
     const tableIcons = {

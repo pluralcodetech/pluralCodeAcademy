@@ -53,7 +53,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'List',
-        to: '/discount_list',
+        to: '/discount_list/:id',
       },
       {
         _tag: 'CSidebarNavItem',

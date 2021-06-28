@@ -60,7 +60,7 @@ const routes = [
   { path: '/course_list', exact: true, name: 'Course Lists', component: CourseList },
   {path: '/course_details/:id', name: 'Course Details', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
-  { path: '/discount_list', name: "Discount List", component: DiscountList},
+  { path: '/discount_list/:id', name: "Discount List", component: DiscountList},
   { path: '/discount_details', name: "Discount List", component: DiscountDetails},
   { path: '/create_discount', name: "Create Courses", component: CreateDiscount},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
