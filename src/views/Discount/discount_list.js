@@ -19,6 +19,9 @@ import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 // import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import discountListAction from 'src/Redux Statement/actions/discountListAction';
+import {
+    Link, useHistory
+} from "react-router-dom";
 
 const DiscountList = () => {
     const discountListContent = useSelector(state => state.discountListData.discountList);
@@ -28,7 +31,13 @@ const DiscountList = () => {
     useEffect(() => {
         dispatch(discountListAction());
      
-    }, [])
+    }, []);
+
+    let history = useHistory();
+
+    const handleOPenDetails =(item) => {
+        history.push(`/course_details/${item}`);   
+    }
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -54,7 +63,7 @@ const DiscountList = () => {
     const columns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
+        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date'},
         {title: 'End Date', field: 'end_date',
