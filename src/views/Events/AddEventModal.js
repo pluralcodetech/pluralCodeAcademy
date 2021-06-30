@@ -5,25 +5,44 @@ import "react-datetime/css/react-datetime.css";
 import DateTimePicker from 'react-datetime-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import calendarDataAction from 'src/Redux Statement/actions/calendarDataAction';
+import moment from 'moment';
+import addEventAction from 'src/Redux Statement/actions/addEventAction';
 
 
 
 
 const AddEventModal = ({modal, toggle, onEventAdded}) => {
+    const dispatch = useDispatch();
     const [inputValues, setInputValues] = useState({
-        name: '', description: '', image: '', category
+        name: '', 
+        description: '', 
+        category : '', 
+        start_date : '', 
+        end_date : '',
     });
 
-    const [start, setStartOnChange] = useState(new Date());
-    const [end, setEndOnChange] = useState(new Date());
-
-    // const [start, stateOnChange] = useState(new Date());
-    // const [end, endOnChange] = useState(new Date());
-
-    
+    const [image, setImage] = useState({
+        imagePreview: '', 
+        imageAsFile: '',
+    });
 
     // Destructuring 
-    const {name, description, image, category} = inputValues
+    const {name, description, category, start_date, end_date} = inputValues
+
+    // parsing start_data and end_date Value into moment objects
+    // const startDate = moment(start_date).format('MMMM Do YYYY, h:mm:ss a');
+    // const endDate = moment(end_date).format('MMMM Do YYYY, h:mm:ss a');
+
+    // Appending Form values to FormData
+    
+    let addEventValues = new FormData();
+
+    addEventValues.append('name', name);
+    addEventValues.append('description', description);
+    addEventValues.append('category_name', category);
+    addEventValues.append('image', image.imageAsFile);
+    addEventValues.append('startdate', start_date);
+    addEventValues.append('enddate', end_date);
     
     const handleOnChange = e => {
         const getValue = {...inputValues}
@@ -33,12 +52,14 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
         console.log(inputValues);
     };
 
-    // const calendarDataContent = useSelector(state => state.calendarData.data)
-    
-
-
-    
-    // const dispatch = useDispatch();
+    // Handle Image upload
+    const uploadImage = (e) => {
+        setImage({
+            ...image,
+            imagePreview: URL.createObjectURL(e.target.files[0]),
+            imageAsFile: e.target.files[0],
+        })
+    }
 
     const onSubmit = (e)=> {
         e.preventDefault();
@@ -46,67 +67,15 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
         console.log(name, 
             description, 
             category,
-            image,
-            start,
-            end);
+            image.imageAsFile,
+            start_date,
+            end_date,
+        );
 
-        // dispatch(calendarDataAction({
-        //     name, 
-        //     description, 
-        //     category,
-        //     image,
-        //     start,
-        //     end
-        // }));
+        dispatch(addEventAction(addEventValues))
 
-        // console.log(calendarDataContent);
-
-        // onEventAdded({
-        //     name, 
-        //     description, 
-        //     category,
-        //     image,
-        //     start,
-        //     end
-        // });
-
-        // toggle();
-
-        
+        toggle();  
     }
-    // const dateRef = useRef(null);
-    
-    // const [inputValues, setInputValues] = useState({
-    //     name: '', description: '', image: ''
-    //   });
-
-    //   const [state, setState] = useState()
-
-    // Destructuring 
-    
-    
-    // const handleOnChange = event => {
-    //     const { name, value } = event.target;
-    //     setInputValues({ ...inputValues, [name]: value });
-    // };
-
-    // const handleDate = (date) => {
-    //     setState({date});
-    //     console.log(state)
-    //   };
-
-    // const onSubmit = (e)=> {
-    //     e.preventDefault();
-
-    //     onEventAdded({
-    //         // title,
-    //         // start,
-    //         // end
-    //     });
-
-        
-    // }
-
       
     return (
         <CContainer fluid>
@@ -114,7 +83,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                 <CCol sm="12">
                     <CForm onSubmit={onSubmit}>
                         {/* <CButton onClick={toggle} className="mr-1">Launch demo modal</CButton> */}
-                        <CModal show={modal} onClose={toggle}>
+                        <CModal show={modal} >
                             <CModalHeader closeButton>Create Event</CModalHeader>
                             <CModalBody>
                                 <CFormGroup>
@@ -125,7 +94,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                                     autoComplete="Name"
                                     value={name}
                                     onChange={e => handleOnChange(e)}
-                                    // onChange={(e) => console.log(e.target.value)}
                                     />
                                 </CFormGroup>
 
@@ -152,30 +120,25 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                                 </CFormGroup>
 
                                 <CFormGroup>
-                                    <CInput
+                                <input type="file" accept="image/png, image/jpeg, image/jpg" 
+                                className="form-control" 
+                                placeholder="Choose File"  onChange={uploadImage}/>
+                                    {/* <CInput
                                     type="file"
-                                    name="image"
+                                    accept="image/png, image/jpeg, image/jpg"
                                     value={image}
-                                    onChange={e => handleOnChange(e)}
-                                    />
+                                    onChange={uploadImage}
+                                    /> */}
                                 </CFormGroup>
 
                                 <CFormGroup>
                                     <CLabel>State Date</CLabel>
-                                    {/* <DateTimePicker
-                                        onChange={stateOnChange}
-                                        value={start}
-                                    /> */}
-                                    <Datetime value={start} onChange={date => setStartOnChange(date)} />
+                                    <input type="datetime-local" name="start_date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                                 </CFormGroup>
 
                                 <CFormGroup>
                                     <CLabel>End Date</CLabel>
-                                    {/* <DateTimePicker
-                                        onChange={endOnChange}
-                                        value={end}
-                                    /> */}
-                                    <Datetime value={end} onChange={date => setEndOnChange(date)} />
+                                    <input type="datetime-local" name="end_date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                                 </CFormGroup>
                                 
                                 <CButton color='primary' type='submit' size={'lg'} className="m-2 primary">Add Event</CButton>
