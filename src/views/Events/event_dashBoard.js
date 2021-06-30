@@ -21,6 +21,7 @@ import { CButton, CCard, CCol, CRow } from '@coreui/react';
 import AddEventModal from './AddEventModal';
 import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
+import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
@@ -94,14 +95,6 @@ const EventDashBoard = () => {
                     }}
                     
                     editable={{
-                        // onRowAdd: newData =>
-                        // new Promise((resolve, reject) => {
-                        //     setTimeout(() => {
-                        //     //   setData([...data, newData]);
-            
-                        //     //   resolve();
-                        //     }, 1000);
-                        // }),
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -114,21 +107,15 @@ const EventDashBoard = () => {
                             }, 1000);
                         }),
                         onRowDelete: oldData =>
-                        new Promise((resolve, reject) =>
-                        
-                        {
-
+                        new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   const dataDelete = [...data];
                               const index = oldData.id;
-                            //   dataDelete.splice(index, 1);
-                              console.log(index)
-                            //   setData([...dataDelete]);
-            
+                              let deleteID = new FormData();
+                              deleteID.append('eventid', index);
+                              dispatch(deleteEventAction(deleteID))
                             resolve();
                             }, 1000);
-                        }
-                        )
+                        })
                     }}
                     
                     />

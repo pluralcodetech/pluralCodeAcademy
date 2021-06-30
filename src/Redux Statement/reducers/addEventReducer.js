@@ -24,7 +24,7 @@ const addEventReducer = (state = addEventState, action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload,
+                error: action.error,
                 addEvent: []
             }
         default:
