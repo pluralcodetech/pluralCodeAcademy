@@ -17,6 +17,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
         name: '', 
         description: '', 
         category : '', 
+        venue : '',
         start_date : '', 
         end_date : '',
     });
@@ -27,7 +28,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
     });
 
     // Destructuring 
-    const {name, description, category, start_date, end_date} = inputValues
+    const {name, description, category, venue, start_date, end_date} = inputValues
 
     // parsing start_data and end_date Value into moment objects
     // const startDate = moment(start_date).format('MMMM Do YYYY, h:mm:ss a');
@@ -40,6 +41,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
     addEventValues.append('name', name);
     addEventValues.append('description', description);
     addEventValues.append('category_name', category);
+    addEventValues.append('venue', venue);
     addEventValues.append('image', image.imageAsFile);
     addEventValues.append('startdate', start_date);
     addEventValues.append('enddate', end_date);
@@ -115,6 +117,17 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                                     placeholder="Category..."
                                     autoComplete="Category"
                                     value={category}
+                                    onChange={e => handleOnChange(e)}
+                                    />
+                                </CFormGroup>
+
+                                <CFormGroup>
+                                    <CInput
+                                    type="text"
+                                    name="venue"
+                                    placeholder="Venue..."
+                                    autoComplete="Venue"
+                                    value={venue}
                                     onChange={e => handleOnChange(e)}
                                     />
                                 </CFormGroup>

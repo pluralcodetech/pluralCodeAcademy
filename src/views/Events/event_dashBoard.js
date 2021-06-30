@@ -65,10 +65,10 @@ const EventDashBoard = () => {
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
+        {title: 'Venue', field: 'venue'},
         {title: 'Start Date', field: 'start_date', render : item => <h5>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h5> },
-        {title: 'End Date', field: 'end_date', render : item => <h5>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h5>,
-        // {title: 'Start Date', field: 'start_date'},
-        // {title: 'End Date', field: 'end_date',
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
+        
             editComponent: editProps => (
                 <Input
                     autoFocus={true}
@@ -114,16 +114,21 @@ const EventDashBoard = () => {
                             }, 1000);
                         }),
                         onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
+                        new Promise((resolve, reject) =>
+                        
+                        {
+
                             setTimeout(() => {
                             //   const dataDelete = [...data];
-                            //   const index = oldData.tableData.id;
+                              const index = oldData.id;
                             //   dataDelete.splice(index, 1);
+                              console.log(index)
                             //   setData([...dataDelete]);
             
                             resolve();
                             }, 1000);
-                        })
+                        }
+                        )
                     }}
                     
                     />
