@@ -3,6 +3,7 @@ import addEventReducer from "./reducers/addEventReducer";
 import calendarDataReducer from "./reducers/calendarDataReducer";
 import courseDetailsReducer from "./reducers/courseDetailsReducer";
 import courseListReducer from "./reducers/courseListReducer";
+import deleteEventReducer from "./reducers/deleteEventReducer";
 import discountListReducer from "./reducers/discountListReducer";
 import eventListReducer from "./reducers/eventListReducer";
 import sidebarShowReducer from "./reducers/sidebarShowReducer";
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     courseDetailsData : courseDetailsReducer,
     discountListData : discountListReducer,
     eventListData : eventListReducer,
-    addEventData : addEventReducer
+    addEventData : addEventReducer,
+    deleteEventData : deleteEventReducer
 });
 
 export default rootReducer;
