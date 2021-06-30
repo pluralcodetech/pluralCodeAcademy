@@ -26,14 +26,6 @@ import {
     const courseListContent = useSelector(state => state.courseListData.courseList);
     console.log(courseListContent);
     
-    // console.log(courseListContent[0].name)
-
-    // courseListContent.map(({id}) => {
-    //     console.log(id)
-    // });
-    
-
-
     let history = useHistory();
 
     const dispatch = useDispatch();

@@ -11,6 +11,7 @@ const discountListAction = () => async dispatch => {
     try {
         const response = await axios.get('http://codesandbox.com.ng/academyAPI/api/discountcourse.php')
         const {data} = response;
+        console.log(data)
 
         dispatch({
             type: DISCOUNT_LIST.DISCOUNT_LIST_SUCCESS,

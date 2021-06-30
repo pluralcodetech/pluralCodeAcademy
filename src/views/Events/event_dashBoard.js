@@ -20,10 +20,10 @@ import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow } from '@coreui/react';
 import AddEventModal from './AddEventModal';
 import eventListAction from 'src/Redux Statement/actions/eventListAction';
+import moment from 'moment';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
-    // console.log(courseListContent)
 
     const [modal, setModal] = useState(false);
     
@@ -40,7 +40,7 @@ const EventDashBoard = () => {
     }, [])
 
     const tableIcons = {
-        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+        // Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
         Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
         Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -59,14 +59,16 @@ const EventDashBoard = () => {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
+      
     // Columns
     const columns = [
-        { title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
-        {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date',
+        {title: 'Venue', field: 'venue'},
+        {title: 'Start Date', field: 'start_date', render : item => <h5>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h5> },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
+        
             editComponent: editProps => (
                 <Input
                     autoFocus={true}
@@ -92,14 +94,14 @@ const EventDashBoard = () => {
                     }}
                     
                     editable={{
-                        onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            //   setData([...data, newData]);
+                        // onRowAdd: newData =>
+                        // new Promise((resolve, reject) => {
+                        //     setTimeout(() => {
+                        //     //   setData([...data, newData]);
             
-                            //   resolve();
-                            }, 1000);
-                        }),
+                        //     //   resolve();
+                        //     }, 1000);
+                        // }),
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -112,16 +114,21 @@ const EventDashBoard = () => {
                             }, 1000);
                         }),
                         onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
+                        new Promise((resolve, reject) =>
+                        
+                        {
+
                             setTimeout(() => {
                             //   const dataDelete = [...data];
-                            //   const index = oldData.tableData.id;
+                              const index = oldData.id;
                             //   dataDelete.splice(index, 1);
+                              console.log(index)
                             //   setData([...dataDelete]);
             
                             resolve();
                             }, 1000);
-                        })
+                        }
+                        )
                     }}
                     
                     />

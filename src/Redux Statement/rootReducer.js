@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import addEventReducer from "./reducers/addEventReducer";
 import calendarDataReducer from "./reducers/calendarDataReducer";
 import courseDetailsReducer from "./reducers/courseDetailsReducer";
 import courseListReducer from "./reducers/courseListReducer";
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     calendarData : calendarDataReducer,
     courseDetailsData : courseDetailsReducer,
     discountListData : discountListReducer,
-    eventListData : eventListReducer
+    eventListData : eventListReducer,
+    addEventData : addEventReducer
 });
 
 export default rootReducer;
