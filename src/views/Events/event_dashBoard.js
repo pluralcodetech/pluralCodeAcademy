@@ -22,6 +22,7 @@ import AddEventModal from './AddEventModal';
 import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
 import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
+import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
@@ -46,7 +47,7 @@ const EventDashBoard = () => {
         Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
         Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
         DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-        Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+        Edit: forwardRef((props, ref) => <Edit {...props}  ref={ref} />),
         Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
         Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
         FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
@@ -95,17 +96,29 @@ const EventDashBoard = () => {
                     }}
                     
                     editable={{
-                        onRowUpdate: (newData, oldData) =>
+                        onRowUpdate: (newData, oldData) => 
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   const dataUpdate = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataUpdate[index] = newData;
-                            //   setData([...dataUpdate]);
-            
+                            const {id, image, name, description, venue, start_date, end_date} = newData;
+
+                            let upDateEvent = new FormData();
+
+                            upDateEvent.append('eventid', id);
+                            upDateEvent.append('name', name);
+                            upDateEvent.append('image', image);
+                            upDateEvent.append('description', description);
+                            upDateEvent.append('venue', venue);
+                            upDateEvent.append('startdate', start_date);
+                            upDateEvent.append('enddate', end_date);
+
+                            dispatch(upDateEventAction(upDateEvent));
+                            
                             resolve();
                             }, 1000);
-                        }),
+                        }
+                        
+                        ),
+                        
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {

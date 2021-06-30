@@ -15,8 +15,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
     const dispatch = useDispatch();
     const [inputValues, setInputValues] = useState({
         name: '', 
-        description: '', 
-        category : '', 
+        description: '',  
         venue : '',
         start_date : '', 
         end_date : '',
@@ -28,11 +27,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
     });
 
     // Destructuring 
-    const {name, description, category, venue, start_date, end_date} = inputValues
-
-    // parsing start_data and end_date Value into moment objects
-    // const startDate = moment(start_date).format('MMMM Do YYYY, h:mm:ss a');
-    // const endDate = moment(end_date).format('MMMM Do YYYY, h:mm:ss a');
+    const {name, description, venue, start_date, end_date} = inputValues
 
     // Appending Form values to FormData
     
@@ -40,7 +35,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
 
     addEventValues.append('name', name);
     addEventValues.append('description', description);
-    addEventValues.append('category_name', category);
     addEventValues.append('venue', venue);
     addEventValues.append('image', image.imageAsFile);
     addEventValues.append('startdate', start_date);
@@ -68,7 +62,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
 
         console.log(name, 
             description, 
-            category,
             image.imageAsFile,
             start_date,
             end_date,
@@ -106,17 +99,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                                     placeholder="Description..."
                                     autoComplete="Description"
                                     value={description}
-                                    onChange={e => handleOnChange(e)}
-                                    />
-                                </CFormGroup>
-
-                                <CFormGroup>
-                                    <CInput
-                                    type="text"
-                                    name="category"
-                                    placeholder="Category..."
-                                    autoComplete="Category"
-                                    value={category}
                                     onChange={e => handleOnChange(e)}
                                     />
                                 </CFormGroup>

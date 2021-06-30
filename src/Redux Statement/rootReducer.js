@@ -7,6 +7,7 @@ import deleteEventReducer from "./reducers/deleteEventReducer";
 import discountListReducer from "./reducers/discountListReducer";
 import eventListReducer from "./reducers/eventListReducer";
 import sidebarShowReducer from "./reducers/sidebarShowReducer";
+import upDateEventReducer from "./reducers/upDateEventReducer";
 
 const rootReducer = combineReducers({
     nav : sidebarShowReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     discountListData : discountListReducer,
     eventListData : eventListReducer,
     addEventData : addEventReducer,
-    deleteEventData : deleteEventReducer
+    deleteEventData : deleteEventReducer,
+    upDateEventData : upDateEventReducer
 });
 
 export default rootReducer;
