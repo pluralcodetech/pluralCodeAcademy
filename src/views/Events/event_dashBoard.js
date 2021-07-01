@@ -13,7 +13,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
@@ -23,11 +23,14 @@ import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
 import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
 import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
+import { useHistory } from 'react-router-dom';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
 
     const [modal, setModal] = useState(false);
+    
+    let history = useHistory()
     
     const toggle = () =>{
         setModal(!modal);
@@ -39,10 +42,9 @@ const EventDashBoard = () => {
     useEffect(() => {
         dispatch(eventListAction());
      
-    }, [])
+    }, []);
 
     const tableIcons = {
-        // Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
         Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
         Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -64,20 +66,21 @@ const EventDashBoard = () => {
       
     // Columns
     const columns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
-        {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
-        {title: 'Venue', field: 'venue'},
-        {title: 'Start Date', field: 'start_date', render : item => <h5>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h5> },
-        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
-        
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
             editComponent: editProps => (
                 <Input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg"
                     autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
+                    onChange={e => editProps.onChange(e.target.files[0])}
                 />
             )
         },
+        {title: 'Name', field: 'name'},
+        {title: 'Description', field: 'description'},
+        {title: 'Venue', field: 'venue'},
+        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
     ]
     return (
         <CRow>
@@ -113,8 +116,11 @@ const EventDashBoard = () => {
 
                             dispatch(upDateEventAction(upDateEvent));
                             
+                            // history.push('/event_dashBoard');
                             resolve();
+                           
                             }, 1000);
+                            
                         }
                         
                         ),
@@ -130,6 +136,7 @@ const EventDashBoard = () => {
                             }, 1000);
                         })
                     }}
+                    
                     
                     />
                 </CCard>
