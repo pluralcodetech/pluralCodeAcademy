@@ -21,30 +21,13 @@ import { CCard, CCol, CRow } from '@coreui/react';
 import {
     Link, useHistory
   } from "react-router-dom";
+import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
 
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
     console.log(courseListContent);
 
     console.log(courseListContent.pending);
-
-    // function filterValue(obj, key, value) {
-    //     return obj.find(function(v){ return v[key] === value});
-    //   }
-
-    // const tryText = courseListContent.map(item => console.log(item))
-    // console.log(tryText);
-
-    // tryText = courseListContent.map(item => console.log(item));
-    // console.log(tryText);
-
-    
-
-    
-
-    // const {completed} = courseListContent;
-
-    // console.log(completed);
     
     let history = useHistory();
 
@@ -58,6 +41,15 @@ import {
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
     };
+
+    
+
+    const handleUpdatePending = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        dispatch(customStatusUpdateAction(url, setIdFormDate))
+    }
     
 
     const tableIcons = {
@@ -100,7 +92,7 @@ import {
     ]
 
     // Columns for Active and Pending columns
-    const activePendingColumns = [
+    const  activeColumns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
@@ -116,6 +108,24 @@ import {
             )
         },
         {title: 'Status', field: 'status', render: item => <button>{item.status}</button>},
+    ]
+
+    const pendingColumns = [
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Name', field: 'name'},
+        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
+        {title: 'Discount Price', field: 'discountprice'},
+        {title: 'Price', field: 'price'},
+        {title: 'Start Date', field: 'start_date'},
+        {title: 'End Date', field: 'end_date',
+            editComponent: editProps => (
+                <Input
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.value)}
+                />
+            )
+        },
+        {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdatePending(item.id)}>{item.status}</button>},
     ]
 
       return (
@@ -175,7 +185,7 @@ import {
                 <CCard>
                     <MaterialTable
                     icons={tableIcons}
-                    columns={activePendingColumns}
+                    columns={activeColumns}
                     data = {courseListContent.active}
                     title="Course List"
                     options={{
@@ -225,7 +235,7 @@ import {
                 <CCard>
                     <MaterialTable
                     icons={tableIcons}
-                    columns={activePendingColumns}
+                    columns={pendingColumns}
                     data = {courseListContent.pending}
                     title="Course List"
                     options={{
