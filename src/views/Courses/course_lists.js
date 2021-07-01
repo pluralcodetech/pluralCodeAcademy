@@ -25,6 +25,26 @@ import {
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
     console.log(courseListContent);
+
+    console.log(courseListContent.pending);
+
+    // function filterValue(obj, key, value) {
+    //     return obj.find(function(v){ return v[key] === value});
+    //   }
+
+    // const tryText = courseListContent.map(item => console.log(item))
+    // console.log(tryText);
+
+    // tryText = courseListContent.map(item => console.log(item));
+    // console.log(tryText);
+
+    
+
+    
+
+    // const {completed} = courseListContent;
+
+    // console.log(completed);
     
     let history = useHistory();
 
@@ -60,11 +80,12 @@ import {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
-    // Columns
+    // Columns completed
     const columns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
+        {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date'},
         {title: 'End Date', field: 'end_date',
@@ -75,16 +96,37 @@ import {
                 />
             )
         },
+        {title: 'Status', field: 'status'},
+    ]
+
+    // Columns for Active and Pending columns
+    const activePendingColumns = [
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Name', field: 'name'},
+        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
+        {title: 'Discount Price', field: 'discountprice'},
+        {title: 'Price', field: 'price'},
+        {title: 'Start Date', field: 'start_date'},
+        {title: 'End Date', field: 'end_date',
+            editComponent: editProps => (
+                <Input
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.value)}
+                />
+            )
+        },
+        {title: 'Status', field: 'status', render: item => <button>{item.status}</button>},
     ]
 
       return (
         <CRow>
+            {/* Completed */}
             <CCol xl={12}>
                 <CCard>
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {courseListContent}
+                    data = {courseListContent.completed}
                     title="Course List"
                     options={{
                         exportButton: true,
@@ -127,6 +169,107 @@ import {
                     />
                 </CCard>
             </CCol>
+            
+            {/* Active */}
+            <CCol xl={12}>
+                <CCard>
+                    <MaterialTable
+                    icons={tableIcons}
+                    columns={activePendingColumns}
+                    data = {courseListContent.active}
+                    title="Course List"
+                    options={{
+                        exportButton: true,
+                        
+                    }}
+                    
+                    editable={{
+                        onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   setData([...data, newData]);
+            
+                            //   resolve();
+                            }, 1000);
+                        }),
+                        onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   const dataUpdate = [...data];
+                            //   const index = oldData.tableData.id;
+                            //   dataUpdate[index] = newData;
+                            //   setData([...dataUpdate]);
+            
+                            resolve();
+                            }, 1000);
+                        }),
+                        onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   const dataDelete = [...data];
+                            //   const index = oldData.tableData.id;
+                            //   dataDelete.splice(index, 1);
+                            //   setData([...dataDelete]);
+            
+                            resolve();
+                            }, 1000);
+                        })
+                    }}
+                    
+                    />
+                </CCard>
+            </CCol>
+           
+            {/* Pending */}
+            <CCol xl={12}>
+                <CCard>
+                    <MaterialTable
+                    icons={tableIcons}
+                    columns={activePendingColumns}
+                    data = {courseListContent.pending}
+                    title="Course List"
+                    options={{
+                        exportButton: true,
+                        
+                    }}
+                    
+                    editable={{
+                        onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   setData([...data, newData]);
+            
+                            //   resolve();
+                            }, 1000);
+                        }),
+                        onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   const dataUpdate = [...data];
+                            //   const index = oldData.tableData.id;
+                            //   dataUpdate[index] = newData;
+                            //   setData([...dataUpdate]);
+            
+                            resolve();
+                            }, 1000);
+                        }),
+                        onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            //   const dataDelete = [...data];
+                            //   const index = oldData.tableData.id;
+                            //   dataDelete.splice(index, 1);
+                            //   setData([...dataDelete]);
+            
+                            resolve();
+                            }, 1000);
+                        })
+                    }}
+                    
+                    />
+                </CCard>
+            </CCol>
+        
         </CRow>
 
       )

@@ -8,10 +8,10 @@ const courseListAction = () => async dispatch => {
     });
 
     try {
-        const response = await axios.get('http://codesandbox.com.ng/academyAPI/api/courses.php');
+        const response = await axios.get('https://pluralcode.academy/academyAPI/api/courses.php');
         const {data} = response
 
-        // console.log(data)
+        // console.log(typeof data)
 
         dispatch({
             type: COURSE_LIST.GET_LIST_SUCCESS, 
