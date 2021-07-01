@@ -42,6 +42,14 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
         history.push(`/course_details/${item}`);   
     };
 
+
+    const handleUpdateActive = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/updatingactive.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        dispatch(customStatusUpdateAction(url, setIdFormDate))
+    }
+
     
 
     const handleUpdatePending = (id) => {
@@ -107,7 +115,7 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
                 />
             )
         },
-        {title: 'Status', field: 'status', render: item => <button>{item.status}</button>},
+        {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdateActive(item.id)}>{item.status}</button>},
     ]
 
     const pendingColumns = [
