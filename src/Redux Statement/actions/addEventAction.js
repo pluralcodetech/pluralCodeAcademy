@@ -15,6 +15,7 @@ const addEventAction = (parseEventData) => async dispatch => {
         });
 
         const {data} = response;
+        // console.log(data);
         
         dispatch({
             type: ADD_EVENT.ADD_EVENT_SUCCESS,
