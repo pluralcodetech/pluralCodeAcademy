@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -26,9 +26,9 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
 
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
-    console.log(courseListContent);
-
-    console.log(courseListContent.pending);
+    
+    const customPostContent = useSelector(state => state.customPostData.customPost);
+    
     
     let history = useHistory();
 
@@ -36,8 +36,16 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
 
     useEffect(() => {
         dispatch(courseListAction());
+    }, []);
+
+
+    // const [refresh, setRefresh] = useState([]);
+    // const test = customPostContent.map(item => setRefresh(item));
+
+    function refreshPage() {
+        window.location.reload(false);
+      }
      
-    }, [])
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
@@ -157,16 +165,118 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
         {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdatePending(item.id)}>{item.status}</button>},
     ]
 
+
       return (
         <CRow>
             {/* Completed */}
             <CCol xl={12}>
                 <CCard>
                     <MaterialTable
+                    
                     icons={tableIcons}
                     columns={columns}
                     data = {courseListContent.completed}
                     title="Completed Course List"
+                    options={{
+                        exportButton: true,
+                        
+                    }}
+                    
+                    editable={{
+                        onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                            const dataUpdate = [...courseListContent.completed];
+                            // const index = oldData.tableData.id;
+                            // const index = oldData.tableIcons.id;
+
+                            const index = oldData.tableData.id;
+                            const forNewData = dataUpdate[index] = newData;
+                            
+                            console.log(index)
+                            // setData([...dataUpdate]);
+                            const {id, image, name, description, discountprice, price, start_date, end_date} = forNewData;
+                            console.log(forNewData );
+
+                            let upDateCourse = new FormData();
+
+                            upDateCourse.append('courseid', id);
+                            upDateCourse.append('course_name', name);
+                            upDateCourse.append('image', image);
+                            upDateCourse.append('course_description', description);
+                            upDateCourse.append('discountprice', discountprice);
+                            upDateCourse.append('price', price);
+                            upDateCourse.append('startdate', start_date);
+                            upDateCourse.append('enddate', end_date);
+
+                            const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+                            dispatch(customPostAction(updateURL, upDateCourse));
+                            
+                            resolve();
+                            dispatch(courseListAction());
+                            }, 1000)
+                        }),
+                        // onRowUpdate: (newData, oldData) => 
+                        // new Promise((resolve, reject) => {
+                            
+                        //     setTimeout(() => {
+                        //     const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
+
+                            // let upDateCourse = new FormData();
+
+                            // upDateCourse.append('courseid', id);
+                            // upDateCourse.append('course_name', name);
+                            // upDateCourse.append('image', image);
+                            // upDateCourse.append('course_description', description);
+                            // upDateCourse.append('discountprice', discountprice);
+                            // upDateCourse.append('price', price);
+                            // upDateCourse.append('startdate', start_date);
+                            // upDateCourse.append('enddate', end_date);
+
+                        //     // dispatch(upDateEventAction(upDateEvent));
+                            // const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+                            // dispatch(customPostAction(updateURL, upDateCourse));
+                       
+                           
+                        //     // test  = "success" ? ( dispatch(courseListAction()), history.go(0) ) : null;
+                        //     resolve();
+                            
+                           
+                        //     }, 1000);
+                           
+
+                            
+                        // }
+                        
+                        // ),
+                        
+                        onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                              const index = oldData.id;
+                              let deleteID = new FormData();
+                              deleteID.append('courseid', index);
+
+                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                            dispatch(customPostAction(deleteURL, deleteID));
+                            dispatch(courseListAction());
+                            resolve();
+                            }, 1000);
+                        })
+                    }}
+                    
+                    />
+                </CCard>
+            </CCol>
+            
+            {/* Active */}
+            <CCol xl={12}>
+                <CCard>
+                    <MaterialTable
+                    icons={tableIcons}
+                    columns={activeColumns}
+                    data = {courseListContent.active}
+                    title="Active Course List"
                     options={{
                         exportButton: true,
                         
@@ -192,8 +302,7 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             // dispatch(upDateEventAction(upDateEvent));
                             const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
                             dispatch(customPostAction(updateURL, upDateCourse));
-                            
-                            // history.push('/event_dashBoard');
+                            dispatch(courseListAction());
                             resolve();
                            
                             }, 1000);
@@ -211,63 +320,7 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
 
                             const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
                             dispatch(customPostAction(deleteURL, deleteID));
-
-                            resolve();
-                            }, 1000);
-                        })
-                    }}
-                    
-                    />
-                </CCard>
-            </CCol>
-            
-            {/* Active */}
-            <CCol xl={12}>
-                <CCard>
-                    <MaterialTable
-                    icons={tableIcons}
-                    columns={activeColumns}
-                    data = {courseListContent.active}
-                    title="Course List"
-                    options={{
-                        exportButton: true,
-                        
-                    }}
-                    
-                    editable={{
-                        onRowUpdate: (newData, oldData) => 
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            const {id, image, name, description, venue, start_date, end_date} = newData;
-
-                            let upDateEvent = new FormData();
-
-                            upDateEvent.append('eventid', id);
-                            upDateEvent.append('name', name);
-                            upDateEvent.append('image', image);
-                            upDateEvent.append('description', description);
-                            upDateEvent.append('venue', venue);
-                            upDateEvent.append('startdate', start_date);
-                            upDateEvent.append('enddate', end_date);
-
-                            // dispatch(upDateEventAction(upDateEvent));
-                            
-                            // history.push('/event_dashBoard');
-                            resolve();
-                           
-                            }, 1000);
-                            
-                        }
-                        
-                        ),
-                        
-                        onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                              const index = oldData.id;
-                              let deleteID = new FormData();
-                              deleteID.append('eventid', index);
-                            //   dispatch(deleteEventAction(deleteID))
+                            dispatch(courseListAction());
                             resolve();
                             }, 1000);
                         })
@@ -284,31 +337,34 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                     icons={tableIcons}
                     columns={pendingColumns}
                     data = {courseListContent.pending}
-                    title="Course List"
+                    title="Pending Course List"
                     options={{
                         exportButton: true,
                         
                     }}
                     
+                    
                     editable={{
                         onRowUpdate: (newData, oldData) => 
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const {id, image, name, description, venue, start_date, end_date} = newData;
+                            const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
 
-                            let upDateEvent = new FormData();
+                            let upDateCourse = new FormData();
 
-                            upDateEvent.append('eventid', id);
-                            upDateEvent.append('name', name);
-                            upDateEvent.append('image', image);
-                            upDateEvent.append('description', description);
-                            upDateEvent.append('venue', venue);
-                            upDateEvent.append('startdate', start_date);
-                            upDateEvent.append('enddate', end_date);
+                            upDateCourse.append('courseid', id);
+                            upDateCourse.append('course_name', name);
+                            upDateCourse.append('image', image);
+                            upDateCourse.append('course_description', description);
+                            upDateCourse.append('discountprice', discountprice);
+                            upDateCourse.append('price', price);
+                            upDateCourse.append('startdate', start_date);
+                            upDateCourse.append('enddate', end_date);
 
                             // dispatch(upDateEventAction(upDateEvent));
-                            
-                            // history.push('/event_dashBoard');
+                            const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+                            dispatch(customPostAction(updateURL, upDateCourse));
+                            dispatch(courseListAction());
                             resolve();
                            
                             }, 1000);
@@ -322,8 +378,11 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             setTimeout(() => {
                               const index = oldData.id;
                               let deleteID = new FormData();
-                              deleteID.append('eventid', index);
-                            //   dispatch(deleteEventAction(deleteID))
+                              deleteID.append('courseid', index);
+
+                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                            dispatch(customPostAction(deleteURL, deleteID));
+                            dispatch(courseListAction());
                             resolve();
                             }, 1000);
                         })
