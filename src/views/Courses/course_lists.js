@@ -22,6 +22,7 @@ import {
     Link, useHistory
   } from "react-router-dom";
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
+import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
@@ -42,7 +43,7 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
         history.push(`/course_details/${item}`);   
     };
 
-
+    // Handle Update Status to Completed
     const handleUpdateActive = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/updatingactive.php'
         let setIdFormDate = new FormData()
@@ -51,7 +52,7 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
     }
 
     
-
+    // Handle update State to Active
     const handleUpdatePending = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
         let setIdFormDate = new FormData()
@@ -82,26 +83,37 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
 
     // Columns completed
     const columns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
+            editComponent: editProps => (
+                <Input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg"
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.files[0])}
+                />
+            )
+        },
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date',
-            editComponent: editProps => (
-                <Input
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-        },
+        {title: 'End Date', field: 'end_date'},
         {title: 'Status', field: 'status'},
     ]
 
     // Columns for Active and Pending columns
     const  activeColumns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
+            editComponent: editProps => (
+                <Input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg"
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.files[0])}
+                />
+            )
+        },
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
@@ -119,7 +131,16 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
     ]
 
     const pendingColumns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
+        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
+            editComponent: editProps => (
+                <Input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg"
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.files[0])}
+                />
+            )
+        },
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
@@ -145,40 +166,52 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
                     icons={tableIcons}
                     columns={columns}
                     data = {courseListContent.completed}
-                    title="Course List"
+                    title="Completed Course List"
                     options={{
                         exportButton: true,
                         
                     }}
                     
                     editable={{
-                        onRowAdd: newData =>
+                        onRowUpdate: (newData, oldData) => 
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   setData([...data, newData]);
-            
-                            //   resolve();
-                            }, 1000);
-                        }),
-                        onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            //   const dataUpdate = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataUpdate[index] = newData;
-                            //   setData([...dataUpdate]);
-            
+                            const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
+
+                            let upDateCourse = new FormData();
+
+                            upDateCourse.append('courseid', id);
+                            upDateCourse.append('course_name', name);
+                            upDateCourse.append('image', image);
+                            upDateCourse.append('course_description', description);
+                            upDateCourse.append('discountprice', discountprice);
+                            upDateCourse.append('price', price);
+                            upDateCourse.append('startdate', start_date);
+                            upDateCourse.append('enddate', end_date);
+
+                            // dispatch(upDateEventAction(upDateEvent));
+                            const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+                            dispatch(customPostAction(updateURL, upDateCourse));
+                            
+                            // history.push('/event_dashBoard');
                             resolve();
+                           
                             }, 1000);
-                        }),
+                            
+                        }
+                        
+                        ),
+                        
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   const dataDelete = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataDelete.splice(index, 1);
-                            //   setData([...dataDelete]);
-            
+                              const index = oldData.id;
+                              let deleteID = new FormData();
+                              deleteID.append('courseid', index);
+
+                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                            dispatch(customPostAction(deleteURL, deleteID));
+
                             resolve();
                             }, 1000);
                         })
@@ -202,33 +235,39 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
                     }}
                     
                     editable={{
-                        onRowAdd: newData =>
+                        onRowUpdate: (newData, oldData) => 
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   setData([...data, newData]);
-            
-                            //   resolve();
-                            }, 1000);
-                        }),
-                        onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            //   const dataUpdate = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataUpdate[index] = newData;
-                            //   setData([...dataUpdate]);
-            
+                            const {id, image, name, description, venue, start_date, end_date} = newData;
+
+                            let upDateEvent = new FormData();
+
+                            upDateEvent.append('eventid', id);
+                            upDateEvent.append('name', name);
+                            upDateEvent.append('image', image);
+                            upDateEvent.append('description', description);
+                            upDateEvent.append('venue', venue);
+                            upDateEvent.append('startdate', start_date);
+                            upDateEvent.append('enddate', end_date);
+
+                            // dispatch(upDateEventAction(upDateEvent));
+                            
+                            // history.push('/event_dashBoard');
                             resolve();
+                           
                             }, 1000);
-                        }),
+                            
+                        }
+                        
+                        ),
+                        
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   const dataDelete = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataDelete.splice(index, 1);
-                            //   setData([...dataDelete]);
-            
+                              const index = oldData.id;
+                              let deleteID = new FormData();
+                              deleteID.append('eventid', index);
+                            //   dispatch(deleteEventAction(deleteID))
                             resolve();
                             }, 1000);
                         })
@@ -252,33 +291,39 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
                     }}
                     
                     editable={{
-                        onRowAdd: newData =>
+                        onRowUpdate: (newData, oldData) => 
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   setData([...data, newData]);
-            
-                            //   resolve();
-                            }, 1000);
-                        }),
-                        onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            //   const dataUpdate = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataUpdate[index] = newData;
-                            //   setData([...dataUpdate]);
-            
+                            const {id, image, name, description, venue, start_date, end_date} = newData;
+
+                            let upDateEvent = new FormData();
+
+                            upDateEvent.append('eventid', id);
+                            upDateEvent.append('name', name);
+                            upDateEvent.append('image', image);
+                            upDateEvent.append('description', description);
+                            upDateEvent.append('venue', venue);
+                            upDateEvent.append('startdate', start_date);
+                            upDateEvent.append('enddate', end_date);
+
+                            // dispatch(upDateEventAction(upDateEvent));
+                            
+                            // history.push('/event_dashBoard');
                             resolve();
+                           
                             }, 1000);
-                        }),
+                            
+                        }
+                        
+                        ),
+                        
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            //   const dataDelete = [...data];
-                            //   const index = oldData.tableData.id;
-                            //   dataDelete.splice(index, 1);
-                            //   setData([...dataDelete]);
-            
+                              const index = oldData.id;
+                              let deleteID = new FormData();
+                              deleteID.append('eventid', index);
+                            //   dispatch(deleteEventAction(deleteID))
                             resolve();
                             }, 1000);
                         })
