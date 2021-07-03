@@ -17,7 +17,7 @@ import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
-import { CCard, CCol, CRow } from '@coreui/react';
+import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import {
     Link, useHistory
   } from "react-router-dom";
@@ -181,20 +181,26 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         exportButton: true,
                         
                     }}
+
+                    localization= {{
+                        body: {
+                            emptyDataSourceMessage: <CSpinner
+                            color="primary"
+                            style={{width:'4rem', height:'4rem'}}
+                        />,
+                            
+                        }
+                    }}
                     
                     editable={{
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
                             const dataUpdate = [...courseListContent.completed];
-                            // const index = oldData.tableData.id;
-                            // const index = oldData.tableIcons.id;
-
+                            
                             const index = oldData.tableData.id;
                             const forNewData = dataUpdate[index] = newData;
                             
-                            console.log(index)
-                            // setData([...dataUpdate]);
                             const {id, image, name, description, discountprice, price, start_date, end_date} = forNewData;
                             console.log(forNewData );
 
@@ -216,51 +222,28 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             dispatch(courseListAction());
                             }, 1000)
                         }),
-                        // onRowUpdate: (newData, oldData) => 
-                        // new Promise((resolve, reject) => {
-                            
-                        //     setTimeout(() => {
-                        //     const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
-
-                            // let upDateCourse = new FormData();
-
-                            // upDateCourse.append('courseid', id);
-                            // upDateCourse.append('course_name', name);
-                            // upDateCourse.append('image', image);
-                            // upDateCourse.append('course_description', description);
-                            // upDateCourse.append('discountprice', discountprice);
-                            // upDateCourse.append('price', price);
-                            // upDateCourse.append('startdate', start_date);
-                            // upDateCourse.append('enddate', end_date);
-
-                        //     // dispatch(upDateEventAction(upDateEvent));
-                            // const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
-                            // dispatch(customPostAction(updateURL, upDateCourse));
                        
-                           
-                        //     // test  = "success" ? ( dispatch(courseListAction()), history.go(0) ) : null;
-                        //     resolve();
-                            
-                           
-                        //     }, 1000);
-                           
-
-                            
-                        // }
-                        
-                        // ),
                         
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                              const index = oldData.id;
-                              let deleteID = new FormData();
-                              deleteID.append('courseid', index);
+                                // const dataDelete = [...data];
+                                // const index = oldData.tableData.id;
 
-                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-                            dispatch(customPostAction(deleteURL, deleteID));
-                            dispatch(courseListAction());
-                            resolve();
+                                const dataDelete = [...courseListContent.completed];
+                                const deleteIndex = oldData.tableData.id;
+                                // console.log(dataDelete.splice(index, 1));
+                                // setData([...dataDelete]);
+
+                            //   const index = oldData.id;
+                            //   let deleteID = new FormData();
+                            //   deleteID.append('courseid', index);
+
+                            // const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                            // dispatch(customPostAction(deleteURL, deleteID));
+                            
+                            // resolve();
+                            // dispatch(courseListAction());
                             }, 1000);
                         })
                     }}
@@ -281,12 +264,28 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         exportButton: true,
                         
                     }}
+
+                    localization= {{
+                        body: {
+                            emptyDataSourceMessage: <CSpinner
+                            color="primary"
+                            style={{width:'4rem', height:'4rem'}}
+                        />,
+                            
+                        }
+                    }}
                     
                     editable={{
-                        onRowUpdate: (newData, oldData) => 
+                        onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
+                            const dataUpdate = [...courseListContent.completed];
+                            
+                            const index = oldData.tableData.id;
+                            const forNewData = dataUpdate[index] = newData;
+                            
+                            const {id, image, name, description, discountprice, price, start_date, end_date} = forNewData;
+                            console.log(forNewData );
 
                             let upDateCourse = new FormData();
 
@@ -299,17 +298,13 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             upDateCourse.append('startdate', start_date);
                             upDateCourse.append('enddate', end_date);
 
-                            // dispatch(upDateEventAction(upDateEvent));
                             const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
                             dispatch(customPostAction(updateURL, upDateCourse));
-                            dispatch(courseListAction());
-                            resolve();
-                           
-                            }, 1000);
                             
-                        }
-                        
-                        ),
+                            resolve();
+                            dispatch(courseListAction());
+                            }, 1000)
+                        }),
                         
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -342,13 +337,29 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         exportButton: true,
                         
                     }}
+
+                    localization= {{
+                        body: {
+                            emptyDataSourceMessage: <CSpinner
+                            color="primary"
+                            style={{width:'4rem', height:'4rem'}}
+                        />,
+                            
+                        }
+                    }}
                     
                     
                     editable={{
-                        onRowUpdate: (newData, oldData) => 
+                        onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const {id, image, name, description, discountprice, price, start_date, end_date} = newData;
+                            const dataUpdate = [...courseListContent.completed];
+                            
+                            const index = oldData.tableData.id;
+                            const forNewData = dataUpdate[index] = newData;
+                            
+                            const {id, image, name, description, discountprice, price, start_date, end_date} = forNewData;
+                            console.log(forNewData );
 
                             let upDateCourse = new FormData();
 
@@ -361,17 +372,13 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             upDateCourse.append('startdate', start_date);
                             upDateCourse.append('enddate', end_date);
 
-                            // dispatch(upDateEventAction(upDateEvent));
                             const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
                             dispatch(customPostAction(updateURL, upDateCourse));
-                            dispatch(courseListAction());
-                            resolve();
-                           
-                            }, 1000);
                             
-                        }
-                        
-                        ),
+                            resolve();
+                            dispatch(courseListAction());
+                            }, 1000)
+                        }),
                         
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
