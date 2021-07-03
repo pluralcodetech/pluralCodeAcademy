@@ -17,7 +17,7 @@ import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
-import { CButton, CCard, CCol, CRow } from '@coreui/react';
+import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import AddEventModal from './AddEventModal';
 import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
@@ -27,6 +27,7 @@ import { useHistory } from 'react-router-dom';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
+    const loading = useSelector(state => state.eventListData.loading);
 
     const [modal, setModal] = useState(false);
     
@@ -86,23 +87,51 @@ const EventDashBoard = () => {
         <CRow>
             <CCol xl={12}>
 
+                {/* <CSpinner
+                    color="primary"
+                    style={{width:'4rem', height:'4rem'}}
+                /> */}
+
                 <CCard>
                     <CButton color='primary' size={'lg'} className="m-2 primary" onClick={() => toggle()}>Add Event</CButton>
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
                     data = {eventListContent}
+                    localization= {{
+                        body: {
+                            emptyDataSourceMessage: <CSpinner
+                            color="primary"
+                            style={{width:'4rem', height:'4rem'}}
+                        />,
+                            
+                        }
+                    }}
+                   
                     title="Event List"
                     options={{
                         exportButton: true,
                         
                     }}
+                    // components={{
+                    //     OverlayLoading: props => (!loading ?  <CSpinner
+                    //         color="primary"
+                    //         style={{width:'4rem', height:'4rem'}}
+                    //     /> : null )
+                    // }}
                     
                     editable={{
-                        onRowUpdate: (newData, oldData) => 
+                        onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const {id, image, name, description, venue, start_date, end_date} = newData;
+                            const dataUpdate = [...eventListContent];
+                            
+                            const index = oldData.tableData.id;
+                            const forNewData = dataUpdate[index] = newData;
+                            
+                            const {id, image, name, description, venue, start_date, end_date} = forNewData;
+
+                            console.log(forNewData );
 
                             let upDateEvent = new FormData();
 
@@ -116,14 +145,11 @@ const EventDashBoard = () => {
 
                             dispatch(upDateEventAction(upDateEvent));
                             
-                            // history.push('/event_dashBoard');
                             resolve();
-                           
-                            }, 1000);
-                            
-                        }
-                        
-                        ),
+                            dispatch(eventListAction());
+                            }, 1000)
+                        }),
+                       
                         
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
