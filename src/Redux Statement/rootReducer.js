@@ -6,6 +6,7 @@ import courseListReducer from "./reducers/courseListReducer";
 import customCreateReducer from "./reducers/CRUD/customCreateReducer";
 import customDeleteReducer from "./reducers/CRUD/customDeleteReducer";
 import customPostReducer from "./reducers/CRUD/customPostReducer";
+import customReadReducer from "./reducers/CRUD/customReadReducer";
 import customUpdateReducer from "./reducers/CRUD/customUpdateReducer";
 import customStatusUpdateReducer from "./reducers/customStatusUpdateReducer";
 import deleteEventReducer from "./reducers/deleteEventReducer";
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
     customCreateData : customCreateReducer,
     customUpdateData : customUpdateReducer,
     customDeleteData : customDeleteReducer,
-    customPostData : customPostReducer
+    customPostData : customPostReducer,
+    customReadData : customReadReducer
 });
 
 export default rootReducer;
