@@ -9,7 +9,7 @@ const discountListAction = () => async dispatch => {
     })
 
     try {
-        const response = await axios.get('http://codesandbox.com.ng/academyAPI/api/discountcourse.php')
+        const response = await axios.get('https://pluralcode.academy/academyAPI/api/discountcourse.php')
         const {data} = response;
         console.log(data)
 
