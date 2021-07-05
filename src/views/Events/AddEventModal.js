@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import calendarDataAction from 'src/Redux Statement/actions/calendarDataAction';
 import moment from 'moment';
 import addEventAction from 'src/Redux Statement/actions/addEventAction';
+// import eventListAction from 'src/Redux Statement/actions/eventListAction';
 
 
 
@@ -68,8 +69,10 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
         );
 
         dispatch(addEventAction(addEventValues))
-
+        
+        // dispatch(eventListAction());
         toggle();  
+        
     }
       
     return (

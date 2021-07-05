@@ -154,11 +154,19 @@ const EventDashBoard = () => {
                         onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                              const index = oldData.id;
-                              let deleteID = new FormData();
-                              deleteID.append('eventid', index);
-                              dispatch(deleteEventAction(deleteID))
-                            resolve();
+    
+                                const dataDelete = [...eventListContent];
+                                const deleteIndex = oldData.tableData.id;
+                                
+                                const forNewData = dataDelete[deleteIndex]
+                                const {id} = forNewData;
+              
+                                let deleteID = new FormData();
+                                deleteID.append('eventid', id);
+                                dispatch(deleteEventAction(deleteID))
+
+                                resolve();
+                                dispatch(eventListAction());
                             }, 1000);
                         })
                     }}
