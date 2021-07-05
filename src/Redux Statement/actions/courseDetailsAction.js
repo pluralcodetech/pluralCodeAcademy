@@ -9,7 +9,7 @@ const courseDetailsAction = (parseId) => async dispatch => {
     try {
         const response = await axios({
             method: "post",
-            url: 'http://codesandbox.com.ng/academyAPI/api/admincoursedetails.php',
+            url: 'https://pluralcode.academy/academyAPI/api/admincoursedetails.php',
             data: parseId,
             headers: { "Content-Type": "multipart/form-data" },
         });

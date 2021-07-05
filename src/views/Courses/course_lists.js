@@ -224,26 +224,24 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         }),
                        
                         
-                        onRowDelete: oldData =>
+                        onRowDelete: (oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                                // const dataDelete = [...data];
-                                // const index = oldData.tableData.id;
-
+                               
                                 const dataDelete = [...courseListContent.completed];
                                 const deleteIndex = oldData.tableData.id;
-                                // console.log(dataDelete.splice(index, 1));
-                                // setData([...dataDelete]);
+                                
+                                const forNewData = dataDelete[deleteIndex]
+                                const {id} = forNewData;
+              
+                                let deleteID = new FormData();
+                                 deleteID.append('courseid', id);
 
-                            //   const index = oldData.id;
-                            //   let deleteID = new FormData();
-                            //   deleteID.append('courseid', index);
-
-                            // const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-                            // dispatch(customPostAction(deleteURL, deleteID));
+                                const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                                dispatch(customPostAction(deleteURL, deleteID));
                             
-                            // resolve();
-                            // dispatch(courseListAction());
+                                resolve();
+                                dispatch(courseListAction());
                             }, 1000);
                         })
                     }}
@@ -279,7 +277,7 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const dataUpdate = [...courseListContent.completed];
+                            const dataUpdate = [...courseListContent.active];
                             
                             const index = oldData.tableData.id;
                             const forNewData = dataUpdate[index] = newData;
@@ -306,17 +304,24 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             }, 1000)
                         }),
                         
-                        onRowDelete: oldData =>
+                        onRowDelete: (oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                              const index = oldData.id;
-                              let deleteID = new FormData();
-                              deleteID.append('courseid', index);
+                               
+                                const dataDelete = [...courseListContent.active];
+                                const deleteIndex = oldData.tableData.id;
+                                
+                                const forNewData = dataDelete[deleteIndex]
+                                const {id} = forNewData;
+              
+                                let deleteID = new FormData();
+                                 deleteID.append('courseid', id);
 
-                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-                            dispatch(customPostAction(deleteURL, deleteID));
-                            dispatch(courseListAction());
-                            resolve();
+                                const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                                dispatch(customPostAction(deleteURL, deleteID));
+                            
+                                resolve();
+                                dispatch(courseListAction());
                             }, 1000);
                         })
                     }}
@@ -334,8 +339,7 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                     data = {courseListContent.pending}
                     title="Pending Course List"
                     options={{
-                        exportButton: true,
-                        
+                        exportButton: true
                     }}
 
                     localization= {{
@@ -353,7 +357,7 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const dataUpdate = [...courseListContent.completed];
+                            const dataUpdate = [...courseListContent.pending];
                             
                             const index = oldData.tableData.id;
                             const forNewData = dataUpdate[index] = newData;
@@ -380,17 +384,25 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
                             }, 1000)
                         }),
                         
-                        onRowDelete: oldData =>
+                        onRowDelete: (oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                              const index = oldData.id;
-                              let deleteID = new FormData();
-                              deleteID.append('courseid', index);
+                               
+                                const dataDelete = [...courseListContent.pending];
+                                const deleteIndex = oldData.tableData.id;
+                                
+                                const forNewData = dataDelete[deleteIndex]
+                                const {id} = forNewData;
 
-                            const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-                            dispatch(customPostAction(deleteURL, deleteID));
-                            dispatch(courseListAction());
-                            resolve();
+              
+                                let deleteID = new FormData();
+                                 deleteID.append('courseid', id);
+
+                                const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                                dispatch(customPostAction(deleteURL, deleteID));
+                            
+                                resolve();
+                                dispatch(courseListAction());
                             }, 1000);
                         })
                     }}
