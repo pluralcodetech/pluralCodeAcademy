@@ -23,6 +23,7 @@ import {
   } from "react-router-dom";
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
+import moment from 'moment';
 
   const CourseLists = () => {
     const courseListContent = useSelector(state => state.courseListData.courseList);
@@ -105,8 +106,8 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date'},
+        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status'},
     ]
 
@@ -126,15 +127,8 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date',
-            editComponent: editProps => (
-                <Input
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-        },
+        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdateActive(item.id)}>{item.status}</button>},
     ]
 
@@ -153,15 +147,8 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
         {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date',
-            editComponent: editProps => (
-                <Input
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-        },
+        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdatePending(item.id)}>{item.status}</button>},
     ]
 
