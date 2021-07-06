@@ -2,34 +2,12 @@ import React, { useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import parse from 'html-react-parser';
-// import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 
 const CreateCourses = () => {
 
-    // const [describe, setDescribe] = useState({ text: '' });
-    // const [description, setDescription] = useState('');
-
-    // const handleDischange = (value) => {
-    //     setDescribe({ text: value })
-    //     // const test = describe.text
-    //     // console.log(parse(test).props);
-    //     // setDescription(parse(test).props)
-
-    //     const test = describe.text
-
-    //     const main = (parse(test));
-    //     setDescription(main.props);
-
-        
-    // }
-
-    
-    // console.log(description['children'])
 
     const [description, setDescription] = useState('');
 
@@ -40,18 +18,12 @@ const CreateCourses = () => {
 
     const handleChange = (text) => {
         setDescription(parse(text).props);
-    } 
-
-   
-    /* Datetime State */
-
-
+    };
 
     // Create Course Form state
 
     const [createCourse, setCreateCourse] = useState({
         courseName : '', 
-        // categoryName : '', 
         price : '', 
         start_Date : '', 
         end_Date : '', 
@@ -130,9 +102,6 @@ const CreateCourses = () => {
     imageInputRef.current.value = "";
     setPicture(null);
 
-    // describeInputRef.current.state.value = ''
-    // setDescription(null);
-
     }
  
     return (
@@ -154,13 +123,11 @@ const CreateCourses = () => {
 
                         <div className="mb-3">
                             <label>Start Date <span className="text-danger">*</span></label>
-                            {/* <Datetime value={startDate} onChange={date => startDateOnChange(date)} />  */}
                             <input type="datetime-local" value={start_Date} name="start_Date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
 
                         <div className="mb-3">
                             <label>End Date <span className="text-danger">*</span></label>
-                            {/* <Datetime value={endDate} onChange={date => setEndOnChange(date)} />  */}
                             <input type="datetime-local" value={end_Date} name="end_Date" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">

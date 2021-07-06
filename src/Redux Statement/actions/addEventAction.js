@@ -9,7 +9,7 @@ const addEventAction = (parseEventData) => async dispatch => {
     try {
         const response = await axios({
             method: 'post',
-            url: 'http://codesandbox.com.ng/academyAPI/api/create_events.php',
+            url: 'https://pluralcode.academy/academyAPI/api/create_events.php',
             data: parseEventData,
             headers: { "Content-Type": "multipart/form-data" }
         });

@@ -17,7 +17,6 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-// import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import discountListAction from 'src/Redux Statement/actions/discountListAction';
 import {
     Link, useHistory
