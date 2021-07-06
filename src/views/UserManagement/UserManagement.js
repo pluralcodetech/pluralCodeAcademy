@@ -1,41 +1,3 @@
-// import React, { forwardRef, useEffect } from 'react';
-// import { AddBox, ArrowDownward } from "@material-ui/icons";
-// import Check from '@material-ui/icons/Check';
-// import ChevronLeft from '@material-ui/icons/ChevronLeft';
-// import ChevronRight from '@material-ui/icons/ChevronRight';
-// import Clear from '@material-ui/icons/Clear';
-// import DeleteOutline from '@material-ui/icons/DeleteOutline';
-// import Edit from '@material-ui/icons/Edit';
-// import FilterList from '@material-ui/icons/FilterList';
-// import FirstPage from '@material-ui/icons/FirstPage';
-// import LastPage from '@material-ui/icons/LastPage';
-// import Remove from '@material-ui/icons/Remove';
-// import SaveAlt from '@material-ui/icons/SaveAlt';
-// import Search from '@material-ui/icons/Search';
-// import ViewColumn from '@material-ui/icons/ViewColumn';
-// import MaterialTable from 'material-table';
-// import { Input } from "@material-ui/core";
-// import { useDispatch, useSelector } from 'react-redux';
-// import courseListAction from 'src/Redux Statement/actions/courseListAction';
-// import { CCard, CCol, CRow } from '@coreui/react';
-
-// const UserManagement = () => {
-    
-    
-//     return (
-//         <CRow>
-//             <CCol xl={12}>
-//                 <CCard>
-                    
-//                 </CCard>
-//             </CCol>
-//         </CRow>
-    
-//     )
-// }
-
-// export default UserManagement
-
 import React, { forwardRef, useEffect, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
@@ -62,26 +24,38 @@ import moment from 'moment';
 import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
 import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 import { useHistory } from 'react-router-dom';
+import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
+import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
 
 const UserManagement = () => {
-    const eventListContent = useSelector(state => state.eventListData.eventList);
-
-
-    const [modal, setModal] = useState(false);
-    
-    let history = useHistory()
-    
-    const toggle = () =>{
-        setModal(!modal);
-        console.log(modal);
-    }
+    const tableRef = React.createRef();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(eventListAction());
-     
+        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
     }, []);
+
+    const customReadContent = useSelector(state => state.customReadData.customRead);
+    console.log(customReadContent);
+
+     // Handle active State to Active
+     const handleActive = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/activateuser.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        dispatch(customStatusUpdateAction(url, setIdFormDate));
+        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+    }
+
+     // Handle suspend State to Active
+     const handleSuspend = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/suspend.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        dispatch(customStatusUpdateAction(url, setIdFormDate))
+        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+    }
 
     const tableIcons = {
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -116,25 +90,32 @@ const UserManagement = () => {
             )
         },
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
-        {title: 'Venue', field: 'venue'},
+        {title: 'Last Name', field: 'lastname'},
+        {title: 'Email', field: 'email'},
+        {title: 'Course', field: 'course'},
+        {title: 'Course Prices', field: 'course_price'},
+        {title: 'Phone Number', field: 'phone_number'},
+        {title: 'Active', field: 'active'},
+        {title: 'events', field: 'events'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
+        {title: 'Activity', field: 'activate', render : item => (
+            <>
+                <button onClick={() => handleActive(item.id)}>{item.activate}</button> 
+                <button onClick={() => handleSuspend(item.id)} className="mt-3">{item.suspend}</button>
+            </>
+        )}
     ]
     return (
         <CRow>
             <CCol xl={12}>
 
-                {/* <CSpinner
-                    color="primary"
-                    style={{width:'4rem', height:'4rem'}}
-                /> */}
-
                 <CCard>
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {eventListContent}
+                    data = {customReadContent}
+                    tableRef={tableRef}
                     localization= {{
                         body: {
                             emptyDataSourceMessage: <CSpinner
@@ -145,23 +126,26 @@ const UserManagement = () => {
                         }
                     }}
                    
-                    title="Event List"
+                    title="User Management"
                     options={{
                         exportButton: true,
                         
                     }}
-                    // components={{
-                    //     OverlayLoading: props => (!loading ?  <CSpinner
-                    //         color="primary"
-                    //         style={{width:'4rem', height:'4rem'}}
-                    //     /> : null )
-                    // }}
+
+                    // actions={[
+                    //     {
+                    //       icon: 'refresh',
+                    //       tooltip: 'Refresh Data',
+                    //       isFreeAction: true,
+                    //       onClick: () => console.log(tableRef.current),
+                    //     }
+                    // ]}
                     
                     editable={{
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
-                            const dataUpdate = [...eventListContent];
+                            const dataUpdate = [...customReadContent];
                             
                             const index = oldData.tableData.id;
                             const forNewData = dataUpdate[index] = newData;
@@ -192,7 +176,7 @@ const UserManagement = () => {
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
     
-                                const dataDelete = [...eventListContent];
+                                const dataDelete = [...customReadContent];
                                 const deleteIndex = oldData.tableData.id;
                                 
                                 const forNewData = dataDelete[deleteIndex]
