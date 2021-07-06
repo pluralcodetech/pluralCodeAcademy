@@ -17,36 +17,35 @@ import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
-import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import {
     Link, useHistory
   } from "react-router-dom";
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import moment from 'moment';
+import CommunityModal from '../Community/CommunityModal';
 
   const CourseLists = () => {
+    
+    let history = useHistory();
+    const dispatch = useDispatch();
+
     const courseListContent = useSelector(state => state.courseListData.courseList);
     
     const customPostContent = useSelector(state => state.customPostData.customPost);
-    
-    
-    let history = useHistory();
 
-    const dispatch = useDispatch();
+    const [modal, setModal] = useState(false);
+    const [getID, setGetID] = useState('');
+    
+    const toggle = (id) =>{
+        setModal(!modal);
+        setGetID(id)
+    }
 
     useEffect(() => {
         dispatch(courseListAction());
     }, []);
-
-
-    // const [refresh, setRefresh] = useState([]);
-    // const test = customPostContent.map(item => setRefresh(item));
-
-    function refreshPage() {
-        window.location.reload(false);
-      }
-     
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
@@ -60,7 +59,6 @@ import moment from 'moment';
         dispatch(customStatusUpdateAction(url, setIdFormDate))
     }
 
-    
     // Handle update State to Active
     const handleUpdatePending = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
@@ -69,7 +67,6 @@ import moment from 'moment';
         dispatch(customStatusUpdateAction(url, setIdFormDate))
     }
     
-
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -109,7 +106,7 @@ import moment from 'moment';
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status'},
-        {title: 'Create Comunity', field: 'createComunity', render: item => <button>Create Comunity</button>}
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
     ]
 
     // Columns for Active and Pending columns
@@ -131,6 +128,7 @@ import moment from 'moment';
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdateActive(item.id)}>{item.status}</button>},
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
     ]
 
     const pendingColumns = [
@@ -151,6 +149,7 @@ import moment from 'moment';
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdatePending(item.id)}>{item.status}</button>},
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
     ]
 
 
@@ -398,6 +397,10 @@ import moment from 'moment';
                     />
                 </CCard>
             </CCol>
+            <CommunityModal modal={modal} 
+                toggle={toggle}
+                id={getID}
+            />
         
         </CRow>
 

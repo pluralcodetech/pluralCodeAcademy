@@ -29,7 +29,7 @@ const CourseDetails = () => {
         <CRow>
             <CCol lg={8}>
             {
-                courseDetailsContent?.map((item) => item.course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate}) => (
+                courseDetailsContent?.map((item) => item.course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => (
                     <CourseDetailsCard 
                         image={image} name={name} 
                         description = {description} 
@@ -37,6 +37,7 @@ const CourseDetails = () => {
                         end_date={end_date} discountprice={discountprice} 
                         discountstartdate = {discountstartdate}
                         discountenddate={discountenddate}
+                        community = {community}
                     />
                 )))
             }
