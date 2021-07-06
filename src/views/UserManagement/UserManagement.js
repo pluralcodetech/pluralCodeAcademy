@@ -143,57 +143,6 @@ const UserManagement = () => {
                         
                     }}
                     
-                    editable={{
-                        onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            const dataUpdate = [...customReadContent];
-                            
-                            const index = oldData.tableData.id;
-                            const forNewData = dataUpdate[index] = newData;
-                            
-                            const {id, image, name, description, venue, start_date, end_date} = forNewData;
-
-                            console.log(forNewData );
-
-                            let upDateEvent = new FormData();
-
-                            upDateEvent.append('eventid', id);
-                            upDateEvent.append('name', name);
-                            upDateEvent.append('image', image);
-                            upDateEvent.append('description', description);
-                            upDateEvent.append('venue', venue);
-                            upDateEvent.append('startdate', start_date);
-                            upDateEvent.append('enddate', end_date);
-
-                            dispatch(upDateEventAction(upDateEvent));
-                            
-                            resolve();
-                            dispatch(eventListAction());
-                            }, 1000)
-                        }),
-                       
-                        
-                        onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-    
-                                const dataDelete = [...customReadContent];
-                                const deleteIndex = oldData.tableData.id;
-                                
-                                const forNewData = dataDelete[deleteIndex]
-                                const {id} = forNewData;
-              
-                                let deleteID = new FormData();
-                                deleteID.append('eventid', id);
-                                dispatch(deleteEventAction(deleteID))
-
-                                resolve();
-                                dispatch(eventListAction());
-                            }, 1000);
-                        })
-                    }}
-                    
                     
                     />
                 </CCard>
