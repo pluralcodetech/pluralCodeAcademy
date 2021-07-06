@@ -17,6 +17,6 @@ const UserCard = ({name, lastname, email, phone_number}) => {
         </div>
   
     )
-}
+};
 
 export default UserCard

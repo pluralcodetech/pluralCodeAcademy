@@ -1,14 +1,12 @@
 import React, {useRef, useState} from 'react'
 import { CButton, CCol, CContainer, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalFooter, CModalHeader, CRow } from '@coreui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
-import addEventAction from 'src/Redux Statement/actions/addEventAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 
 
 const CommunityModal = ({modal, toggle, id}) => {
     const dispatch = useDispatch();
-    // console.log(id)
     
     const [inputValues, setInputValues] = useState({
         link: '', 
