@@ -4,14 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import courseDetailsAction from 'src/Redux Statement/actions/courseDetailsAction';
 import CourseDetailsCard from './CourseDetailsCard'
-import CourseList from './course_list'
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import UserCard from '../userCard/userCard';
 
 const CourseDetails = () => {
     let listDataId  = useParams(); 
     const {id} = listDataId
-
 
     // Appending  ListDataId Id Values before Sending to API
     var courseDetailsFormData = new FormData();
@@ -24,7 +22,7 @@ const CourseDetails = () => {
     }, []);
 
     const courseDetailsContent = useSelector(state => state.courseDetailsData.courseDetails)
-    console.log(courseDetailsContent)
+   
     return (
         <CRow>
             <CCol lg={8}>

@@ -26,15 +26,25 @@ import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 import { useHistory } from 'react-router-dom';
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
 import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
+import {Redirect} from "react-router-dom"
 
 const UserManagement = () => {
     const tableRef = React.createRef();
 
     const dispatch = useDispatch();
 
+    let history = useHistory()
+
+    const loading = useSelector(state => state.customReadData.loading);
+    console.log(loading)
+
+    function refreshPage() {
+        window.location.reload(false);
+    }
+
     useEffect(() => {
-        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
-    }, []);
+        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+    }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
 
     const customReadContent = useSelector(state => state.customReadData.customRead);
     console.log(customReadContent);
@@ -45,7 +55,7 @@ const UserManagement = () => {
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
         dispatch(customStatusUpdateAction(url, setIdFormDate));
-        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+
     }
 
      // Handle suspend State to Active
@@ -53,8 +63,8 @@ const UserManagement = () => {
         const url = 'https://pluralcode.academy/academyAPI/api/suspend.php'
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate))
-        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+        dispatch(customStatusUpdateAction(url, setIdFormDate));
+
     }
 
     const tableIcons = {
@@ -101,6 +111,7 @@ const UserManagement = () => {
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Activity', field: 'activate', render : item => (
             <>
+                
                 <button onClick={() => handleActive(item.id)}>{item.activate}</button> 
                 <button onClick={() => handleSuspend(item.id)} className="mt-3">{item.suspend}</button>
             </>
@@ -131,15 +142,6 @@ const UserManagement = () => {
                         exportButton: true,
                         
                     }}
-
-                    // actions={[
-                    //     {
-                    //       icon: 'refresh',
-                    //       tooltip: 'Refresh Data',
-                    //       isFreeAction: true,
-                    //       onClick: () => console.log(tableRef.current),
-                    //     }
-                    // ]}
                     
                     editable={{
                         onRowUpdate: (newData, oldData) =>
