@@ -109,6 +109,7 @@ import moment from 'moment';
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status'},
+        {title: 'Create Comunity', field: 'createComunity', render: item => <button>Create Comunity</button>}
     ]
 
     // Columns for Active and Pending columns
