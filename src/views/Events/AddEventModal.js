@@ -70,7 +70,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
 
         dispatch(addEventAction(addEventValues))
         
-        // dispatch(eventListAction());
         toggle();  
         
     }

@@ -9,7 +9,7 @@ const deleteEventAction = (parseID) => async dispatch => {
     try {
         const response = await axios({
             method: 'post',
-            url: 'http://codesandbox.com.ng/academyAPI/api/deleteevent.php',
+            url: 'https://pluralcode.academy/academyAPI/api/deleteevent.php',
             data: parseID,
             headers: { "Content-Type": "multipart/form-data" }
         });

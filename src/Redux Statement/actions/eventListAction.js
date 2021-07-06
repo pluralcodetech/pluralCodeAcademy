@@ -7,7 +7,7 @@ const eventListAction = () => async dispatch => {
     });
 
     try {
-        const response = await axios('http://codesandbox.com.ng/academyAPI/api/events.php')
+        const response = await axios('https://pluralcode.academy/academyAPI/api/events.php')
         const {data} = response
 
         dispatch({
