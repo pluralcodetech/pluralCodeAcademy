@@ -43,8 +43,8 @@ const UserManagement = () => {
     }
 
     useEffect(() => {
-        // dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
-    }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
+        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+    }, []);
 
     const customReadContent = useSelector(state => state.customReadData.customRead);
     console.log(customReadContent);
@@ -107,8 +107,6 @@ const UserManagement = () => {
         {title: 'Phone Number', field: 'phone_number'},
         {title: 'Active', field: 'active'},
         {title: 'events', field: 'events'},
-        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
-        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Activity', field: 'activate', render : item => (
             <>
                 
@@ -146,9 +144,6 @@ const UserManagement = () => {
                     
                     />
                 </CCard>
-                {/* <AddEventModal modal={modal} 
-                    toggle={toggle}
-                /> */}
             </CCol>
         </CRow>
     
