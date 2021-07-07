@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -12,6 +12,7 @@ import LastPage from '@material-ui/icons/LastPage';
 import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Input } from "@material-ui/core";
@@ -24,6 +25,7 @@ import moment from 'moment';
 import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
 import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 import { useHistory } from 'react-router-dom';
+import addEventAction from 'src/Redux Statement/actions/addEventAction';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
@@ -42,10 +44,15 @@ const EventDashBoard = () => {
 
     useEffect(() => {
         dispatch(eventListAction());
-     
     }, []);
 
+    const callEvent = useCallback(() => {
+        dispatch(eventListAction());
+      }, [eventListAction])
+    // const tableRef = React.createRef();
+
     const tableIcons = {
+        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
         Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
         Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -58,6 +65,7 @@ const EventDashBoard = () => {
         NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
         PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
         ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+        RefreshIcon: forwardRef((props, ref) => <RefreshIcon {...props} ref={ref} />),
         Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
         SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
         ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
@@ -80,8 +88,24 @@ const EventDashBoard = () => {
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
         {title: 'Venue', field: 'venue'},
-        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
-        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
+        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
+            editComponent: editProps => (
+                <Input
+                    type="datetime-local"
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.value)}
+                />
+            )
+         },
+        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
+            editComponent: editProps => (
+                <Input
+                    type="datetime-local"
+                    autoFocus={true}
+                    onChange={e => editProps.onChange(e.target.value)}
+                />
+            )
+        },
     ]
     return (
         <CRow>
@@ -93,7 +117,7 @@ const EventDashBoard = () => {
                 /> */}
 
                 <CCard>
-                    <CButton color='primary' size={'lg'} className="m-2 primary" onClick={() => toggle()}>Add Event</CButton>
+                    {/* <CButton color='primary' size={'lg'} className="m-2 primary" onClick={() => toggle()}>Add Event</CButton> */}
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
@@ -113,14 +137,38 @@ const EventDashBoard = () => {
                         exportButton: true,
                         
                     }}
-                    // components={{
-                    //     OverlayLoading: props => (!loading ?  <CSpinner
-                    //         color="primary"
-                    //         style={{width:'4rem', height:'4rem'}}
-                    //     /> : null )
-                    // }}
+                
                     
                     editable={{
+                        onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                console.log(newData)
+                                /* setData([...data, newData]); */
+
+                                const {image, name, description, venue, start_date, end_date} = newData
+                                console.log(image, name, description, venue, start_date, end_date);
+                                console.log(newData)
+                                let addEventValues = new FormData();
+
+                                addEventValues.append('name', name);
+                                addEventValues.append('description', description);
+                                addEventValues.append('venue', venue);
+                                addEventValues.append('image', image);
+                                addEventValues.append('startdate', start_date);
+                                addEventValues.append('enddate', end_date);
+
+                                dispatch(addEventAction(addEventValues));
+
+                                
+                                resolve();
+                                callEvent();
+                                
+                            }, 1000);
+                            
+                            // React.createRef(dispatch(eventListAction()));
+                            // const tableRef = React.createRef(dispatch(eventListAction()));
+                        }),
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -171,12 +219,21 @@ const EventDashBoard = () => {
                         })
                     }}
                     
-                    
+                    actions={[
+                        {
+                          icon: RefreshIcon,
+                          tooltip: 'Refresh Data',
+                          isFreeAction: true,
+                          onClick: () => dispatch(eventListAction())
+                        //   tableRef.current && tableRef.current.onQueryChange(),
+                        
+                        }
+                      ]}
                     />
                 </CCard>
-                <AddEventModal modal={modal} 
+                {/* <AddEventModal modal={modal} 
                     toggle={toggle}
-                />
+                /> */}
             </CCol>
         </CRow>
     
