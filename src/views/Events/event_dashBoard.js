@@ -49,7 +49,7 @@ const EventDashBoard = () => {
     const callEvent = useCallback(() => {
         dispatch(eventListAction());
       }, [eventListAction])
-    // const tableRef = React.createRef();
+    // const tableRef = React.createRef(dispatch(eventListAction()));
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -111,15 +111,11 @@ const EventDashBoard = () => {
         <CRow>
             <CCol xl={12}>
 
-                {/* <CSpinner
-                    color="primary"
-                    style={{width:'4rem', height:'4rem'}}
-                /> */}
-
                 <CCard>
                     {/* <CButton color='primary' size={'lg'} className="m-2 primary" onClick={() => toggle()}>Add Event</CButton> */}
                     <MaterialTable
                     icons={tableIcons}
+                    // tableRef={tableRef}
                     columns={columns}
                     data = {eventListContent}
                     localization= {{
@@ -140,15 +136,15 @@ const EventDashBoard = () => {
                 
                     
                     editable={{
+            
+                        onRowAddCancelled: rowData => console.log(rowData),
+                        onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                console.log(newData)
-                                /* setData([...data, newData]); */
 
+                            setTimeout(() => {
                                 const {image, name, description, venue, start_date, end_date} = newData
-                                console.log(image, name, description, venue, start_date, end_date);
-                                console.log(newData)
+                            
                                 let addEventValues = new FormData();
 
                                 addEventValues.append('name', name);
@@ -159,15 +155,11 @@ const EventDashBoard = () => {
                                 addEventValues.append('enddate', end_date);
 
                                 dispatch(addEventAction(addEventValues));
-
-                                
+                               
                                 resolve();
-                                callEvent();
-                                
-                            }, 1000);
-                            
-                            // React.createRef(dispatch(eventListAction()));
-                            // const tableRef = React.createRef(dispatch(eventListAction()));
+
+                            }, 2000);
+
                         }),
                         onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
@@ -224,9 +216,7 @@ const EventDashBoard = () => {
                           icon: RefreshIcon,
                           tooltip: 'Refresh Data',
                           isFreeAction: true,
-                          onClick: () => dispatch(eventListAction())
-                        //   tableRef.current && tableRef.current.onQueryChange(),
-                        
+                          onClick: () => window.location.reload(false)
                         }
                       ]}
                     />

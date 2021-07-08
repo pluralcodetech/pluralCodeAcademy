@@ -43,8 +43,8 @@ const UserManagement = () => {
     }
 
     useEffect(() => {
-        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
-    }, []);
+        
+    }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
 
     const customReadContent = useSelector(state => state.customReadData.customRead);
     console.log(customReadContent);
