@@ -110,8 +110,8 @@ const UserManagement = () => {
         {title: 'Activity', field: 'activate', render : item => (
             <>
                 
-                <button onClick={() => handleActive(item.id)}>{item.activate}</button> 
-                <button onClick={() => handleSuspend(item.id)} className="mt-3">{item.suspend}</button>
+                <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleActive(item.id)}>{item.activate}</CButton> 
+                <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleSuspend(item.id)}>{item.suspend}</CButton>
             </>
         )}
     ]

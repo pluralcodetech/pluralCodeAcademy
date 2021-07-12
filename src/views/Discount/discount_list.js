@@ -1,4 +1,4 @@
-import { CCard, CCol, CRow } from '@coreui/react';
+import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
 import React, { forwardRef, useEffect } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
@@ -86,6 +86,15 @@ const DiscountList = () => {
                     options={{
                         exportButton: true,
                         
+                    }}
+                    localization= {{
+                        body: {
+                            emptyDataSourceMessage: <CSpinner
+                            color="primary"
+                            style={{width:'4rem', height:'4rem'}}
+                        />,
+                            
+                        }
                     }}
                     
                     />

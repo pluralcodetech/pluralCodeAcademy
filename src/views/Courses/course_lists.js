@@ -127,7 +127,7 @@ import CommunityModal from '../Community/CommunityModal';
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
-        {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdateActive(item.id)}>{item.status}</button>},
+        {title: 'Status', field: 'status', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleUpdateActive(item.id)}>{item.status}</CButton>},
         {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
     ]
 
@@ -148,8 +148,8 @@ import CommunityModal from '../Community/CommunityModal';
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
-        {title: 'Status', field: 'status', render: item => <button onClick={() => handleUpdatePending(item.id)}>{item.status}</button>},
-        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
+        {title: 'Status', field: 'status', render: item => <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleUpdateActive(item.id)}>{item.status}</CButton>},
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton  color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
     ]
 
 
