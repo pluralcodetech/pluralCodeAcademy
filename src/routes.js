@@ -3,6 +3,7 @@ import React from 'react';
 const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
+const UpdateCousre = React.lazy(() => import('./views/Courses/update_course'));
 
 
 const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
@@ -22,6 +23,7 @@ const routes = [
   {path: '/course_list', name: 'Course List', component: CourseLists},
   {path: '/course_details/:id', name: 'Course Details', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
+  {path: '/update_course/:id', name: 'Update Course', component: UpdateCousre},
   { path: '/discount_list/:id', name: "Discount List", component: DiscountList},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
