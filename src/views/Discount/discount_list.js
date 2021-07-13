@@ -28,9 +28,9 @@ const DiscountList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(discountListAction());
+        ;
      
-    }, []);
+    }, [dispatch(discountListAction())]);
 
     let history = useHistory();
 
