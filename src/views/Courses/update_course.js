@@ -5,13 +5,14 @@ import 'react-quill/dist/quill.bubble.css';
 import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch } from 'react-redux';
 
 
-const CreateCourses = () => {
+const UpdateCourses = () => {
     const dispatch = useDispatch();
+    let history = useHistory();
 
     let getCourseData  = useParams(); 
     console.log(getCourseData.id);
@@ -87,11 +88,25 @@ const CreateCourses = () => {
     // Actions for Submit button
     const handleSubmit = (e) => {
         e.preventDefault();
-
         // console.log(createCourse);
 
-    
         // console.log(id, courseName, coursePrice, startDate, endDate, discountPrice, getDescription, picture);
+
+        // To Form Data before posting the Data
+        let upDateCourse = new FormData();
+
+        // Append all value to FormData
+        upDateCourse.append('courseid', id);
+        upDateCourse.append('course_name', courseName);
+        upDateCourse.append('image', picture);
+        upDateCourse.append('course_description', getDescription);
+        upDateCourse.append('discountprice', discountPrice);
+        upDateCourse.append('price', coursePrice);
+        upDateCourse.append('startdate', startDate);
+        upDateCourse.append('enddate', endDate);
+
+        const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+        dispatch(customPostAction(updateURL, upDateCourse));
 
         setCreateCourse({
             courseName : '',
@@ -104,7 +119,13 @@ const CreateCourses = () => {
         imageInputRef.current.value = "";
         setPicture(null);
 
+        history.push('/course_list')
     }
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push('/course_list');   
+    };
  
     return (
         <form className="row" onSubmit={handleSubmit} >
@@ -179,7 +200,12 @@ const CreateCourses = () => {
                         <div className="mb-3">
                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
                             {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
-                            <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef} onChange={event => setPicture(event.target.files[0])}  className="form-control" placeholder="Choose File" />
+                            <input type="file" accept="image/png, image/jpeg, image/jpg" 
+                                ref={imageInputRef} 
+                                onChange={event => setPicture(event.target.files[0])}  
+                                className="form-control" 
+                                placeholder="Choose File" 
+                            />
                         </div>
                     </div>
                 </div>
@@ -187,7 +213,7 @@ const CreateCourses = () => {
             <div className="row m-auto">
                 <div className="col-12">
                     <div className=" mt-4 mb-2">
-                        <button type="button" className="btn w-sm btn-light waves-effect">Cancel</button>
+                        <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
                         <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
                     </div>
                 </div> 
@@ -197,4 +223,4 @@ const CreateCourses = () => {
     )
 }
 
-export default CreateCourses
+export default UpdateCourses

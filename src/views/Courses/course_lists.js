@@ -606,6 +606,8 @@ import CommunityModal from '../Community/CommunityModal';
                         exportButton: true,
                         
                     }}
+
+                    
                     actions={[
                         {
                           icon: AddBox,
@@ -624,7 +626,60 @@ import CommunityModal from '../Community/CommunityModal';
                             // onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
                             // disabled: rowData.birthYear < 2000
                           })
-                      ]}
+                    ]}
+
+                    //                  editable={{
+                    //     onRowUpdate: (newData, oldData) =>
+                    //     new Promise((resolve, reject) => {
+                    //         setTimeout(() => {
+                    //         const dataUpdate = [...completedData];
+                            
+                    //         const index = oldData.tableData.id;
+                    //         const forNewData = dataUpdate[index] = newData;
+                            
+                    //         const {id, image, name, description, discountprice, price, start_date, end_date} = forNewData;
+                    //         console.log(forNewData );
+
+                    //         let upDateCourse = new FormData();
+
+                    //         upDateCourse.append('courseid', id);
+                    //         upDateCourse.append('course_name', name);
+                    //         upDateCourse.append('image', image);
+                    //         upDateCourse.append('course_description', description);
+                    //         upDateCourse.append('discountprice', discountprice);
+                    //         upDateCourse.append('price', price);
+                    //         upDateCourse.append('startdate', start_date);
+                    //         upDateCourse.append('enddate', end_date);
+
+                    //         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
+                    //         dispatch(customPostAction(updateURL, upDateCourse));
+                            
+                    //         resolve();
+                    //         dispatch(courseListAction());
+                    //         }, 1000)
+                    //     }),
+                        
+                    //     onRowDelete: (oldData) =>
+                    //     new Promise((resolve, reject) => {
+                    //         setTimeout(() => {
+                               
+                    //             const dataDelete = [...completedData];
+                    //             const deleteIndex = oldData.tableData.id;
+                                
+                    //             const forNewData = dataDelete[deleteIndex]
+                    //             const {id} = forNewData;
+              
+                    //             let deleteID = new FormData();
+                    //              deleteID.append('courseid', id);
+
+                    //             const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                    //             dispatch(customPostAction(deleteURL, deleteID));
+                            
+                    //             resolve();
+                    //             dispatch(courseListAction());
+                    //         }, 1000);
+                    //     })
+                    // }}
 
                     localization= {{
                         body: {
