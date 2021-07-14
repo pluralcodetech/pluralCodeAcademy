@@ -60,7 +60,7 @@ import Alert from 'src/containers/Alert';
 
     useEffect(() => {
         dispatch(courseListAction());
-    }, []);
+    }, [ dispatch(courseListAction())]);
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
@@ -74,6 +74,16 @@ import Alert from 'src/containers/Alert';
         const {id} = courseData;
     
         history.push(`/update_course/${id}`)
+    }
+
+    const handleDeleteCourse = (courseData) => {
+        const {id} = courseData;
+    
+        let deleteID = new FormData();
+        deleteID.append('courseid', id);
+
+        const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+        dispatch(customPostAction(deleteURL, deleteID));
     }
 
     // Handle Update Status to Completed
@@ -209,7 +219,8 @@ import Alert from 'src/containers/Alert';
                         },
                           rowData => ({
                             icon: DeleteOutline,
-                            tooltip: 'Delete User',
+                            tooltip: 'Delete User', 
+                            onClick: (event, rowData) =>  handleDeleteCourse(rowData)
                             // onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
                             // disabled: rowData.birthYear < 2000
                           })
@@ -256,11 +267,11 @@ import Alert from 'src/containers/Alert';
                     //             const forNewData = dataDelete[deleteIndex]
                     //             const {id} = forNewData;
               
-                    //             let deleteID = new FormData();
-                    //              deleteID.append('courseid', id);
+                                // let deleteID = new FormData();
+                                //  deleteID.append('courseid', id);
 
-                    //             const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-                    //             dispatch(customPostAction(deleteURL, deleteID));
+                                // const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+                                // dispatch(customPostAction(deleteURL, deleteID));
                             
                     //             resolve();
                     //             dispatch(courseListAction());
