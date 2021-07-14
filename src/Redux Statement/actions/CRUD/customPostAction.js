@@ -15,6 +15,7 @@ const customPostAction = (postURL, postDATA) => async dispatch => {
         });
 
         const {data} = response
+        // console.log(typeof data)
 
         dispatch({
             type : CUSTOM_POST.CUSTOM_POST_SUCCESS,
