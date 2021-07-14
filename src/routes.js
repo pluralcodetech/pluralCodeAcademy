@@ -42,7 +42,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  {path: '/completed_Course', name: 'Course List', component: CompletedCourse},
+  {path: '/completed_Course', name: 'Completed Course List', component: CompletedCourse},
   {path: '/course_details/:id', name: 'Course Details', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
   {path: '/update_completed_course/:id', name: 'Update Completed Course', component: UpdateCompletedCourse},

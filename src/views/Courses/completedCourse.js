@@ -60,7 +60,7 @@ import Alert from 'src/containers/Alert';
 
     useEffect(() => {
         dispatch(courseListAction());
-    }, [ dispatch(courseListAction())]);
+    }, [ ]); //dispatch(courseListAction())
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
@@ -124,24 +124,43 @@ import Alert from 'src/containers/Alert';
 
     // Columns completed
     const columns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
-            editComponent: editProps => (
-                <Input
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg"
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.files[0])}
-                />
-            )
+        
+        {title: 'Image', field: 'image', render: item => (
+            <>
+                {
+                    item.filetype === 'image' ? <img src={item.image} alt="" border="3" height="100" width="100" />
+                    :  item.filetype === 'video' ?
+                    <video border="3" height="100" width="100" controls>
+                        <source src={item.video} type="video/mp4"/>
+                    </video>
+                    : null
+                }
+                
+                
+            
+            </>
+        )
+            
         },
+        // {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
+        //     editComponent: editProps => (
+        //         <Input
+        //             type="file"
+        //             accept="image/png, image/jpeg, image/jpg"
+        //             autoFocus={true}
+        //             onChange={e => editProps.onChange(e.target.files[0])}
+        //         />
+        //     )
+        // },
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
+        // {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Discount Price', field: 'discountprice'},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
         {title: 'Status', field: 'status'},
-        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>}
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
+        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
     ]
 
     // Columns for Active and Pending columns
