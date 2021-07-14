@@ -27,7 +27,7 @@ import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
 import Alert from 'src/containers/Alert';
 
-  const CourseLists = () => {
+  const CompletedCourse = () => {
     
     let history = useHistory();
     const dispatch = useDispatch();
@@ -66,14 +66,14 @@ import Alert from 'src/containers/Alert';
         history.push(`/course_details/${item}`);   
     };
 
-    const handleAddCourse =() => {
-        history.push(`/create_course`);   
-    };
+    // const handleAddCourse =() => {
+    //     history.push(`/create_course`);   
+    // };
 
     const handleEditCourse = (courseData) => {
         const {id} = courseData;
-    
-        history.push(`/update_course/${id}`)
+        
+        history.push(`/update_completed_course/${id}`)
     }
 
     const handleDeleteCourse = (courseData) => {
@@ -206,12 +206,12 @@ import Alert from 'src/containers/Alert';
 
                     
                     actions={[
-                        {
-                          icon: AddBox,
-                          tooltip: 'Add Course',
-                          isFreeAction: true,
-                          onClick: (event) => handleAddCourse()
-                        },
+                        // {
+                        //   icon: AddBox,
+                        //   tooltip: 'Add Course',
+                        //   isFreeAction: true,
+                        //   onClick: (event) => handleAddCourse()
+                        // },
                         {
                             icon: Edit,
                             tooltip: 'Edit Course',
@@ -463,7 +463,7 @@ import Alert from 'src/containers/Alert';
       )
   }
   
-  export default CourseLists
+  export default CompletedCourse
 
 
 

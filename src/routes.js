@@ -10,15 +10,22 @@ function Loading() {
     />
   </div>
 }
-const CourseLists = Loadable({
-  loader: () => import('./views/Courses/course_lists'),
+
+// update_completed_course
+const CompletedCourse = Loadable({
+  loader: () => import('./views/Courses/completedCourse'),
+  loading: Loading,
+});
+
+const UpdateCompletedCourse = Loadable({
+  loader: () => import('./views/Courses/update_completed_course'),
   loading: Loading,
 });
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
-const UpdateCousre = React.lazy(() => import('./views/Courses/update_course'));
+// const UpdateCousre = React.lazy(() => import('./views/Courses/update_completed_course'));
 
 
 const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
@@ -35,10 +42,10 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  {path: '/course_list', name: 'Course List', component: CourseLists},
+  {path: '/completed_Course', name: 'Course List', component: CompletedCourse},
   {path: '/course_details/:id', name: 'Course Details', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
-  {path: '/update_course/:id', name: 'Update Course', component: UpdateCousre},
+  {path: '/update_completed_course/:id', name: 'Update Completed Course', component: UpdateCompletedCourse},
   { path: '/discount_list/:id', name: "Discount List", component: DiscountList},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
