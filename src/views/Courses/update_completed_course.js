@@ -13,7 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 
 
-const UpdateCourses = () => {
+const UpdateCompletedCourses = () => {
 
     const dispatch = useDispatch();
     let history = useHistory();
@@ -31,28 +31,15 @@ const UpdateCourses = () => {
 
     const customPostMessageData = useMemo(() => customPost, [customPost]);
 
-    // const customPostMessage = useSelector(state => state.customPostData.customPost);
-    // const customPostMessageData = useMemo(() => customPostMessage, [customPostMessage]);
 
     console.log(loading)
     console.log(customPostMessageData);
 
     console.log(customPostMessageData[0]?.status)
 
-    // const status = 
-    // console.log(status)
 
-    // const test = customPostMessageData.map(item => console.log(item.map));
-    // console.log(test);
-    
     const completedResult = completedData.find(item => item.id === getCourseData.id); // To find object Id properties
-    // const customPostMessageResult = customPostMessageData.find(item => item.status === "success");
-    // console.log(customPostMessageResult)
-
-    // let query = getCourseData.id;
-    // let obj = JSON.parse('{"' + decodeURI(query).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-    // console.log(obj);
-
+    
     const {id, image, name, price, description, discountprice, start_date, end_date} = completedResult
 
     const [createCourse, setCreateCourse] = useState({
@@ -120,10 +107,7 @@ const UpdateCourses = () => {
     // Actions for Submit button
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(createCourse);
-
-        // console.log(id, courseName, coursePrice, startDate, endDate, discountPrice, getDescription, picture);
-
+        
         // To Form Data before posting the Data
         let upDateCourse = new FormData();
 
@@ -140,10 +124,6 @@ const UpdateCourses = () => {
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
 
-        // if( customPostMessageData[0]?.status === 'success' ) {
-        //     history.push('/course_list')
-        // }
-
         setCreateCourse({
             courseName : '',
             coursePrice : '',
@@ -156,45 +136,23 @@ const UpdateCourses = () => {
         setPicture(null);
 
 
-        // return (
-        //     <>
-        //         {customPostMessageData[0]?.status === 'success' ? history.push('/course_list') : null}
-        //     </>
-        // )
-
-        // setTimeout(() => {
-        //     check();
-        //     handleSubmit(e);
-        // }, 3000)
-       
-
-        // new Promise((resolve, reject) => {
-        //     setTimeout(() => {
-                
-        //         resolve();
-        //     }, 3000)
-        // })
-
-        // status !== undefined  status === 'success' ? (history.push('/course_list') ) : null
-
+        
         
     }
 
     const handleCancel = (e) => {
         e.preventDefault();
-        history.push('/course_list');   
+        history.push('/completed_Course');   
     };
 
     let redirect = null;
 
     if (customPostMessageData[0]?.status === 'success') {
-        redirect = <Redirect to = "/course_list"/>;
+        redirect = <Redirect to = "/completed_Course"/>;
     };
  
     return (
-        // <h1>Testing</h1>
-        // <ErrorBoundary>
-            <form className="row" onSubmit={handleSubmit} >
+        <form className="row" onSubmit={handleSubmit} >
                 {redirect}
                 {/* {
                     loading ? (<CSpinner
@@ -297,9 +255,7 @@ const UpdateCourses = () => {
                 </div>
             </form>
         
-        
-        // </ErrorBoundary>
     )
 }
 
-export default UpdateCourses
+export default UpdateCompletedCourses
