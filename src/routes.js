@@ -1,6 +1,21 @@
+import { CSpinner } from '@coreui/react';
 import React from 'react';
+import Loadable from 'react-loadable';
 
-const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
+function Loading() {
+  return <div className="text-center mt-3" style={{marginTop: "50rem", height:'100px'}}>
+      <CSpinner
+      color="primary"
+      style={{width:'4rem', height:'4rem'}}
+    />
+  </div>
+}
+const CourseLists = Loadable({
+  loader: () => import('./views/Courses/course_lists'),
+  loading: Loading,
+});
+
+// const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
 const UpdateCousre = React.lazy(() => import('./views/Courses/update_course'));
