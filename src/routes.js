@@ -22,6 +22,11 @@ const ActiveCourse = Loadable({
   loading: Loading,
 });
 
+const PendingCourse = Loadable({
+  loader: () => import('./views/Courses/pendingCourse'),
+  loading: Loading,
+});
+
 const UpdateCompletedCourse = Loadable({
   loader: () => import('./views/Courses/update_completed_course'),
   loading: Loading,
@@ -56,6 +61,7 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   {path: '/completed_Course', name: 'Completed Course List', component: CompletedCourse},
   {path: '/active_Course', name: 'Active Course List', component: ActiveCourse},
+  {path: '/pending_Course', name: 'Pending Course List', component: PendingCourse},
   {path: '/course_details/:id', name: 'Course Details', component: CourseDetails},
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
   {path: '/update_completed_course/:id', name: 'Update Completed Course', component: UpdateCompletedCourse},

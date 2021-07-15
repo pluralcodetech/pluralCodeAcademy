@@ -41,6 +41,11 @@ const _nav =  [
       },
       {
         _tag: 'CSidebarNavItem',
+        name: 'Pending Course List',
+        to: '/pending_Course',
+      },
+      {
+        _tag: 'CSidebarNavItem',
         name: 'Create Course',
         to: '/create_course',
       }
