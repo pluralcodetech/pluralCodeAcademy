@@ -111,7 +111,7 @@ const ActiveCourse = () => {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
-    // Columns for Active and Pending columns
+   // Columns for Active
     const  activeColumns = [
         
         {title: 'Image', field: 'image', render: item => (
