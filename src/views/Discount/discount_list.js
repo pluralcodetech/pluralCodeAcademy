@@ -1,4 +1,4 @@
-import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
 import React, { forwardRef, useEffect } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
@@ -28,7 +28,7 @@ const DiscountList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        ;
+        
      
     }, [dispatch(discountListAction())]);
 
@@ -62,7 +62,6 @@ const DiscountList = () => {
     const columns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description', render: item => <Link onClick={() => handleOPenDetails(item.id)}>{item.description}</Link>},
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date'},
         {title: 'End Date', field: 'end_date',
@@ -73,6 +72,7 @@ const DiscountList = () => {
                 />
             )
         },
+        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
     ]
     return (
         <CRow>
