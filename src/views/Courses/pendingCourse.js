@@ -76,12 +76,12 @@ const PendingCourse = () => {
     }
 
     // Handle Update Status to Completed
-    const handleUpdateActive = (id) => {
-        const url = 'https://pluralcode.academy/academyAPI/api/updatingactive.php'
-        let setIdFormDate = new FormData()
-        setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate))
-    }
+    // const handleUpdateActive = (id) => {
+    //     const url = 'https://pluralcode.academy/academyAPI/api/updatingactive.php'
+    //     let setIdFormDate = new FormData()
+    //     setIdFormDate.append('id', id)
+    //     dispatch(customStatusUpdateAction(url, setIdFormDate))
+    // }
 
     // Handle update State to Active
     const handleUpdatePending = (id) => {
@@ -132,7 +132,7 @@ const PendingCourse = () => {
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
-        {title: 'Status', field: 'status'},
+        {title: 'Status', field: 'status', render: item => <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleUpdatePending(item.id)}>Activate Course</CButton>},
         {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
         {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
     ]
@@ -145,7 +145,7 @@ const PendingCourse = () => {
                         icons={tableIcons}
                         columns={pendingColumns}
                         data = {pendingData}
-                        title="Active Course List"
+                        title="Pending Course List"
                         options={{
                             exportButton: true,
                             

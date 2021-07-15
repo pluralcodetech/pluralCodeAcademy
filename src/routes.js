@@ -2,7 +2,7 @@ import { CSpinner } from '@coreui/react';
 import React from 'react';
 import Loadable from 'react-loadable';
 
-function Loading() {
+export const Loading = () => {
   return <div className="text-center mt-3" style={{marginTop: "50rem", height:'100px'}}>
       <CSpinner
       color="primary"
@@ -27,6 +27,11 @@ const PendingCourse = Loadable({
   loading: Loading,
 });
 
+const  CourseDetails = Loadable({
+  loader : () => import('./views/Courses/course_details'),
+  loading: Loading,
+})
+
 const UpdateCompletedCourse = Loadable({
   loader: () => import('./views/Courses/update_completed_course'),
   loading: Loading,
@@ -45,7 +50,7 @@ const UpdatePendingCourses = Loadable({
 
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
-const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
+// const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
 // const UpdateCousre = React.lazy(() => import('./views/Courses/update_completed_course'));
 

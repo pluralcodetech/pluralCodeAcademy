@@ -83,13 +83,13 @@ const ActiveCourse = () => {
         dispatch(customStatusUpdateAction(url, setIdFormDate))
     }
 
-    // Handle update State to Active
-    const handleUpdatePending = (id) => {
-        const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
-        let setIdFormDate = new FormData()
-        setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate))
-    }
+    // // Handle update State to Active
+    // const handleUpdatePending = (id) => {
+    //     const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
+    //     let setIdFormDate = new FormData()
+    //     setIdFormDate.append('id', id)
+    //     dispatch(customStatusUpdateAction(url, setIdFormDate))
+    // }
     
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -132,7 +132,7 @@ const ActiveCourse = () => {
         {title: 'Price', field: 'price'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
         {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
-        {title: 'Status', field: 'status'},
+        {title: 'Status', field: 'status', render: item => <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleUpdateActive(item.id)}>Complete Course</CButton>},
         {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
         {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
     ]
