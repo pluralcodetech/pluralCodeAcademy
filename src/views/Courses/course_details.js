@@ -2,12 +2,32 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import courseDetailsAction from 'src/Redux Statement/actions/courseDetailsAction';
 import CourseDetailsCard from './CourseDetailsCard'
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CSpinner } from '@coreui/react'
 import UserCard from '../userCard/userCard';
+import { Loading } from 'src/routes';
+// import Loading from '../../routes'
+
+// const Loading = () => {
+//     return <div className="text-center mt-3" style={{marginTop: "50rem", height:'100px'}}>
+//         <CSpinner
+//         color="primary"
+//         style={{width:'4rem', height:'4rem'}}
+//       />
+//     </div>
+//   }
+
+// const CourseDetailsCard  = Loadable({
+//     loader: () => import('./CourseDetailsCard'),
+//     loading: Loading,
+// });
+
 
 const CourseDetails = () => {
+
+    
     let listDataId  = useParams(); 
     const {id} = listDataId
 
@@ -22,35 +42,41 @@ const CourseDetails = () => {
     }, []);
 
     const courseDetailsContent = useSelector(state => state.courseDetailsData.courseDetails)
-    console.log(courseDetailsContent);
+
+    const courseDetails = useSelector(state => state.courseDetailsData)
+    console.log(courseDetails);
+
+    const {loading} = courseDetails;
 
     const {course, student} = courseDetailsContent;
 
-    const test = course?.map((item) => console.log(item));
-
-    console.log(test)
    
     return (
         <CRow>
             <CCol lg={8}>
-                {
-                    course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => (
-                        <CourseDetailsCard 
-                            image={image} 
-                            name={name} 
-                            description = {description} 
-                            price={price} start_date={start_date} 
-                            end_date={end_date} discountprice={discountprice} 
-                            discountstartdate = {discountstartdate}
-                            discountenddate={discountenddate}
-                            community = {community}
-                        />
-                    ))
+                {loading ? (<Loading/>
+                    ) : (
+                        course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => (
+                            <CourseDetailsCard 
+                                image={image} 
+                                name={name} 
+                                description = {description} 
+                                price={price} 
+                                start_date={start_date} 
+                                end_date={end_date} 
+                                discountprice={discountprice} 
+                                discountstartdate = {discountstartdate}
+                                discountenddate={discountenddate}
+                                community = {community}
+                            />
+                        ))
+                    )
                 }
+                
             </CCol>
             <CCol lg={4}>
                     <CCard>
-                        <CCardHeader>Registered Students</CCardHeader>
+                        <CCardHeader class="text-primary text-center mt-2 mb-2">Registered Students</CCardHeader>
                         <CCardBody>
                             {
                                 student?.map(({name, lastname, email, phone_number}) => (
