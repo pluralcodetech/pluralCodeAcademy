@@ -62,8 +62,7 @@ const ActiveCourse = () => {
 
     const handleEditCourse = (courseData) => {
         const {id} = courseData;
-        
-        history.push(`/update_completed_course/${id}`)
+        history.push(`/update_active_course/${id}`)
     }
 
     const handleDeleteCourse = (courseData) => {
