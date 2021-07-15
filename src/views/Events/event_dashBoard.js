@@ -29,6 +29,7 @@ import addEventAction from 'src/Redux Statement/actions/addEventAction';
 
 const EventDashBoard = () => {
     const eventListContent = useSelector(state => state.eventListData.eventList);
+    console.log(eventListContent)
     const loading = useSelector(state => state.eventListData.loading);
 
     const [modal, setModal] = useState(false);
@@ -50,6 +51,10 @@ const EventDashBoard = () => {
         dispatch(eventListAction());
       }, [eventListAction])
     // const tableRef = React.createRef(dispatch(eventListAction()));
+
+    const handleAddCourse =() => {
+        history.push(`/create_event`);   
+    };
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -133,92 +138,102 @@ const EventDashBoard = () => {
                         exportButton: true,
                         
                     }}
-                
-                    
-                    editable={{
-            
-                        onRowAddCancelled: rowData => console.log(rowData),
-                        onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
-                        onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
 
-                            setTimeout(() => {
-                                const {image, name, description, venue, start_date, end_date} = newData
-                            
-                                let addEventValues = new FormData();
-
-                                addEventValues.append('name', name);
-                                addEventValues.append('description', description);
-                                addEventValues.append('venue', venue);
-                                addEventValues.append('image', image);
-                                addEventValues.append('startdate', start_date);
-                                addEventValues.append('enddate', end_date);
-
-                                dispatch(addEventAction(addEventValues));
-                               
-                                resolve();
-
-                            }, 2000);
-
-                        }),
-                        onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                            const dataUpdate = [...eventListContent];
-                            
-                            const index = oldData.tableData.id;
-                            const forNewData = dataUpdate[index] = newData;
-                            
-                            const {id, image, name, description, venue, start_date, end_date} = forNewData;
-
-                            console.log(forNewData );
-
-                            let upDateEvent = new FormData();
-
-                            upDateEvent.append('eventid', id);
-                            upDateEvent.append('name', name);
-                            upDateEvent.append('image', image);
-                            upDateEvent.append('description', description);
-                            upDateEvent.append('venue', venue);
-                            upDateEvent.append('startdate', start_date);
-                            upDateEvent.append('enddate', end_date);
-
-                            dispatch(upDateEventAction(upDateEvent));
-                            
-                            resolve();
-                            dispatch(eventListAction());
-                            }, 1000)
-                        }),
-                       
-                        
-                        onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-    
-                                const dataDelete = [...eventListContent];
-                                const deleteIndex = oldData.tableData.id;
-                                
-                                const forNewData = dataDelete[deleteIndex]
-                                const {id} = forNewData;
-              
-                                let deleteID = new FormData();
-                                deleteID.append('eventid', id);
-                                dispatch(deleteEventAction(deleteID))
-
-                                resolve();
-                                dispatch(eventListAction());
-                            }, 1000);
-                        })
-                    }}
-                    
                     actions={[
                         {
-                          icon: RefreshIcon,
-                          tooltip: 'Refresh Data',
-                          isFreeAction: true,
-                          onClick: () => window.location.reload(false)
-                        }
-                      ]}
+                            icon: AddBox,
+                            tooltip: 'Add Event',
+                            isFreeAction: true,
+                            onClick: (event) => handleAddCourse()
+                        },
+                        
+                    ]}
+                
+                    
+                    // editable={{
+            
+                    //     onRowAddCancelled: rowData => console.log(rowData),
+                    //     onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
+                    //     onRowAdd: newData =>
+                    //     new Promise((resolve, reject) => {
+
+                    //         setTimeout(() => {
+                    //             const {image, name, description, venue, start_date, end_date} = newData
+                            
+                    //             let addEventValues = new FormData();
+
+                    //             addEventValues.append('name', name);
+                    //             addEventValues.append('description', description);
+                    //             addEventValues.append('venue', venue);
+                    //             addEventValues.append('image', image);
+                    //             addEventValues.append('startdate', start_date);
+                    //             addEventValues.append('enddate', end_date);
+
+                    //             dispatch(addEventAction(addEventValues));
+                               
+                    //             resolve();
+
+                    //         }, 2000);
+
+                    //     }),
+                    //     onRowUpdate: (newData, oldData) =>
+                    //     new Promise((resolve, reject) => {
+                    //         setTimeout(() => {
+                    //         const dataUpdate = [...eventListContent];
+                            
+                    //         const index = oldData.tableData.id;
+                    //         const forNewData = dataUpdate[index] = newData;
+                            
+                    //         const {id, image, name, description, venue, start_date, end_date} = forNewData;
+
+                    //         console.log(forNewData );
+
+                    //         let upDateEvent = new FormData();
+
+                    //         upDateEvent.append('eventid', id);
+                    //         upDateEvent.append('name', name);
+                    //         upDateEvent.append('image', image);
+                    //         upDateEvent.append('description', description);
+                    //         upDateEvent.append('venue', venue);
+                    //         upDateEvent.append('startdate', start_date);
+                    //         upDateEvent.append('enddate', end_date);
+
+                    //         dispatch(upDateEventAction(upDateEvent));
+                            
+                    //         resolve();
+                    //         dispatch(eventListAction());
+                    //         }, 1000)
+                    //     }),
+                       
+                        
+                    //     onRowDelete: oldData =>
+                    //     new Promise((resolve, reject) => {
+                    //         setTimeout(() => {
+    
+                    //             const dataDelete = [...eventListContent];
+                    //             const deleteIndex = oldData.tableData.id;
+                                
+                    //             const forNewData = dataDelete[deleteIndex]
+                    //             const {id} = forNewData;
+              
+                    //             let deleteID = new FormData();
+                    //             deleteID.append('eventid', id);
+                    //             dispatch(deleteEventAction(deleteID))
+
+                    //             resolve();
+                    //             dispatch(eventListAction());
+                    //         }, 1000);
+                    //     })
+                    // }}
+                    
+                    // actions={[
+                    //     {
+                    //       icon: RefreshIcon,
+                    //       tooltip: 'Refresh Data',
+                    //       isFreeAction: true,
+                    //       onClick: () => window.location.reload(false)
+                    //     }
+                    //   ]}
                     />
                 </CCard>
                 {/* <AddEventModal modal={modal} 
