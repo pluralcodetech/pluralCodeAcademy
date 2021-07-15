@@ -134,9 +134,6 @@ const UpdateCompletedCourses = () => {
 
         imageInputRef.current.value = "";
         setPicture(null);
-
-
-        
         
     }
 

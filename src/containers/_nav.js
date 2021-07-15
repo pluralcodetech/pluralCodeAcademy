@@ -31,8 +31,13 @@ const _nav =  [
     _children: [ 
       {
         _tag: 'CSidebarNavItem',
-        name: 'List',
+        name: 'Completed Course List',
         to: '/completed_Course',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Active Course List',
+        to: '/active_Course',
       },
       {
         _tag: 'CSidebarNavItem',
