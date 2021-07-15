@@ -15,64 +15,52 @@ const CourseDetails = () => {
     var courseDetailsFormData = new FormData();
     courseDetailsFormData.append('courseid', id);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(courseDetailsAction(courseDetailsFormData))
     }, []);
 
     const courseDetailsContent = useSelector(state => state.courseDetailsData.courseDetails)
+    console.log(courseDetailsContent);
+
+    const {course, student} = courseDetailsContent;
+
+    const test = course?.map((item) => console.log(item));
+
+    console.log(test)
    
     return (
         <CRow>
             <CCol lg={8}>
-            {
-                courseDetailsContent?.map((item) => item.course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => (
-                    <CourseDetailsCard 
-                        image={image} name={name} 
-                        description = {description} 
-                        price={price} start_date={start_date} 
-                        end_date={end_date} discountprice={discountprice} 
-                        discountstartdate = {discountstartdate}
-                        discountenddate={discountenddate}
-                        community = {community}
-                    />
-                )))
-            }
+                {
+                    course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => (
+                        <CourseDetailsCard 
+                            image={image} 
+                            name={name} 
+                            description = {description} 
+                            price={price} start_date={start_date} 
+                            end_date={end_date} discountprice={discountprice} 
+                            discountstartdate = {discountstartdate}
+                            discountenddate={discountenddate}
+                            community = {community}
+                        />
+                    ))
+                }
             </CCol>
             <CCol lg={4}>
                     <CCard>
                         <CCardHeader>Registered Students</CCardHeader>
                         <CCardBody>
                             {
-                                courseDetailsContent?.map((items) => items.student?.map(({name, lastname, email, phone_number}) => (
+                                student?.map(({name, lastname, email, phone_number}) => (
                                     <UserCard name={name} lastname={lastname} email={email} phone_number={phone_number}/>
-                                )))
+                                ))
                             }
                         </CCardBody>
                     </CCard>
                 </CCol>
         </CRow>
-        
-        // <div>
-        //     {/* console.log(item.image) */}
-        //     {
-        //         courseDetailsContent?.map((item) => item.course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate}) => (
-        //             <CourseDetailsCard 
-        //                 image={image} name={name} 
-        //                 description = {description} 
-        //                 price={price} start_date={start_date} 
-        //                 end_date={end_date} discountprice={discountprice} 
-        //                 discountstartdate = {discountstartdate}
-        //                 discountenddate={discountenddate}
-        //             />
-        //         )))
-        //     }
-
-            
-
-            
-        // </div>
     )
 }
 
