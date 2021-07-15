@@ -13,7 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 
 
-const UpdateActiveCourses = () => {
+const UpdatePendingCourses = () => {
 
     const dispatch = useDispatch();
     let history = useHistory();
@@ -22,15 +22,14 @@ const UpdateActiveCourses = () => {
     // console.log(getCourseData.id);
 
     const compleCourseList = useSelector(state => state.courseListData.courseList);
-    const {active} = compleCourseList;
+    const {pending} = compleCourseList;
    
-    const  activeData = useMemo(() => active, [active]);
+    const  pendingData = useMemo(() => pending, [pending]);
     // console.log(completedCourseList)
 
+
     const customPostMain  = useSelector(state => state.customPostData);
-
     const {customPost, loading} = customPostMain;
-
     const customPostMessageData = useMemo(() => customPost, [customPost]);
 
 
@@ -40,15 +39,16 @@ const UpdateActiveCourses = () => {
     console.log(customPostMessageData[0]?.status)
 
 
-    const activeResult =  activeData.find(item => item.id === getCourseData.id); // To find object Id properties
+    const pendingResult =  pendingData.find(item => item.id === getCourseData.id); // To find object Id properties
     
-    const {id, image, name, price, description, discountprice, start_date, end_date} = activeResult;
+    const {id, image, name, price, description, discountprice, start_date, end_date} = pendingResult
+
     const [createCourse, setCreateCourse] = useState({
-            courseName : name, 
-            coursePrice : price, 
-            startDate : start_date, 
-            endDate : end_date, 
-            discountPrice : discountprice
+        courseName : name, 
+        coursePrice : price, 
+        startDate : start_date, 
+        endDate : end_date, 
+        discountPrice : discountprice
     });
 
     const [getDescription, setGetDescription] = useState();
@@ -60,7 +60,7 @@ const UpdateActiveCourses = () => {
     const imageInputRef = React.useRef();
     // const describeInputRef = React.useRef();
 
-     // Destructuring from Update Course State
+    // Destructuring from Update Course State
     const { courseName, coursePrice, startDate, endDate, discountPrice } = createCourse;
 
     const modules = {
@@ -140,13 +140,13 @@ const UpdateActiveCourses = () => {
 
     const handleCancel = (e) => {
         e.preventDefault();
-        history.push('/active_Course');   
+        history.push('/pending_Course');   
     };
 
     let redirect = null;
 
     if (customPostMessageData[0]?.status === 'success') {
-        redirect = <Redirect to = "/completed_Course"/>;
+        redirect = <Redirect to = "/pending_Course"/>;
     };
  
     return (
@@ -256,4 +256,4 @@ const UpdateActiveCourses = () => {
     )
 }
 
-export default UpdateActiveCourses
+export default UpdatePendingCourses

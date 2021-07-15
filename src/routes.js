@@ -37,6 +37,11 @@ const UpdateActiveCourse = Loadable({
   loading: Loading,
 });
 
+const UpdatePendingCourses = Loadable({
+  loader: () => import('./views/Courses/update_pending_course'),
+  loading: Loading,
+});
+
 
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
@@ -66,6 +71,7 @@ const routes = [
   {path: '/create_course', name: "Create Courses", component: CreateCourses},
   {path: '/update_completed_course/:id', name: 'Update Completed Course', component: UpdateCompletedCourse},
   { path: '/update_active_course/:id', name: 'Update Active Course', component: UpdateActiveCourse},
+  { path: '/update_pending_course/:id', name: 'Update Pending Course', component: UpdatePendingCourses},
   { path: '/discount_list/:id', name: "Discount List", component: DiscountList},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},

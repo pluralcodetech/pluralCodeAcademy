@@ -62,7 +62,7 @@ const PendingCourse = () => {
 
     const handleEditCourse = (courseData) => {
         const {id} = courseData;
-        history.push(`/update_active_course/${id}`)
+        history.push(`/update_pending_course/${id}`)
     }
 
     const handleDeleteCourse = (courseData) => {
