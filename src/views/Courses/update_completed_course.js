@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ErrorBoundary from '../ErrorBoundary';
 import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
+import { Loading } from 'src/routes';
 
 
 const UpdateCompletedCourses = () => {
@@ -149,108 +150,107 @@ const UpdateCompletedCourses = () => {
     };
  
     return (
-        <form className="row" onSubmit={handleSubmit} >
-                {redirect}
-                {/* {
-                    loading ? (<CSpinner
-                        color="primary"
-                        style={{width:'4rem', height:'4rem'}}
-                        />) : {redirect}
-                } */}
-                {/* {
-                    ! ? <Spinner/> : null
-                } */}
-                
-                <div className="col-lg-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+        <div>
+            {loading ? <Loading/> 
+            :
+            (
+                <>
+                    {redirect}
+                    <form className="row" onSubmit={handleSubmit} >
+                        <div className="col-lg-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
 
-                            <div className="mb-3">
-                                <label className="form-label">Course Name <span className="text-danger">*</span></label>
-                                <input type="text" name='courseName' value={courseName} className="form-control"  
-                                    placeholder="e.g : Web Development"
-                                    onChange={(e) => handleOnChange(e)}
-                                />
-                            </div>
-                        
-
-                            <div className="mb-3">
-                                <label>Price <span className="text-danger">*</span></label>
-                                <input type="number" value={coursePrice} name="coursePrice" className="form-control" 
-                                    placeholder="Enter amount"
-                                    onChange={(e) => handleOnChange(e)}
-                                />
-                            </div>
-
-                            <div className="mb-3">
-                                <label>Start Date <span className="text-danger">*</span></label>
-                                <input type="datetime-local" value={startDate} name="startDate" className="form-control" 
-                                    placeholder="Enter amount"
-                                    onChange={(e) => handleOnChange(e)} 
-                                />
-                            </div>
-
-                            <div className="mb-3">
-                                <label>End Date <span className="text-danger">*</span></label>
-                                <input type="datetime-local" value={endDate} name="endDate" className="form-control"  
-                                    placeholder="Enter amount"
-                                    onChange={(e) => handleOnChange(e)}
-                                />
-                            </div>
-                        
-                            <div className="mb-3">
-                                <label className="form-label">Course Description <span className="text-danger">*</span></label>
-                        
-                                <ReactQuill
-                                    placeholder='Start typing from here...'
-                                    modules={modules}
-                                    formats={formats}
-                                    theme='snow'
-                                    defaultValue={state.comments}
-                                    onChange={rteChange}
-                                    preserveWhitespace
-                                />
-                            </div>
-
-                        </div>
-                    </div> 
-                </div> 
-                <div className="col-lg-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="mt-0 mb-3 bg-light p-2">Discount</h5>
-                            <div className="mb-3">
-                                <label>Discount Price</label>
-                                <input type="text" value={discountPrice } name='discountPrice'  className="form-control" 
-                                    placeholder="Enter amount"
-                                    onChange={(e) => handleOnChange(e)} 
-                                />
+                                    <div className="mb-3">
+                                        <label className="form-label">Course Name <span className="text-danger">*</span></label>
+                                        <input type="text" name='courseName' value={courseName} className="form-control"  
+                                            placeholder="e.g : Web Development"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
                                 
-                            </div>
-                    
-                            <div className="mb-3">
-                                <label className="form-label">Course Images <span className="text-danger">*</span></label>
-                                {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" 
-                                    ref={imageInputRef} 
-                                    onChange={event => setPicture(event.target.files[0])}  
-                                    className="form-control" 
-                                    placeholder="Choose File" 
-                                />
+
+                                    <div className="mb-3">
+                                        <label>Price <span className="text-danger">*</span></label>
+                                        <input type="number" value={coursePrice} name="coursePrice" className="form-control" 
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label>Start Date <span className="text-danger">*</span></label>
+                                        <input type="datetime-local" value={startDate} name="startDate" className="form-control" 
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)} 
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label>End Date <span className="text-danger">*</span></label>
+                                        <input type="datetime-local" value={endDate} name="endDate" className="form-control"  
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+                                
+                                    <div className="mb-3">
+                                        <label className="form-label">Course Description <span className="text-danger">*</span></label>
+                                
+                                        <ReactQuill
+                                            placeholder='Start typing from here...'
+                                            modules={modules}
+                                            formats={formats}
+                                            theme='snow'
+                                            defaultValue={state.comments}
+                                            onChange={rteChange}
+                                            preserveWhitespace
+                                        />
+                                    </div>
+
+                                </div>
+                            </div> 
+                        </div> 
+                        <div className="col-lg-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="mt-0 mb-3 bg-light p-2">Discount</h5>
+                                    <div className="mb-3">
+                                        <label>Discount Price</label>
+                                        <input type="text" value={discountPrice } name='discountPrice'  className="form-control" 
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)} 
+                                        />
+                                        
+                                    </div>
+                            
+                                    <div className="mb-3">
+                                        <label className="form-label">Course Images <span className="text-danger">*</span></label>
+                                        {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
+                                        <input type="file" accept="image/png, image/jpeg, image/jpg" 
+                                            ref={imageInputRef} 
+                                            onChange={event => setPicture(event.target.files[0])}  
+                                            className="form-control" 
+                                            placeholder="Choose File" 
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="row m-auto">
-                    <div className="col-12">
-                        <div className=" mt-4 mb-2">
-                            <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
-                            <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                        <div className="row m-auto">
+                            <div className="col-12">
+                                <div className=" mt-4 mb-2">
+                                    <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
+                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                                </div>
+                            </div> 
                         </div>
-                    </div> 
-                </div>
-            </form>
+                    </form>
+                </>
+            )
+            }
+        </div>
         
     )
 }
