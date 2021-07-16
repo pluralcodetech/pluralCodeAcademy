@@ -8,21 +8,7 @@ import CourseDetailsCard from './CourseDetailsCard'
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CSpinner } from '@coreui/react'
 import UserCard from '../userCard/userCard';
 import { Loading } from 'src/routes';
-// import Loading from '../../routes'
 
-// const Loading = () => {
-//     return <div className="text-center mt-3" style={{marginTop: "50rem", height:'100px'}}>
-//         <CSpinner
-//         color="primary"
-//         style={{width:'4rem', height:'4rem'}}
-//       />
-//     </div>
-//   }
-
-// const CourseDetailsCard  = Loadable({
-//     loader: () => import('./CourseDetailsCard'),
-//     loading: Loading,
-// });
 
 
 const CourseDetails = () => {
@@ -87,6 +73,7 @@ const CourseDetails = () => {
                     </CCard>
                 </CCol>
         </CRow>
+    
     )
 }
 
