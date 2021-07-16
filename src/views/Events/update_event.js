@@ -182,8 +182,8 @@ const UpdateEvent = () => {
     let redirect = null;
 
     if (customStatus[0]?.status === 'success') {
-        // redirect = <Redirect to = "/event_dashBoard"/>;
-        redirect = history.push('/event_dashBoard'); 
+        redirect = <Redirect to = "/event_dashBoard"/>;
+        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
     };
