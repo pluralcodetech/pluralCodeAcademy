@@ -42,9 +42,13 @@ const UserManagement = () => {
         window.location.reload(false);
     }
 
-    useEffect(() => {
+    setTimeout(() => {
+        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
+    }, 3000);
+
+    // useEffect(() => {
         
-    }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
+    // }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
 
     const customReadContent = useSelector(state => state.customReadData.customRead);
     console.log(customReadContent);
@@ -109,9 +113,14 @@ const UserManagement = () => {
         {title: 'events', field: 'events'},
         {title: 'Activity', field: 'activate', render : item => (
             <>
+                {
+                    item.active === 'YES' ?
+                    <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleSuspend(item.id)}>{item.suspend}</CButton>
+                    :  
+                    <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleActive(item.id)}>{item.activate}</CButton> 
+                }
                 
-                <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleActive(item.id)}>{item.activate}</CButton> 
-                <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleSuspend(item.id)}>{item.suspend}</CButton>
+                
             </>
         )}
     ]
