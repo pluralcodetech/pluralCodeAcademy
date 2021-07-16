@@ -47,6 +47,11 @@ const UpdatePendingCourses = Loadable({
   loading: Loading,
 });
 
+const UpdateEvent = Loadable({
+  loader: () => import('./views/Events/update_event'),
+  loading: Loading,
+})
+
 const CreateEvent = Loadable({
   loader: () => import('./views/Events/createEvent'),
   loading: Loading,
@@ -83,6 +88,7 @@ const routes = [
   {path: '/update_completed_course/:id', name: 'Update Completed Course', component: UpdateCompletedCourse},
   { path: '/update_active_course/:id', name: 'Update Active Course', component: UpdateActiveCourse},
   { path: '/update_pending_course/:id', name: 'Update Pending Course', component: UpdatePendingCourses},
+  {path: '/update_event/:id', name: 'Update Event', component: UpdateEvent},
   { path: '/discount_list/:id', name: "Discount List", component: DiscountList},
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},

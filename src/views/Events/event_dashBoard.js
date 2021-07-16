@@ -55,6 +55,10 @@ const EventDashBoard = () => {
     const handleAddCourse =() => {
         history.push(`/create_event`);   
     };
+    const handleEditEvent = (courseData) => {
+        const {id} = courseData;
+        history.push(`/update_event/${id}`)
+    }
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -146,6 +150,11 @@ const EventDashBoard = () => {
                             isFreeAction: true,
                             onClick: (event) => handleAddCourse()
                         },
+                        {
+                            icon: Edit,
+                            tooltip: 'Edit Course',
+                            onClick: (event, rowData) =>  handleEditEvent(rowData)
+                        },
                         
                     ]}
                 
@@ -188,15 +197,15 @@ const EventDashBoard = () => {
 
                     //         console.log(forNewData );
 
-                    //         let upDateEvent = new FormData();
+                            // let upDateEvent = new FormData();
 
-                    //         upDateEvent.append('eventid', id);
-                    //         upDateEvent.append('name', name);
-                    //         upDateEvent.append('image', image);
-                    //         upDateEvent.append('description', description);
-                    //         upDateEvent.append('venue', venue);
-                    //         upDateEvent.append('startdate', start_date);
-                    //         upDateEvent.append('enddate', end_date);
+                            // upDateEvent.append('eventid', id);
+                            // upDateEvent.append('name', name);
+                            // upDateEvent.append('image', image);
+                            // upDateEvent.append('description', description);
+                            // upDateEvent.append('venue', venue);
+                            // upDateEvent.append('startdate', start_date);
+                            // upDateEvent.append('enddate', end_date);
 
                     //         dispatch(upDateEventAction(upDateEvent));
                             

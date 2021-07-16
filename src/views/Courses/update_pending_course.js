@@ -249,8 +249,6 @@ const UpdatePendingCourses = () => {
                                 </div> 
                             </div>
                         </form>
-        
-                    
                     </>
                 )
             }
