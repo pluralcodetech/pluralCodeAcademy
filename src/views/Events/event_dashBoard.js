@@ -88,6 +88,12 @@ const EventDashBoard = () => {
         dispatch(customPostAction(deleteURL, deleteID));
     };
 
+    const handleOPenDetails =(item) => {
+        history.push(`/event_details/${item}`);   
+    };
+
+    
+
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -123,7 +129,6 @@ const EventDashBoard = () => {
             )
         },
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
         {title: 'Venue', field: 'venue'},
         {title: 'Category', field: 'categorytype'},
         {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
@@ -144,6 +149,7 @@ const EventDashBoard = () => {
                 />
             )
         },
+        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
         <div>
