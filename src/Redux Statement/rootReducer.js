@@ -7,6 +7,7 @@ import customCreateReducer from "./reducers/CRUD/customCreateReducer";
 import customDeleteReducer from "./reducers/CRUD/customDeleteReducer";
 import customPostReducer from "./reducers/CRUD/customPostReducer";
 import customReadReducer from "./reducers/CRUD/customReadReducer";
+import { customStatusReducer } from "./reducers/CRUD/customStatusReducer";
 import customUpdateReducer from "./reducers/CRUD/customUpdateReducer";
 import customStatusUpdateReducer from "./reducers/customStatusUpdateReducer";
 import deleteEventReducer from "./reducers/deleteEventReducer";
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     customUpdateData : customUpdateReducer,
     customDeleteData : customDeleteReducer,
     customPostData : customPostReducer,
-    customReadData : customReadReducer
+    customReadData : customReadReducer,
+    customStatusData : customStatusReducer
 });
 
 export default rootReducer;

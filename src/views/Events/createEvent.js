@@ -163,7 +163,9 @@ const CreateEvent = () => {
     let redirect = null;
 
     if (customPostMessageData[0]?.status === 'success') {
+        // redirect = <Redirect to = "/event_dashBoard"/>;
         redirect = <Redirect to = "/event_dashBoard"/>;
+         
     };
  
     return (
@@ -173,7 +175,7 @@ const CreateEvent = () => {
             :
             (
                 <>
-                    {redirect}
+                    {/* {redirect} */}
                     <form className="row" onSubmit={handleSubmit} >
                     
                         <div className="col-lg-12">

@@ -1,0 +1,3 @@
+export const CUSTOM_STATUS = {
+    CUSTOM_STATUS_READ : 'CUSTOM_STATUS_READ'
+};
