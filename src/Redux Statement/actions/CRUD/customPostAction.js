@@ -1,3 +1,5 @@
+import { customStatusAction } from "./customStatusAction";
+
 const { default: axios } = require("axios");
 const { default: CUSTOM_POST } = require("src/Redux Statement/constants/CRUD/customPost")
 
@@ -15,6 +17,7 @@ const customPostAction = (postURL, postDATA) => async dispatch => {
         });
 
         const {data} = response
+        dispatch(customStatusAction(data))
         console.log(typeof data)
 
         dispatch({

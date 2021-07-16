@@ -13,6 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
+import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 const UpdateEvent = () => {
 
@@ -31,6 +32,11 @@ const UpdateEvent = () => {
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
     const customPostMessageData = useMemo(() => customPost, [customPost]);
+
+    const customStatusMain = useSelector(state => state.customStatusData)
+    const {customStatus} = customStatusMain
+    // const {status} = customStatus
+    console.log(customStatus[0]?.status)
 
     const eventResult =  eventListData.find(item => item.id === getEventData.id); // To find object Id properties
     
@@ -55,6 +61,11 @@ const UpdateEvent = () => {
 
      // Destructuring from Update Course State
     const { eventName, eventVenue, startDate, endDate } = createEvent;
+
+
+    // const [redrt, setRedrt] = useState(customPostMessageData);
+    // const custom = useMemo(() => redrt, [redrt])
+    // console.log(customPostMessageData, custom);
 
     const modules = {
         toolbar: [
@@ -144,6 +155,8 @@ const UpdateEvent = () => {
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updateevent.php'
         dispatch(customPostAction(updateURL, upDateEvent));
 
+        
+
 
         setCreateEvent({
             eventName: '',
@@ -168,13 +181,21 @@ const UpdateEvent = () => {
 
     let redirect = null;
 
-    if (customPostMessageData[0]?.status === 'success') {
-        redirect = <Redirect to = "/event_dashBoard"/>;
+    if (customStatus[0]?.status === 'success') {
+        // redirect = <Redirect to = "/event_dashBoard"/>;
+        redirect = history.push('/event_dashBoard'); 
+        setTimeout (() => dispatch(customStatusAction('')) , 1000);
+  
     };
- 
+
+
+    
+
+    // 
+   
     return (
         <div>
-           
+            {/* {redirect} */}
             {loading ? <Loading/> 
             :
             (
