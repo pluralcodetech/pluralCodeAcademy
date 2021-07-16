@@ -119,8 +119,6 @@ const UserManagement = () => {
                     :  
                     <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleActive(item.id)}>{item.activate}</CButton> 
                 }
-                
-                
             </>
         )}
     ]
