@@ -87,6 +87,24 @@ const _nav =  [
       }
     ],
   },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Web Series',
+    route: '/base',
+    icon: "cil-graph",
+    _children: [ 
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Web Series List',
+        to: '/create_course',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Create Web Series',
+        to: '/create_course',
+      }
+    ],
+  },
   
   
   {
