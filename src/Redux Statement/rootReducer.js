@@ -16,6 +16,7 @@ import eventListReducer from "./reducers/eventListReducer";
 import sidebarShowReducer from "./reducers/sidebarShowReducer";
 import upDateEventReducer from "./reducers/upDateEventReducer";
 import userManagementReducer from "./reducers/UserManagementReducer";
+import webSeriesListReducer from "./reducers/webSeriesListReducer";
 
 
 const rootReducer = combineReducers({
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
     customStatusData : customStatusReducer,
 
     userManagementData : userManagementReducer,
+    webSeriesListData : webSeriesListReducer,
 });
 
 export default rootReducer;
