@@ -101,7 +101,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Create Web Series',
-        to: '/create_course',
+        to: '/create_webSeries',
       }
     ],
   },

@@ -118,17 +118,11 @@ const UpdateWebSeries = () => {
         upDateEvent.append('image', picture);
         upDateEvent.append('link', seriesLink);
         upDateEvent.append('description', getDescription);
-        
-        
-
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updateseries.php'
         dispatch(customPostAction(updateURL, upDateEvent));
 
-        
-
-
-        upDateWebSeriesList({
+        setUpDateWebSeriesList({
             seriesName: '',
             seriesLink : '', 
         });

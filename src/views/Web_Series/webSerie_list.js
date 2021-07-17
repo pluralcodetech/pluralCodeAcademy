@@ -36,13 +36,17 @@ const WebSeriesList = () => {
     const dispatch = useDispatch();
     let history = useHistory();
 
-    setTimeout(() => {
+    useEffect(() => {
         dispatch(webSeriesListAction());
-    }, 3000);
+    }, []);
+    // setTimeout(() => {
+    //     dispatch(webSeriesListAction());
+    // }, 3000);
     
 
     const webSeriesListContent = useSelector(state => state.webSeriesListData);
     const {webSeriesList} = webSeriesListContent;
+    console.log(webSeriesList)
 
 
 
@@ -56,7 +60,7 @@ const WebSeriesList = () => {
     // const loading = useSelector(state => state.eventListData.loading);
 
     const handleAddCourse =() => {
-        history.push(`/create_event`);   
+        history.push(`/create_webSeries`);   
     };
     const handleWebseriesEdit = (courseData) => {
         const {id} = courseData;
