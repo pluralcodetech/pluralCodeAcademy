@@ -13,11 +13,18 @@ import {
   CCallout
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import Loadable from 'react-loadable';
 
 import MainChartExample from '../charts/MainChartExample.js'
+import { Loading } from 'src/routes.js';
+
+const WidgetsBrand = Loadable({
+  loader: () => import('../widgets/WidgetsBrand.js'),
+  loading: Loading,
+});
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
-const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
+// const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
   return (

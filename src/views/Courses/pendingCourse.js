@@ -49,9 +49,9 @@ const PendingCourse = () => {
         setGetID(id)
     }
 
-    useEffect(() => {
+    setTimeout(() => {
         dispatch(courseListAction());
-    }, [ ]); //dispatch(courseListAction())
+    }, 3000);
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   

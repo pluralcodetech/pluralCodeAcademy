@@ -15,6 +15,7 @@ import discountListReducer from "./reducers/discountListReducer";
 import eventListReducer from "./reducers/eventListReducer";
 import sidebarShowReducer from "./reducers/sidebarShowReducer";
 import upDateEventReducer from "./reducers/upDateEventReducer";
+import userManagementReducer from "./reducers/UserManagementReducer";
 
 
 const rootReducer = combineReducers({
@@ -34,7 +35,9 @@ const rootReducer = combineReducers({
     customDeleteData : customDeleteReducer,
     customPostData : customPostReducer,
     customReadData : customReadReducer,
-    customStatusData : customStatusReducer
+    customStatusData : customStatusReducer,
+
+    userManagementData : userManagementReducer,
 });
 
 export default rootReducer;

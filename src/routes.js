@@ -72,20 +72,20 @@ const DiscountList = Loadable({
   loading: Loading,
 });
 
-// const EventDashBoard = Loadable({
-//   loader: () => import('./views/Events/event_dashBoard'),
-//   loading: Loading,
-// });
+const EventDashBoard = Loadable({
+  loader: () => import('./views/Events/event_dashBoard'),
+  loading: Loading,
+});
 
-// const UserManagement = Loadable({
-//   loader: () => import('./views/UserManagement/UserManagement'),
-//   loading: Loading,
-// });
+const UserManagement = Loadable({
+  loader: () => import('./views/UserManagement/UserManagement'),
+  loading: Loading,
+});
 
-// const Dashboard = Loadable({
-//   loader: () => import('./views/dashboard/Dashboard'),
-//   loading: Loading,
-// });
+const Dashboard = Loadable({
+  loader: () => import('./views/dashboard/Dashboard'),
+  loading: Loading,
+});
 
 
 
@@ -98,13 +98,13 @@ const DiscountList = Loadable({
 // const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
 
 
-const EventDashBoard = React.lazy(() => import('./views/Events/event_dashBoard'));
+// const EventDashBoard = React.lazy(() => import('./views/Events/event_dashBoard'));
 
-const UserManagement = React.lazy(() => import('./views/UserManagement/UserManagement'))
+// const UserManagement = React.lazy(() => import('./views/UserManagement/UserManagement'))
 
 
 
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
+// const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 
 
 const routes = [

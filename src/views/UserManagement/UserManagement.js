@@ -27,38 +27,39 @@ import { useHistory } from 'react-router-dom';
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
 import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
 import {Redirect} from "react-router-dom"
+import userManagementAction from 'src/Redux Statement/actions/UserManagementAction';
+import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
+import { Loading } from 'src/routes';
 
 const UserManagement = () => {
     const tableRef = React.createRef();
 
     const dispatch = useDispatch();
 
-    let history = useHistory()
+    const userManagementcontent = useSelector(state => state.userManagementData);
+    const {userManagement} = userManagementcontent;
 
-    const loading = useSelector(state => state.customReadData.loading);
-    console.log(loading)
+    const customPostMain  = useSelector(state => state.customPostData);
+    const {customPost, loading} = customPostMain;
+    // console.log(loading)
 
     function refreshPage() {
         window.location.reload(false);
     }
 
-    setTimeout(() => {
-        dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"));
-    }, 3000);
-
-    // useEffect(() => {
-        
-    // }, [dispatch(customReadAction("https://pluralcode.academy/academyAPI/api/appusers.php"))]);
-
-    const customReadContent = useSelector(state => state.customReadData.customRead);
-    console.log(customReadContent);
+    // userManagement
+    useEffect(() => {
+        dispatch(userManagementAction());
+    }, []);
 
      // Handle active State to Active
      const handleActive = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/activateuser.php'
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate));
+        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        dispatch(customPostAction(url, setIdFormDate));
+        setTimeout (() => dispatch(userManagementAction()) , 300);
 
     }
 
@@ -67,8 +68,9 @@ const UserManagement = () => {
         const url = 'https://pluralcode.academy/academyAPI/api/suspend.php'
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate));
-
+        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        dispatch(customPostAction(url, setIdFormDate));
+        setTimeout (() => dispatch(userManagementAction()) , 300);
     }
 
     const tableIcons = {
@@ -123,37 +125,45 @@ const UserManagement = () => {
         )}
     ]
     return (
-        <CRow>
-            <CCol xl={12}>
+        <div>
+            { loading ? <Loading/> 
+                :
+                (
+                    <CRow>
+                        <CCol xl={12}>
 
-                <CCard>
-                    <MaterialTable
-                    icons={tableIcons}
-                    columns={columns}
-                    data = {customReadContent}
-                    tableRef={tableRef}
-                    localization= {{
-                        body: {
-                            emptyDataSourceMessage: <CSpinner
-                            color="primary"
-                            style={{width:'4rem', height:'4rem'}}
-                        />,
+                            <CCard>
+                                <MaterialTable
+                                icons={tableIcons}
+                                columns={columns}
+                                data = {userManagement}
+                                tableRef={tableRef}
+                                localization= {{
+                                    body: {
+                                        emptyDataSourceMessage: <CSpinner
+                                        color="primary"
+                                        style={{width:'4rem', height:'4rem'}}
+                                    />,
+                                        
+                                    }
+                                }}
                             
-                        }
-                    }}
-                   
-                    title="User Management"
-                    options={{
-                        exportButton: true,
-                        
-                    }}
-                    
-                    
-                    />
-                </CCard>
-            </CCol>
-        </CRow>
+                                title="User Management"
+                                options={{
+                                    exportButton: true,
+                                    
+                                }}
+                                
+                                
+                                />
+                            </CCard>
+                        </CCol>
+                    </CRow>
     
+                )
+            }
+        </div>
+        
     )
 }
 
