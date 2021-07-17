@@ -4,7 +4,7 @@ import React from 'react'
 
 const UserCard = ({name, lastname, email, phone_number}) => {
     return (
-        <CRow>
+        <CRow className="mb-3">
             <CCol lg={2}>
                 <Avatar />
             </CCol>
@@ -20,25 +20,6 @@ const UserCard = ({name, lastname, email, phone_number}) => {
                 <small>{phone_number}</small>
             </CCol>
         </CRow>
-                
-        // <div className="d-flex d-flex justify-content-between align-items-center">
-
-        //     <div>
-        //         <Avatar />
-        //     </div>
-        //     <div>
-                // <div>
-                //     <small>{name} <span>{lastname}</span></small>
-                // </div>
-                // <div>
-                //     <small>{email}</small>
-                // </div>
-        //     </div>
-        //     <div >
-        //         
-        //     </div>
-        // </div>
-  
     )
 };
 

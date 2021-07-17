@@ -128,14 +128,14 @@ const PendingCourse = () => {
             </>
         )},
         
-        {title: 'Name', field: 'name'},
-        {title: 'Discount Price', field: 'discountprice'},
-        {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6> },
-        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>},
-        {title: 'Status', field: 'status', render: item => <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleUpdatePending(item.id)}>Activate Course</CButton>},
-        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
-        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
+        {title: 'Name', field: 'name', render : item => <small>{item.name}</small>},
+        {title: 'Discount Price', field: 'discountprice', render : item => <small>{item.discountprice}</small>},
+        {title: 'Price', field: 'price', render : item => <small>{item.price}</small>},
+        {title: 'Start Date', field: 'start_date', render : item => <small>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</small> },
+        {title: 'End Date', field: 'end_date', render : item => <small>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</small>},
+        {title: 'Status', field: 'status', render: item => <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleUpdatePending(item.id)}>Activate Course</CButton>},
+        {title: 'Create Comunity', field: 'createComunity', render: item => <CButton color="dark" size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
+        {title: 'View More', render: item => <CButton color="info" size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
         <div>

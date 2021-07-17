@@ -21,6 +21,7 @@ import discountListAction from 'src/Redux Statement/actions/discountListAction';
 import {
     Link, useHistory
 } from "react-router-dom";
+import moment from 'moment';
 
 const DiscountList = () => {
     const discountListContent = useSelector(state => state.discountListData.discountList);
@@ -61,18 +62,11 @@ const DiscountList = () => {
     // Columns
     const columns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
-        {title: 'Name', field: 'name'},
-        {title: 'Price', field: 'price'},
-        {title: 'Start Date', field: 'start_date'},
-        {title: 'End Date', field: 'end_date',
-            editComponent: editProps => (
-                <Input
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-        },
-        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
+        {title: 'Name', field: 'name', render : item => <small>{item.name}</small>},
+        {title: 'Price', field: 'price', render: item => <small>{item.price}</small>},
+        {title: 'Start Date', field: 'start_date', render : item => <small>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</small> },
+        {title: 'End Date', field: 'end_date', render : item => <small>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</small>},
+        {title: 'View More', render: item => <CButton color='info' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
         <CRow>
