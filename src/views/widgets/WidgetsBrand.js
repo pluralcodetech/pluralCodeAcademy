@@ -70,21 +70,21 @@ import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction'
               color="gradient-primary"
               rightHeader={item.total}
               rightFooter="Users"
-              leftHeader={item.total}
-              leftFooter="Users"
+              // leftHeader={item.total}
+              // leftFooter="Users"
             >
             <CIcon
               name="cid-air"
               height="52"
               className="my-4"
             />
-            <ChartLineSimple
+            {/* <ChartLineSimple
               className="position-absolute w-100 h-100"
               backgroundColor="rgba(255,255,255,.1)"
               dataPoints={[78, 81, 80, 45, 34, 12, 40]}
               label="Contracts"
               labels="months"
-            />
+            /> */}
             </CWidgetBrand>
     
           </>
