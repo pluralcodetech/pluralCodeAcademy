@@ -90,7 +90,17 @@ const Dashboard = Loadable({
 const WebSeriesList = Loadable({
   loader: () => import('./views/Web_Series/webSerie_list'),
   loading: Loading,
-})
+});
+
+const CreateWebSeries = Loadable({
+  loader: () => import('./views/Web_Series/create_webSeries'),
+  loading: Loading,
+});
+
+const UpdateWebSeries = Loadable({
+  loader: () => import('./views/Web_Series/update_webSeries'),
+  loading: Loading,
+});
 
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
@@ -128,7 +138,9 @@ const routes = [
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  {path: '/webSeriesList', name: 'Web Series List', component: WebSeriesList}
+  {path: '/webSeriesList', name: 'Web Series List', component: WebSeriesList},
+  {path: '/create_webSeries', name: 'Create Web Series', component: CreateWebSeries},
+  {path: '/update_webSeries/:id', name: 'Update Web Series', component: UpdateWebSeries},
   
 ];
 

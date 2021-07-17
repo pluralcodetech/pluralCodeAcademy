@@ -58,9 +58,9 @@ const WebSeriesList = () => {
     const handleAddCourse =() => {
         history.push(`/create_event`);   
     };
-    const handleEditEvent = (courseData) => {
+    const handleWebseriesEdit = (courseData) => {
         const {id} = courseData;
-        history.push(`/update_event/${id}`)
+        history.push(`/update_webSeries/${id}`)
     };
 
     const handleWebseriesDelete = (eventData) => {
@@ -156,7 +156,7 @@ const WebSeriesList = () => {
                                     {
                                         icon: Edit,
                                         tooltip: 'Edit Course',
-                                        onClick: (event, rowData) =>  handleEditEvent(rowData)
+                                        onClick: (event, rowData) =>  handleWebseriesEdit(rowData)
                                     },
                                     rowData => ({
                                         icon: DeleteOutline,
