@@ -50,8 +50,11 @@ const CreateCourses = () => {
     }
 
     const [picture, setPicture] = useState(null);
+    const [file, setFile] = useState(null);
+
 
     const imageInputRef = React.useRef();
+    const fileInputRef = React.useRef();
 
     const describeInputRef = React.useRef();
     
@@ -65,6 +68,7 @@ const CreateCourses = () => {
     createForm.append('price', price);
     // createForm.append('image', picture.pictureAsFile);
     createForm.append('image', picture);
+    createForm.append('file', file);
     createForm.append('startdate', start_Date);
     createForm.append('enddate', end_Date);
     createForm.append('discountprice', discountPrice);
@@ -163,6 +167,11 @@ const CreateCourses = () => {
                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
                             {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
                             <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}   className="form-control" placeholder="Choose File" onChange={event => setPicture(event.target.files[0])}/>
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Curriculum <span className="text-danger">*</span></label>
+                            {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
+                            <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])}/>
                         </div>
                     </div>
                 </div>

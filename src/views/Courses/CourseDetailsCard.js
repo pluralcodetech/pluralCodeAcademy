@@ -1,7 +1,7 @@
 import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui/react'
 import React from 'react'
 
-const CourseDetailsCard = ({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community}) => {
+const CourseDetailsCard = ({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum}) => {
     return (
         <CCard>
             <CCardHeader >
@@ -40,6 +40,9 @@ const CourseDetailsCard = ({image, name, description, price, start_date, end_dat
                 <CCol lg={3}>
                     <div>
                         <small>Start Date : <span>{start_date}</span></small>
+                    </div>
+                    <div className="mt-3">
+                        <small>Curriculum : <span>{curriculum}</span></small>
                     </div>
                     
                 </CCol>
