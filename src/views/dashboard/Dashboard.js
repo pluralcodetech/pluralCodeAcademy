@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, useEffect } from 'react'
 import {
   CBadge,
   CButton,
@@ -17,18 +17,69 @@ import Loadable from 'react-loadable';
 
 import MainChartExample from '../charts/MainChartExample.js'
 import { Loading } from 'src/routes.js';
+import { useDispatch, useSelector } from 'react-redux';
+import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction.js';
 
-const WidgetsBrand = Loadable({
-  loader: () => import('../widgets/WidgetsBrand.js'),
-  loading: Loading,
-});
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 // const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
+  const url = "https://pluralcode.academy/academyAPI/api/dashboardforadmin.php";
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(customReadAction(url));
+  }, []);
+
+  // const customReadContent = useSelector(state => state.customReadData.customRead);
+  const customReadContent = useSelector(state => state.customReadData);
+  const {customRead, loading} = customReadContent
+    const test = customReadContent.coursetotal?.map((item) => console.log(item.total));
   return (
     <>
+      {
+        loading ? <Loading/> 
+        :
+        (
+          <CRow>
+            <CCol sm="4">
+            {
+              customRead.coursetotal?.map((item) => (
+                <CCallout color="dark">
+                  <h4 id="traffic" className="card-title mb-0">Total Courses</h4>
+                  <div className="small text-muted">{item.total}</div>
+                </CCallout>
+              ))
+            }
+            </CCol>
+            <CCol sm="4">
+              {
+                customRead.userstotal?.map(item => (
+                  <CCallout color="info">
+                    <h4 id="traffic" className="card-title mb-0">Total Users</h4>
+                    <div className="small text-muted">{item.total}</div>
+                  </CCallout>
+                ))
+              }
+                    
+            </CCol>
+            <CCol sm="4">
+              {
+                customRead.eventtotal?.map(item => (
+                  <CCallout color="success">
+                    <h4 id="traffic" className="card-title mb-0">Total Events</h4>
+                    <div className="small text-muted">{item.total}</div>
+                  </CCallout>
+                ))
+              }       
+            </CCol>
+          </CRow>
+
+        )
+      }
+      
       {/* <WidgetsDropdown /> */}
       {/* <CCard>
         <CCardBody>
@@ -114,7 +165,7 @@ const Dashboard = () => {
         </CCardFooter>
       </CCard> */}
 
-      <WidgetsBrand/>
+      {/* <WidgetsBrand/> */}
 
       {/* <CRow>
         <CCol>
