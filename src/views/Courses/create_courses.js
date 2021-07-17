@@ -8,20 +8,7 @@ import axios from 'axios';
 
 const CreateCourses = () => {
 
-
-    const [description, setDescription] = useState('');
-
-    const {children} = description;
-
-    console.log(children)
-    
-
-    const handleChange = (text) => {
-        setDescription(parse(text).props);
-    };
-
-    // Create Course Form state
-
+    // Input field statets
     const [createCourse, setCreateCourse] = useState({
         courseName : '', 
         price : '', 
@@ -31,42 +18,32 @@ const CreateCourses = () => {
         discount_StartDate : '', 
         discount_EndDate : ''
     });
-
-    // Destructuring from Create Course State
-
-    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate} = createCourse
-
-    // categoryName,
-    
-    // Handle Form value change
-    const handleOnChange = (event) => {
-        const getValue = {...createCourse}
-        getValue[event.target.name]=event.target.value;
-
-        setCreateCourse(getValue);
-        console.log(getValue);
-
-        
-    }
-
+    const [description, setDescription] = useState('');
     const [picture, setPicture] = useState(null);
     const [file, setFile] = useState(null);
 
+    
+    // Destructuring 
+    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate} = createCourse
+    const {children} = description;
 
+    // useRefs
     const imageInputRef = React.useRef();
     const fileInputRef = React.useRef();
-
     const describeInputRef = React.useRef();
-    
 
-    // To Form Data before posting the Data
+    const handleChange = (text) => {
+        setDescription(parse(text).props);
+    };
+
+
+    // Form Data before posting the Data
     let createForm = new FormData();
 
     // Append all value to FormData
     createForm.append('coursename', courseName);
     createForm.append('coursedescription', children);
     createForm.append('price', price);
-    // createForm.append('image', picture.pictureAsFile);
     createForm.append('image', picture);
     createForm.append('file', file);
     createForm.append('startdate', start_Date);
@@ -75,7 +52,17 @@ const CreateCourses = () => {
     createForm.append('discountstartdate', discount_StartDate);
     createForm.append('discountenddate', discount_EndDate);
 
-    // Actions for Submit button
+
+    //** Actions **\\
+
+    // Handle Form value change
+    const handleOnChange = (event) => {
+        const getValue = {...createCourse}
+        getValue[event.target.name]=event.target.value;
+
+        setCreateCourse(getValue);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(createCourse)
@@ -105,9 +92,10 @@ const CreateCourses = () => {
 
     imageInputRef.current.value = "";
     setPicture(null);
+    setFile(null);
 
     }
- 
+
     return (
         <form className="row" onSubmit={handleSubmit}>
             <div className="col-lg-6">
@@ -155,22 +143,18 @@ const CreateCourses = () => {
                         </div>
                         <div className="mb-3">
                             <label>Discount State Date </label>
-                            {/* <Datetime value={discountStartDate} onChange={date => setDiscountStartDateOnChange(date)} />  */}
                             <input type="datetime-local" value={discount_StartDate} name="discount_StartDate" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">
                             <label>Discount End Date </label>
-                            {/* <Datetime value={discountEndDate} onChange={date => setDiscountEndDateOnChange(date)} />  */}
                             <input type="datetime-local" value={discount_EndDate} name="discount_EndDate" className="form-control" onChange={(e) => handleOnChange(e)} placeholder="Enter amount"/>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
-                            {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
                             <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}   className="form-control" placeholder="Choose File" onChange={event => setPicture(event.target.files[0])}/>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Curriculum <span className="text-danger">*</span></label>
-                            {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
                             <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])}/>
                         </div>
                     </div>

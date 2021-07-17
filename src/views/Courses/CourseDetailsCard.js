@@ -1,4 +1,5 @@
 import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui/react'
+import moment from 'moment'
 import React from 'react'
 
 const CourseDetailsCard = ({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum}) => {
@@ -9,42 +10,31 @@ const CourseDetailsCard = ({image, name, description, price, start_date, end_dat
             </CCardHeader>
           <CCardBody>
             <h4 class="mt-4 text-primary mb-3">{name}</h4>
-            <CRow>
-                <CCol lg={3} >
-                    <div>
-                        <small>Course price : <span>{price}</span></small>
-                    </div>
-                    <div className="mt-3">
-                        <small>Discount End Date : <span>{discountenddate}</span></small>
-                    </div>
-                    
+            <CRow>   
+                <CCol lg={4} >
+                    <small>Course price : <span>{price}</span></small>
                 </CCol>
-                <CCol lg={3} >
-                    <div>
-                        <small>End Date : <span>{end_date}</span></small>
-                    </div>
-                    <div className="mt-3">
-                        <small>Discount Start Date : <span>{discountstartdate}</span></small>
-                    </div>
-                    
+                <CCol lg={4} >
+                    <small>Discount End Date : <span>{moment(discountenddate).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
                 </CCol>
-                <CCol lg={3}>
-                    <div >
-                        <small>Discount Price : <span>{discountprice}</span></small>
-                    </div>
-                    <div className="mt-3">
-                        <small>Community : <span>{community}</span></small>
-                    </div>
-                    
+                <CCol lg={4} >
+                    <small>End Date : <span>{moment(end_date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
                 </CCol>
-                <CCol lg={3}>
-                    <div>
-                        <small>Start Date : <span>{start_date}</span></small>
-                    </div>
-                    <div className="mt-3">
-                        <small>Curriculum : <span>{curriculum}</span></small>
-                    </div>
-                    
+                <CCol lg={4} className="mt-2" >
+                    <small>Discount Start Date : <span>{moment(discountstartdate).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
+                </CCol>
+
+                <CCol lg={4} className="mt-2">
+                    <small>Discount Price : <span>{discountprice}</span></small>
+                </CCol>
+                <CCol lg={4} className="mt-2" >
+                    <small>Community : <span>{community}</span></small>
+                </CCol>
+                <CCol lg={4} className="mt-2">
+                    <small>Start Date : <span>{moment(start_date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
+                </CCol>
+                <CCol lg={4} className="mt-2">
+                    <small>Curriculum : <span>{curriculum}</span></small>
                 </CCol>
 
                 <CCol lg={12} className="mt-4">
