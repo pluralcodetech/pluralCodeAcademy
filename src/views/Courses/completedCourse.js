@@ -26,12 +26,13 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
 import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
 import Alert from 'src/containers/Alert';
+import { Loading } from 'src/routes';
 
   const CompletedCourse = () => {
 
-    useEffect(() => {
+    setTimeout(() => {
         dispatch(courseListAction());
-    }, [ ]); //dispatch(courseListAction())
+    }, 3000);
     
     let history = useHistory();
     const dispatch = useDispatch();
@@ -125,55 +126,64 @@ import Alert from 'src/containers/Alert';
     ]
 
       return (
-        <CRow>
-            {/* Completed */}
-            <CCol xl={12}>
-                <CCard>
-                    
-                    <MaterialTable
-                        icons={tableIcons}
-                        columns={columns}
-                        data = {completedData}
-                        title="Completed Course List"
-                        options={{
-                            exportButton: true,
-                            
-                        }}
-        
-                        actions={[
-                            {
-                                icon: Edit,
-                                tooltip: 'Edit Course',
-                                onClick: (event, rowData) =>  handleEditCourse(rowData)
-                            },
-                            rowData => ({
-                                icon: DeleteOutline,
-                                tooltip: 'Delete User', 
-                                onClick: (event, rowData) =>  handleDeleteCourse(rowData)
-                            })
-                        ]}
-
-                        localization= {{
-                            body: {
-                                emptyDataSourceMessage: <CSpinner
-                                color="primary"
-                                style={{width:'4rem', height:'4rem'}}
-                            />,
+          <div>
+            {   loading ? <Loading/> 
+                :
+                (
+                    <CRow>
+                        {/* Completed */}
+                        <CCol xl={12}>
+                            <CCard>
                                 
-                            }
-                        }}
+                                <MaterialTable
+                                    icons={tableIcons}
+                                    columns={columns}
+                                    data = {completedData}
+                                    title="Completed Course List"
+                                    options={{
+                                        exportButton: true,
+                                        
+                                    }}
                     
-                    />
-                </CCard>
-            </CCol>
+                                    actions={[
+                                        {
+                                            icon: Edit,
+                                            tooltip: 'Edit Course',
+                                            onClick: (event, rowData) =>  handleEditCourse(rowData)
+                                        },
+                                        rowData => ({
+                                            icon: DeleteOutline,
+                                            tooltip: 'Delete User', 
+                                            onClick: (event, rowData) =>  handleDeleteCourse(rowData)
+                                        })
+                                    ]}
             
-            <CommunityModal modal={modal} 
-                toggle={toggle}
-                id={getID}
-            />
+                                    localization= {{
+                                        body: {
+                                            emptyDataSourceMessage: <CSpinner
+                                            color="primary"
+                                            style={{width:'4rem', height:'4rem'}}
+                                        />,
+                                            
+                                        }
+                                    }}
+                                
+                                />
+                            </CCard>
+                        </CCol>
+                        
+                        <CommunityModal modal={modal} 
+                            toggle={toggle}
+                            id={getID}
+                        />
+                    
+                    </CRow>
+    
+                )
+            
+            }
+          </div>
         
-        </CRow>
-
       )
   }
   

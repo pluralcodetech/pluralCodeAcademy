@@ -62,15 +62,40 @@ const EventDetail = Loadable({
   loading: Loading,
 });
 
+const CreateCourses = Loadable({
+  loader: () => import('./views/Courses/create_courses'),
+  loading: Loading,
+});
+
+const DiscountList = Loadable({
+  loader: () => import('./views/Discount/discount_list'),
+  loading: Loading,
+});
+
+// const EventDashBoard = Loadable({
+//   loader: () => import('./views/Events/event_dashBoard'),
+//   loading: Loading,
+// });
+
+// const UserManagement = Loadable({
+//   loader: () => import('./views/UserManagement/UserManagement'),
+//   loading: Loading,
+// });
+
+// const Dashboard = Loadable({
+//   loader: () => import('./views/dashboard/Dashboard'),
+//   loading: Loading,
+// });
+
 
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 // const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
-const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
+// const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
 // const UpdateCousre = React.lazy(() => import('./views/Courses/update_completed_course'));
 
 
-const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
+// const DiscountList = React.lazy(() => import('./views/Discount/discount_list'));
 
 
 const EventDashBoard = React.lazy(() => import('./views/Events/event_dashBoard'));
