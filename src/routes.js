@@ -87,6 +87,10 @@ const Dashboard = Loadable({
   loading: Loading,
 });
 
+const WebSeriesList = Loadable({
+  loader: () => import('./views/Web_Series/webSerie_list'),
+  loading: Loading,
+})
 
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
@@ -124,6 +128,7 @@ const routes = [
   { path: '/event_dashBoard', name: "Event Dashboard", component: EventDashBoard},
   { path: '/user_management', name: "User Management", component: UserManagement},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  {path: '/webSeriesList', name: 'Web Series List', component: WebSeriesList}
   
 ];
 

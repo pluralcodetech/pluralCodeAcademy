@@ -96,7 +96,7 @@ const _nav =  [
       {
         _tag: 'CSidebarNavItem',
         name: 'Web Series List',
-        to: '/create_course',
+        to: '/webSeriesList',
       },
       {
         _tag: 'CSidebarNavItem',
