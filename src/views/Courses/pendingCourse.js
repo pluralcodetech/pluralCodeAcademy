@@ -25,6 +25,7 @@ import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUp
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
+import { Loading } from 'src/routes';
 
 const PendingCourse = () => {
     let history = useHistory();
@@ -137,59 +138,67 @@ const PendingCourse = () => {
         {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Category</CButton>},
     ]
     return (
-        <CRow>
-            {/* Active */}
-            <CCol xl={12}>
-                <CCard>
-                    <MaterialTable
-                        icons={tableIcons}
-                        columns={pendingColumns}
-                        data = {pendingData}
-                        title="Pending Course List"
-                        options={{
-                            exportButton: true,
-                            
-                        }}
+        <div>
+            { loading ? <Loading/> 
+                :
+                (
+                    <CRow>
+                        {/* Active */}
+                        <CCol xl={12}>
+                            <CCard>
+                                <MaterialTable
+                                    icons={tableIcons}
+                                    columns={pendingColumns}
+                                    data = {pendingData}
+                                    title="Pending Course List"
+                                    options={{
+                                        exportButton: true,
+                                        
+                                    }}
 
-                        localization= {{
-                            body: {
-                                emptyDataSourceMessage: <CSpinner
-                                color="primary"
-                                style={{width:'4rem', height:'4rem'}}
-                            />,
-                                
-                            }
-                        }}
+                                    localization= {{
+                                        body: {
+                                            emptyDataSourceMessage: <CSpinner
+                                            color="primary"
+                                            style={{width:'4rem', height:'4rem'}}
+                                        />,
+                                            
+                                        }
+                                    }}
 
-                        actions={[
-                            {
-                                icon: AddBox,
-                                tooltip: 'Add Course',
-                                isFreeAction: true,
-                                onClick: (event) => handleAddCourse()
-                            },
-                            {
-                                icon: Edit,
-                                tooltip: 'Edit Course',
-                                onClick: (event, rowData) =>  handleEditCourse(rowData)
-                            },
-                            rowData => ({
-                                icon: DeleteOutline,
-                                tooltip: 'Delete User', 
-                                onClick: (event, rowData) =>  handleDeleteCourse(rowData)
+                                    actions={[
+                                        {
+                                            icon: AddBox,
+                                            tooltip: 'Add Course',
+                                            isFreeAction: true,
+                                            onClick: (event) => handleAddCourse()
+                                        },
+                                        {
+                                            icon: Edit,
+                                            tooltip: 'Edit Course',
+                                            onClick: (event, rowData) =>  handleEditCourse(rowData)
+                                        },
+                                        rowData => ({
+                                            icon: DeleteOutline,
+                                            tooltip: 'Delete User', 
+                                            onClick: (event, rowData) =>  handleDeleteCourse(rowData)
+                                            
+                                        })
+                                    ]}
                                 
-                            })
-                        ]}
-                    
-                    />
-                </CCard>
-            </CCol>
-            <CommunityModal modal={modal} 
-                toggle={toggle}
-                id={getID}
-            />
-        </CRow>
+                                />
+                            </CCard>
+                        </CCol>
+                        <CommunityModal modal={modal} 
+                            toggle={toggle}
+                            id={getID}
+                        />
+                    </CRow>
     
+                )
+            }
+        </div>
+        
     )
 }
 

@@ -12,6 +12,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
+import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 
 const UpdatePendingCourses = () => {
@@ -34,10 +35,13 @@ const UpdatePendingCourses = () => {
     const customPostMessageData = useMemo(() => customPost, [customPost]);
 
 
-    console.log(loading)
-    console.log(customPostMessageData);
+    // console.log(loading)
+    // console.log(customPostMessageData);
 
-    console.log(customPostMessageData[0]?.status)
+    // console.log(customPostMessageData[0]?.status)
+
+    const customStatusMain = useSelector(state => state.customStatusData)
+    const {customStatus} = customStatusMain
 
 
     const pendingResult =  pendingData.find(item => item.id === getCourseData.id); // To find object Id properties
@@ -146,8 +150,11 @@ const UpdatePendingCourses = () => {
 
     let redirect = null;
 
-    if (customPostMessageData[0]?.status === 'success') {
+    if (customStatus[0]?.status === 'success') {
         redirect = <Redirect to = "/pending_Course"/>;
+        // redirect = history.push('/event_dashBoard'); 
+        setTimeout (() => dispatch(customStatusAction('')) , 1000);
+  
     };
  
     return (
