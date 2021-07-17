@@ -12,6 +12,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
+import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 
 const UpdateActiveCourses = () => {
@@ -34,12 +35,8 @@ const UpdateActiveCourses = () => {
 
     const customPostMessageData = useMemo(() => customPost, [customPost]);
 
-
-    console.log(loading)
-    console.log(customPostMessageData);
-
-    console.log(customPostMessageData[0]?.status)
-
+    const customStatusMain = useSelector(state => state.customStatusData)
+    const {customStatus} = customStatusMain
 
     const activeResult =  activeData.find(item => item.id === getCourseData.id); // To find object Id properties
     
@@ -146,8 +143,10 @@ const UpdateActiveCourses = () => {
 
     let redirect = null;
 
-    if (customPostMessageData[0]?.status === 'success') {
+    if (customStatus[0]?.status === 'success') {
         redirect = <Redirect to = "/active_Course"/>;
+        setTimeout (() => dispatch(customStatusAction('')) , 1000);
+  
     };
  
     return (
