@@ -13,6 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
+import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 
 const CreateEvent = () => {
@@ -25,7 +26,8 @@ const CreateEvent = () => {
     const {customPost, loading} = customPostMain;
 
     const customPostMessageData = useMemo(() => customPost, [customPost]);
-
+    const customStatusMain = useSelector(state => state.customStatusData);
+    const {customStatus} = customStatusMain
     // console.log(loading)
     // console.log(customPostMessageData);
 
@@ -162,11 +164,17 @@ const CreateEvent = () => {
 
     let redirect = null;
 
-    if (customPostMessageData[0]?.status === 'success') {
-        // redirect = <Redirect to = "/event_dashBoard"/>;
+    if (customStatus[0]?.status === 'success') {
         redirect = <Redirect to = "/event_dashBoard"/>;
-         
+        // redirect = history.push('/event_dashBoard'); 
+        setTimeout(() => dispatch(customStatusAction('')) , 1000);
     };
+
+    // if (customPostMessageData[0]?.status === 'success') {
+    //     // redirect = <Redirect to = "/event_dashBoard"/>;
+    //     redirect = <Redirect to = "/event_dashBoard"/>;
+         
+    // };
  
     return (
         <div>
@@ -175,8 +183,7 @@ const CreateEvent = () => {
             :
             (
                 <>
-                    {/* {redirect} */}
-                    <form className="row" onSubmit={handleSubmit} >
+                    <div className="row">
                     
                         <div className="col-lg-12">
                             <div className="card">
@@ -259,11 +266,11 @@ const CreateEvent = () => {
                             <div className="col-12">
                                 <div className=" mt-4 mb-2">
                                     <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
-                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                 </div>
                             </div> 
                         </div>
-                    </form>
+                    </div>
                 </>
         
             )

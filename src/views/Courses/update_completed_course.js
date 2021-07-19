@@ -21,12 +21,10 @@ const UpdateCompletedCourses = () => {
     let history = useHistory();
 
     let getCourseData  = useParams(); 
-    // console.log(getCourseData.id);
 
     const completedCourseList = useSelector(state => state.courseListData.courseList.completed);
     const completedData = useMemo(() => completedCourseList, [completedCourseList]);
-    // console.log(completedCourseList)
-
+   
     const customPostMain  = useSelector(state => state.customPostData);
 
     const {customPost, loading} = customPostMain;
@@ -146,7 +144,6 @@ const UpdateCompletedCourses = () => {
 
     if (customStatus[0]?.status === 'success') {
         redirect = <Redirect to = "/completed_Course"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
     };
@@ -158,7 +155,7 @@ const UpdateCompletedCourses = () => {
             (
                 <>
                     {redirect}
-                    <form className="row" onSubmit={handleSubmit} >
+                    <div className="row">
                         <div className="col-lg-6">
                             <div className="card">
                                 <div className="card-body">
@@ -229,7 +226,6 @@ const UpdateCompletedCourses = () => {
                             
                                     <div className="mb-3">
                                         <label className="form-label">Course Images <span className="text-danger">*</span></label>
-                                        {/* <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}  className="form-control" placeholder="Choose File" onChange={uploadPicture}/> */}
                                         <input type="file" accept="image/png, image/jpeg, image/jpg" 
                                             ref={imageInputRef} 
                                             onChange={event => setPicture(event.target.files[0])}  
@@ -244,11 +240,11 @@ const UpdateCompletedCourses = () => {
                             <div className="col-12">
                                 <div className=" mt-4 mb-2">
                                     <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
-                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                 </div>
                             </div> 
                         </div>
-                    </form>
+                    </div>
                 </>
             )
             }
