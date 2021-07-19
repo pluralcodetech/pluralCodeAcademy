@@ -65,7 +65,7 @@ const WebSeriesList = () => {
     };
 
     const handleOPenDetails =(item) => {
-        history.push(`/event_details/${item}`);   
+        history.push(`/webSeries_details/${item}`);   
     };
 
     
