@@ -156,7 +156,7 @@ const UpdateActiveCourses = () => {
                 (
                     <>
                         {redirect}
-                        <form className="row" onSubmit={handleSubmit} >
+                        <div className="row" >
                             <div className="col-lg-6">
                                 <div className="card">
                                     <div className="card-body">
@@ -242,11 +242,11 @@ const UpdateActiveCourses = () => {
                                 <div className="col-12">
                                     <div className=" mt-4 mb-2">
                                         <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
-                                        <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                                        <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                     </div>
                                 </div> 
                             </div>
-                        </form>
+                        </div>
         
                     </>
                 )

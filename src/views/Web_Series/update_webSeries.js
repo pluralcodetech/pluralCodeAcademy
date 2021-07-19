@@ -137,13 +137,13 @@ const UpdateWebSeries = () => {
     // console.log(customPostMessageData[0]?.status)
     const handleCancel = (e) => {
         e.preventDefault();
-        history.push('/event_dashBoard');   
+        history.push('/webSeriesList');   
     };
 
     let redirect = null;
 
-    if (customStatus[0]?.status === 'success') {
-        redirect = <Redirect to = "/event_dashBoard"/>;
+    if (customStatus?.status === 'success') {
+        redirect = <Redirect to = "/webSeriesList"/>;
         // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
@@ -156,14 +156,12 @@ const UpdateWebSeries = () => {
    
     return (
         <div>
-            {/* {redirect} */}
             {loading ? <Loading/> 
             :
             (
                 <>
                     {redirect}
-                    <form className="row" onSubmit={handleSubmit} >
-                    
+                    <div className="row">     
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-body">
@@ -219,11 +217,11 @@ const UpdateWebSeries = () => {
                             <div className="col-12">
                                 <div className=" mt-4 mb-2">
                                     <button type="button" onClick={(e) => handleCancel(e)} className="btn w-sm btn-light waves-effect">Cancel</button>
-                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3">Save</button>
+                                    <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                 </div>
                             </div> 
                         </div>
-                    </form>
+                    </div>
                 </>
         
             )

@@ -49,9 +49,9 @@ const PendingCourse = () => {
         setGetID(id)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         dispatch(courseListAction());
-    }, 3000);
+    }, []);
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
@@ -74,6 +74,7 @@ const PendingCourse = () => {
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
         dispatch(customPostAction(deleteURL, deleteID));
+        setTimeout (() => dispatch(courseListAction()) , 300);
     }
 
     // Handle Update Status to Completed
@@ -90,6 +91,7 @@ const PendingCourse = () => {
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
         dispatch(customStatusUpdateAction(url, setIdFormDate))
+        setTimeout (() => dispatch(courseListAction()) , 300);
     }
     
     const tableIcons = {

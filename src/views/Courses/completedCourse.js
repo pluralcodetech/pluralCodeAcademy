@@ -30,9 +30,9 @@ import { Loading } from 'src/routes';
 
   const CompletedCourse = () => {
 
-    setTimeout(() => {
+    useEffect(() => {
         dispatch(courseListAction());
-    }, 3000);
+    }, []);
     
     let history = useHistory();
     const dispatch = useDispatch();
@@ -75,6 +75,7 @@ import { Loading } from 'src/routes';
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
         dispatch(customPostAction(deleteURL, deleteID));
+        setTimeout (() => dispatch(courseListAction()) , 300);
     };
     
     const tableIcons = {

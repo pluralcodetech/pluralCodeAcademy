@@ -35,7 +35,7 @@ const EventDashBoard = () => {
     const dispatch = useDispatch();
     let history = useHistory();
 
-    setTimeout(() => {
+    useEffect(() => {
         dispatch(eventListAction());
     }, 3000);
     
@@ -65,9 +65,9 @@ const EventDashBoard = () => {
         console.log(modal);
     }
 
-    const callEvent = useCallback(() => {
-        dispatch(eventListAction());
-      }, [eventListAction])
+    // const callEvent = useCallback(() => {
+    //     dispatch(eventListAction());
+    //   }, [eventListAction])
     // const tableRef = React.createRef(dispatch(eventListAction()));
 
     const handleAddCourse =() => {
@@ -86,6 +86,7 @@ const EventDashBoard = () => {
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deleteevent.php'
         dispatch(customPostAction(deleteURL, deleteID));
+        setTimeout (() => dispatch(eventListAction()) , 300);
     };
 
     const handleOPenDetails =(item) => {

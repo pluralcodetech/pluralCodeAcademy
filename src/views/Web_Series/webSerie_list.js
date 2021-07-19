@@ -17,13 +17,9 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 
-import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
-import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
-import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 import { useHistory } from 'react-router-dom';
 import addEventAction from 'src/Redux Statement/actions/addEventAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
@@ -39,11 +35,7 @@ const WebSeriesList = () => {
     useEffect(() => {
         dispatch(webSeriesListAction());
     }, []);
-    // setTimeout(() => {
-    //     dispatch(webSeriesListAction());
-    // }, 3000);
     
-
     const webSeriesListContent = useSelector(state => state.webSeriesListData);
     const {webSeriesList} = webSeriesListContent;
     console.log(webSeriesList)
@@ -52,12 +44,6 @@ const WebSeriesList = () => {
 
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
-    
-
-
-    // const eventListContent = useSelector(state => state.eventListData.eventList);
-    // console.log(eventListContent)
-    // const loading = useSelector(state => state.eventListData.loading);
 
     const handleAddCourse =() => {
         history.push(`/create_webSeries`);   
@@ -67,14 +53,15 @@ const WebSeriesList = () => {
         history.push(`/update_webSeries/${id}`)
     };
 
-    const handleWebseriesDelete = (eventData) => {
-        const {id} = eventData;
+    const handleWebseriesDelete = (webseriesData) => {
+        const {id} = webseriesData;
     
         let deleteID = new FormData();
         deleteID.append('eventid', id);
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deleteseries.php'
         dispatch(customPostAction(deleteURL, deleteID));
+        setTimeout (() => dispatch(webSeriesListAction()) , 300);
     };
 
     const handleOPenDetails =(item) => {
@@ -119,6 +106,7 @@ const WebSeriesList = () => {
         },
         {title: 'Name', field: 'name'},
         {title: 'Description', field: 'description'},
+        {title: 'Date', field: 'date', render : item => <small>{moment(item.date).format('MMMM Do YYYY, h:mm:ss a')}</small> },
         {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (

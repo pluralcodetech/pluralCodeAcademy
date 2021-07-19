@@ -31,9 +31,9 @@ const ActiveCourse = () => {
     let history = useHistory();
     const dispatch = useDispatch();
 
-    setTimeout(() => {
+    useEffect(() => {
         dispatch(courseListAction());
-    }, 3000);
+    }, []);
 
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
@@ -76,6 +76,7 @@ const ActiveCourse = () => {
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
         dispatch(customPostAction(deleteURL, deleteID));
+        setTimeout (() => dispatch(courseListAction()) , 300);
     }
 
     // Handle Update Status to Completed
@@ -83,7 +84,8 @@ const ActiveCourse = () => {
         const url = 'https://pluralcode.academy/academyAPI/api/updatingactive.php'
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
-        dispatch(customStatusUpdateAction(url, setIdFormDate))
+        dispatch(customStatusUpdateAction(url, setIdFormDate));
+        setTimeout (() => dispatch(courseListAction()) , 300);
     }
 
     // // Handle update State to Active
