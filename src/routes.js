@@ -102,6 +102,10 @@ const UpdateWebSeries = Loadable({
   loading: Loading,
 });
 
+const WebSeriesDetails = Loadable({
+  loader: () => import('./views/Web_Series/webSeries_details'),
+  loading: Loading,
+})
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
 // const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
@@ -141,7 +145,7 @@ const routes = [
   {path: '/webSeriesList', name: 'Web Series List', component: WebSeriesList},
   {path: '/create_webSeries', name: 'Create Web Series', component: CreateWebSeries},
   {path: '/update_webSeries/:id', name: 'Update Web Series', component: UpdateWebSeries},
-  
+  {path: '/webSeries_details/:id', name: 'Web Series Details', component: WebSeriesDetails},
 ];
 
 export default routes;
