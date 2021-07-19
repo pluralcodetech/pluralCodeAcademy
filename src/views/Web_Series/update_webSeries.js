@@ -36,12 +36,14 @@ const UpdateWebSeries = () => {
 
     const webSeriesListResult =  webSeriesListData.find(item => item.id === getEventData.id); // To find object Id properties
     
-    const {id, image, name, description, link} = webSeriesListResult
+    const {id, image, name, description, youtubelink, zoomlink, date} = webSeriesListResult
     console.log(id)
 
     const [upDateWebSeriesList, setUpDateWebSeriesList] = useState({
         seriesName: name, // Default Value
-        seriesLink : link, // Default Value
+        seriesLink : youtubelink, // Default Value
+        zoomLink : zoomlink , // Default Value
+        seriesDate : date , // Default Value
     });
 
     const [getDescription, setGetDescription] = useState();
@@ -54,7 +56,7 @@ const UpdateWebSeries = () => {
     
 
      // Destructuring from Update Course State
-    const {seriesName, seriesLink} = upDateWebSeriesList;
+    const {seriesName, seriesLink, zoomLink, seriesDate} = upDateWebSeriesList;
 
 
     // const [redrt, setRedrt] = useState(customPostMessageData);
@@ -118,6 +120,8 @@ const UpdateWebSeries = () => {
         upDateEvent.append('image', picture);
         upDateEvent.append('link', seriesLink);
         upDateEvent.append('description', getDescription);
+        upDateEvent.append('zoomlink', zoomLink);
+        upDateEvent.append('date', seriesDate);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updateseries.php'
         dispatch(customPostAction(updateURL, upDateEvent));
@@ -125,6 +129,8 @@ const UpdateWebSeries = () => {
         setUpDateWebSeriesList({
             seriesName: '',
             seriesLink : '', 
+            zoomLink : '',
+            seriesDate : ''
         });
 
         setState({comments: ''});
@@ -177,8 +183,15 @@ const UpdateWebSeries = () => {
                                 
 
                                     <div className="mb-3">
-                                        <label>Link <span className="text-danger">*</span></label>
+                                        <label>YouTube Link <span className="text-danger">*</span></label>
                                         <input type="url" value={seriesLink} name="seriesLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Zoom Link <span className="text-danger">*</span></label>
+                                        <input type="url" value={zoomLink} name="zoomLink" className="form-control" 
                                             placeholder="Enter link"
                                             onChange={(e) => handleOnChange(e)}
                                         />
@@ -206,6 +219,14 @@ const UpdateWebSeries = () => {
                                             onChange={event => setPicture(event.target.files[0])}  
                                             className="form-control" 
                                             placeholder="Choose File" 
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label>Date <span className="text-danger">*</span></label>
+                                        <input type="date" value={seriesDate} name="seriesDate" className="form-control" 
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)} 
                                         />
                                     </div>
 

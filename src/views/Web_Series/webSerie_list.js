@@ -105,9 +105,8 @@ const WebSeriesList = () => {
             )
         },
         {title: 'Name', field: 'name'},
-        {title: 'Description', field: 'description'},
-        {title: 'Date', field: 'date', render : item => <small>{moment(item.date).format('MMMM Do YYYY, h:mm:ss a')}</small> },
-        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
+        {title: 'Date', field: 'date', render : item => <small>{moment(item.date).format('MMMM Do YYYY')}</small> },
+        {title: 'View More', render: item => <CButton color='info' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
         <div>

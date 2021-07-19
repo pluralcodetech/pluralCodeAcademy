@@ -150,7 +150,7 @@ const EventDashBoard = () => {
                 />
             )
         },
-        {title: 'View More', render: item => <CButton color='primary' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
+        {title: 'View More', render: item => <CButton color='info' size={'sm'} className="m-2" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
         <div>
