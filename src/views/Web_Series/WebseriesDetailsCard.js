@@ -2,7 +2,7 @@ import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui
 import moment from 'moment'
 import React from 'react'
 
-const WebseriesDetailsCard = ({image, name, description, date, link}) => {
+const WebseriesDetailsCard = ({image, name, description, date, youtubelink, zoomlink}) => {
     return (
         <CCard>
             <CCardHeader >
@@ -11,15 +11,21 @@ const WebseriesDetailsCard = ({image, name, description, date, link}) => {
           <CCardBody>
             <h4 class="mt-4 text-primary mb-3">{name}</h4>
             <CRow>
-                <CCol lg={6} >
+                <CCol lg={4} >
                     <div>
-                        <small>Link : <span>{link}</span></small>
+                        <small>Youtube Link: <span>{youtubelink}</span></small>
                     </div>
                     
                 </CCol>
-                <CCol lg={6} >
-                <div className="mt-3">
-                        <small>Date : <span>{moment(date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
+                <CCol lg={4} >
+                    <div>
+                        <small>Zoom Link: <span>{zoomlink}</span></small>
+                    </div>
+                    
+                </CCol>
+                <CCol lg={4} >
+                <div>
+                        <small>Date : <span>{moment(date).format('MMMM Do YYYY')}</span></small>
                     </div>   
                 </CCol>
                 

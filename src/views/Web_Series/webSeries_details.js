@@ -24,9 +24,9 @@ const WebSeriesDetails = () => {
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
 
-    const {image, name, description, date, link} = customPost;
+    const {image, name, description, date, youtubelink, zoomlink} = customPost;
 
-    console.log(image, name, description, date, link)
+    console.log(image, name, description, date, youtubelink, zoomlink)
 
     console.log(customPost)
 
@@ -40,7 +40,8 @@ const WebSeriesDetails = () => {
                     image={image} 
                     name={name} 
                     description = {description} 
-                    link={link} 
+                    youtubelink={youtubelink}
+                    zoomlink={zoomlink} 
                     date={date} 
                 />)
 

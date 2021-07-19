@@ -31,7 +31,9 @@ const CreateWebSeries = () => {
 
     const [createWebSeriesList, setCreateWebSeriesList] = useState({
         seriesName: '', 
-        seriesLink : '', 
+        seriesLink : '',
+        seriesDate : '', 
+        zoomLink : '',
     });
 
     const [getDescription, setGetDescription] = useState();
@@ -44,7 +46,7 @@ const CreateWebSeries = () => {
     
 
      // Destructuring from Update Course State
-    const {seriesName, seriesLink} = createWebSeriesList;
+    const {seriesName, seriesLink, seriesDate, zoomLink} = createWebSeriesList;
 
 
     // const [redrt, setRedrt] = useState(customPostMessageData);
@@ -105,6 +107,8 @@ const CreateWebSeries = () => {
         upDateEvent.append('image', picture);
         upDateEvent.append('link', seriesLink);
         upDateEvent.append('description', getDescription);
+        upDateEvent.append('date', seriesDate);
+        upDateEvent.append('zoomlink', zoomLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/create_series.php'
         dispatch(customPostAction(updateURL, upDateEvent));
@@ -112,6 +116,8 @@ const CreateWebSeries = () => {
         setCreateWebSeriesList({
             seriesName: '',
             seriesLink : '', 
+            seriesDate : '',
+            zoomLink : '', 
         });
 
         setState({comments: ''});
@@ -161,10 +167,26 @@ const CreateWebSeries = () => {
                                 
 
                                     <div className="mb-3">
-                                        <label>Link <span className="text-danger">*</span></label>
+                                        <label>YouTube Link <span className="text-danger">*</span></label>
                                         <input type="url" value={seriesLink} name="seriesLink" className="form-control" 
                                             placeholder="Enter link"
                                             onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label>Zoom Link <span className="text-danger">*</span></label>
+                                        <input type="url" value={zoomLink} name="zoomLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label>Date <span className="text-danger">*</span></label>
+                                        <input type="date" value={seriesDate} name="seriesDate" className="form-control" 
+                                            placeholder="Enter amount"
+                                            onChange={(e) => handleOnChange(e)} 
                                         />
                                     </div>
 
@@ -204,7 +226,7 @@ const CreateWebSeries = () => {
                                     <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                 </div>
                             </div> 
-                        </div>
+                        </div>s
                     </div>
                 </>
         
