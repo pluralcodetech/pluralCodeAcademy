@@ -83,7 +83,7 @@ const EventDashBoard = () => {
         history.push(`/event_details/${item}`);   
     };
 
-     // Handle active State to Active
+     // Handle Show Event State
      const handleShowEvent = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/show.php'
         let setIdFormDate = new FormData()
@@ -94,7 +94,7 @@ const EventDashBoard = () => {
 
     }
 
-     // Handle suspend State to Active
+     // Handle Hide Event State 
      const handleHideEvent = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/hide.php'
         let setIdFormDate = new FormData()
