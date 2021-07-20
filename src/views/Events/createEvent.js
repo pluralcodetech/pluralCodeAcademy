@@ -14,6 +14,7 @@ import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import { stringsOnly } from 'src/validations';
 
 
 const CreateEvent = () => {
@@ -40,10 +41,24 @@ const CreateEvent = () => {
         end_date : '',
     });
 
-    const [getDescription, setGetDescription] = useState();
+     // Handling Error Response with Hooks State
+     const [error, setError] = useState({
+        nameErr : '', 
+        venueErr : '', 
+        start_DateErr : '', 
+        end_DateErr : '', 
+        pictureErr : '',
+        getDescriptionErr : '',
+        selectedOptionErr : '',
+    
+    });
+
+
+
+    const [getDescription, setGetDescription] = useState('');
     console.log(getDescription)
     
-    const [picture, setPicture] = useState();
+    const [picture, setPicture] = useState('');
     console.log(picture)
 
     const imageInputRef = React.useRef();
@@ -51,6 +66,7 @@ const CreateEvent = () => {
 
      // Destructuring from Update Course State
     const { name, venue, start_date, end_date } = createEvent;
+    const { nameErr, venueErr, start_dateErr, end_dateErr, pictureErr, getDescriptionErr, selectedOptionErr} = error;
 
     const modules = {
         toolbar: [
@@ -116,43 +132,101 @@ const CreateEvent = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const {value} = selectedOption
+        let valid = true;
 
-        console.log(value, name, picture, getDescription, venue, start_date, end_date)
+        if (name === '') {
+            setError({
+                nameErr: 'Name cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (!stringsOnly.test(name)) {
+            setError({
+                nameErr: 'Only strings are valid.'
+            })
+            valid = false
+        }
+
+
+        if (venue === '') {
+            setError({
+                venueErr: 'Price cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (start_date === '') {
+            setError({
+                start_dateErr: 'Start Date cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (end_date === '') {
+            setError({
+                end_dateErr: 'End Date cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (getDescription === '') {
+            setError({
+                getDescriptionErr: 'Description cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (picture === '') {
+            setError({
+                pictureErr: 'Picture cannot be blank.'
+            })
+            valid = false
+        }
+        
+
+        if (selectedOptionErr === null) {
+            setError({
+                selectedOptionErr: 'Selected cannot be blank.'
+            })
+            valid = false
+        }
+        
+        if (valid) {
+            const {value} = selectedOption
+
+            console.log(value, name, picture, getDescription, venue, start_date, end_date)
+  
+            // To Form Data before posting the Data
+            let createCourse = new FormData();
+
+            // Append all value to FormData
+            createCourse.append('name', name);
+            createCourse.append('image', picture);
+            createCourse.append('description', getDescription);
+            createCourse.append('venue', venue);
+            createCourse.append('cattype', value);
+            createCourse.append('startdate', start_date);
+            createCourse.append('enddate', end_date);
+
+            const updateURL = 'https://pluralcode.academy/academyAPI/api/create_events.php'
+            dispatch(customPostAction(updateURL, createCourse));
+
+            setCreateEvent({
+                name: '', 
+                description: '',  
+                venue : '',
+                start_date : '', 
+                end_date : '',
+            });
+
+            setSelectState({ selectedOption: '' });
+            imageInputRef.current.value = "";
+            setPicture(null);
+        }
+        
 
         
-        // To Form Data before posting the Data
-        let createCourse = new FormData();
-
-        // Append all value to FormData
-        createCourse.append('name', name);
-        createCourse.append('image', picture);
-        createCourse.append('description', getDescription);
-        createCourse.append('venue', venue);
-        createCourse.append('cattype', value);
-        createCourse.append('startdate', start_date);
-        createCourse.append('enddate', end_date);
-
-        
-        
-        
-
-        const updateURL = 'https://pluralcode.academy/academyAPI/api/create_events.php'
-        dispatch(customPostAction(updateURL, createCourse));
-
-        setCreateEvent({
-            name: '', 
-            description: '',  
-            venue : '',
-            start_date : '', 
-            end_date : '',
-        });
-
-        setSelectState({ selectedOption: '' });
-        // setState({comments: ''});
-
-        imageInputRef.current.value = "";
-        setPicture(null);
         
     }
 
@@ -166,15 +240,9 @@ const CreateEvent = () => {
 
     if (customStatus[0]?.status === 'success') {
         redirect = <Redirect to = "/event_dashBoard"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout(() => dispatch(customStatusAction('')) , 1000);
     };
 
-    // if (customPostMessageData[0]?.status === 'success') {
-    //     // redirect = <Redirect to = "/event_dashBoard"/>;
-    //     redirect = <Redirect to = "/event_dashBoard"/>;
-         
-    // };
  
     return (
         <div>
@@ -195,7 +263,11 @@ const CreateEvent = () => {
                                         <input type="text" name='name' value={name} className="form-control"  
                                             placeholder="e.g : Web Development"
                                             onChange={(e) => handleOnChange(e)}
+                                            required
                                         />
+                                        <div> 
+                                            <small id="nameErr" class='text-danger text-sm'>{nameErr}</small>
+                                        </div>
                                     </div>
                                 
 
@@ -204,7 +276,11 @@ const CreateEvent = () => {
                                         <input type="text" value={venue} name="venue" className="form-control" 
                                             placeholder="Enter amount"
                                             onChange={(e) => handleOnChange(e)}
+                                            required
                                         />
+                                        <div> 
+                                            <small id="venueErr" class='text-danger text-sm'>{venueErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -213,7 +289,11 @@ const CreateEvent = () => {
                                             value={selectedOption}
                                             onChange={handleSelectChange}
                                             options={options}
+                                            required
                                         />
+                                        <div> 
+                                            <small id="selectedOptionErr" class='text-danger text-sm'>{selectedOptionErr}</small>
+                                        </div>
                                     </div>
 
                                     
@@ -223,7 +303,11 @@ const CreateEvent = () => {
                                         <input type="datetime-local" value={start_date} name="start_date" className="form-control" 
                                             placeholder="Enter amount"
                                             onChange={(e) => handleOnChange(e)} 
+                                            required
                                         />
+                                         <div> 
+                                            <small id="start_dateErr" class='text-danger text-sm'>{start_dateErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -231,7 +315,11 @@ const CreateEvent = () => {
                                         <input type="datetime-local" value={end_date} name="end_date" className="form-control"  
                                             placeholder="Enter amount"
                                             onChange={(e) => handleOnChange(e)}
+                                            required
                                         />
+                                        <div> 
+                                            <small id="end_dateErr" class='text-danger text-sm'>{end_dateErr}</small>
+                                        </div>
                                     </div>
                                 
                                     <div className="mb-3">
@@ -246,6 +334,9 @@ const CreateEvent = () => {
                                             onChange={rteChange}
                                             preserveWhitespace
                                         />
+                                        <div> 
+                                            <small id="getDescriptionErr" class='text-danger text-sm'>{getDescriptionErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -255,7 +346,11 @@ const CreateEvent = () => {
                                             onChange={event => setPicture(event.target.files[0])}  
                                             className="form-control" 
                                             placeholder="Choose File" 
+                                            required
                                         />
+                                        <div> 
+                                            <small id="pictureErr" class='text-danger text-sm'>{pictureErr}</small>
+                                        </div>
                                     </div>
 
                                 </div>
