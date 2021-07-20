@@ -191,13 +191,7 @@ const CreateCourses = () => {
             valid = false
         }
 
-        // if (!numbersOnly.test(discountPrice)) {
-        //     setError({
-        //         discountPriceErr: 'Discount Price cannot be blank.'
-        //     })
-        //     valid = false
-        // }
-
+        
        
 
         if (valid) {
