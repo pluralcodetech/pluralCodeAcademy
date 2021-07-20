@@ -51,11 +51,6 @@ const EventDashBoard = () => {
     const customPostMessageData = useMemo(() => customPost, [customPost]);
 
 
-
-    // const eventListContent = useSelector(state => state.eventListData.eventList);
-    // console.log(eventListContent)
-    // const loading = useSelector(state => state.eventListData.loading);
-
     const [modal, setModal] = useState(false);
     
 
@@ -64,11 +59,6 @@ const EventDashBoard = () => {
         setModal(!modal);
         console.log(modal);
     }
-
-    // const callEvent = useCallback(() => {
-    //     dispatch(eventListAction());
-    //   }, [eventListAction])
-    // const tableRef = React.createRef(dispatch(eventListAction()));
 
     const handleAddCourse =() => {
         history.push(`/create_event`);   
@@ -92,6 +82,27 @@ const EventDashBoard = () => {
     const handleOPenDetails =(item) => {
         history.push(`/event_details/${item}`);   
     };
+
+     // Handle active State to Active
+     const handleShowEvent = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/show.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        dispatch(customPostAction(url, setIdFormDate));
+        setTimeout (() => dispatch(eventListAction()) , 300);
+
+    }
+
+     // Handle suspend State to Active
+     const handleHideEvent = (id) => {
+        const url = 'https://pluralcode.academy/academyAPI/api/hide.php'
+        let setIdFormDate = new FormData()
+        setIdFormDate.append('id', id)
+        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        dispatch(customPostAction(url, setIdFormDate));
+        setTimeout (() => dispatch(eventListAction()) , 300);
+    }
 
     
 
@@ -150,6 +161,16 @@ const EventDashBoard = () => {
                 />
             )
         },
+        {title: 'Visible', field: 'visible', render : item => (
+            <>
+                {
+                    item.visible === 'YES' ?
+                    <CButton color='danger' size={'sm'} className="m-2" onClick={() => handleHideEvent(item.id)}>Hide</CButton>
+                    :  
+                    <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleShowEvent(item.id)}>Show</CButton> 
+                }
+            </>
+        )},
         {title: 'View More', render: item => <CButton color='info' size={'sm'} className="m-2" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
     return (
@@ -202,90 +223,6 @@ const EventDashBoard = () => {
                                 ]}
                             
                                 
-                                // editable={{
-                        
-                                //     onRowAddCancelled: rowData => console.log(rowData),
-                                //     onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
-                                //     onRowAdd: newData =>
-                                //     new Promise((resolve, reject) => {
-
-                                //         setTimeout(() => {
-                                //             const {image, name, description, venue, start_date, end_date} = newData
-                                        
-                                //             let addEventValues = new FormData();
-
-                                //             addEventValues.append('name', name);
-                                //             addEventValues.append('description', description);
-                                //             addEventValues.append('venue', venue);
-                                //             addEventValues.append('image', image);
-                                //             addEventValues.append('startdate', start_date);
-                                //             addEventValues.append('enddate', end_date);
-
-                                //             dispatch(addEventAction(addEventValues));
-                                        
-                                //             resolve();
-
-                                //         }, 2000);
-
-                                //     }),
-                                //     onRowUpdate: (newData, oldData) =>
-                                //     new Promise((resolve, reject) => {
-                                //         setTimeout(() => {
-                                //         const dataUpdate = [...eventListContent];
-                                        
-                                //         const index = oldData.tableData.id;
-                                //         const forNewData = dataUpdate[index] = newData;
-                                        
-                                //         const {id, image, name, description, venue, start_date, end_date} = forNewData;
-
-                                //         console.log(forNewData );
-
-                                        // let upDateEvent = new FormData();
-
-                                        // upDateEvent.append('eventid', id);
-                                        // upDateEvent.append('name', name);
-                                        // upDateEvent.append('image', image);
-                                        // upDateEvent.append('description', description);
-                                        // upDateEvent.append('venue', venue);
-                                        // upDateEvent.append('startdate', start_date);
-                                        // upDateEvent.append('enddate', end_date);
-
-                                //         dispatch(upDateEventAction(upDateEvent));
-                                        
-                                //         resolve();
-                                //         dispatch(eventListAction());
-                                //         }, 1000)
-                                //     }),
-                                
-                                    
-                                //     onRowDelete: oldData =>
-                                //     new Promise((resolve, reject) => {
-                                //         setTimeout(() => {
-                
-                                //             const dataDelete = [...eventListContent];
-                                //             const deleteIndex = oldData.tableData.id;
-                                            
-                                //             const forNewData = dataDelete[deleteIndex]
-                                //             const {id} = forNewData;
-                        
-                                //             let deleteID = new FormData();
-                                //             deleteID.append('eventid', id);
-                                //             dispatch(deleteEventAction(deleteID))
-
-                                //             resolve();
-                                //             dispatch(eventListAction());
-                                //         }, 1000);
-                                //     })
-                                // }}
-                                
-                                // actions={[
-                                //     {
-                                //       icon: RefreshIcon,
-                                //       tooltip: 'Refresh Data',
-                                //       isFreeAction: true,
-                                //       onClick: () => window.location.reload(false)
-                                //     }
-                                //   ]}
                                 />
                             </CCard>
                         </CCol>
