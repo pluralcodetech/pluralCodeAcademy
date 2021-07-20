@@ -116,10 +116,10 @@ const CreateCourses = () => {
 
         setCreateCourse(getValue);
 
-        // Error
-        const newError = {...error}
-        newError[event.target.id + 'Err'] = ''
-        setError(newError)
+        // // Error
+        // const newError = {...error}
+        // newError[event.target.id + 'Err'] = ''
+        // setError(newError)
 
     }
 
@@ -186,7 +186,7 @@ const CreateCourses = () => {
 
         if (picture === '') {
             setError({
-                pictureErr: 'Picture cannot be blank.'
+                pictureErr: 'Image cannot be blank.'
             })
             valid = false
         }
