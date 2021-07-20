@@ -151,7 +151,7 @@ const CreateEvent = () => {
 
         if (venue === '') {
             setError({
-                venueErr: 'Price cannot be blank.'
+                venueErr: 'Image cannot be blank.'
             })
             valid = false
         }

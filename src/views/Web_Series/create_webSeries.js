@@ -14,6 +14,7 @@ import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import { stringsOnly } from 'src/validations';
 
 
 const CreateWebSeries = () => {
@@ -36,10 +37,21 @@ const CreateWebSeries = () => {
         zoomLink : '',
     });
 
-    const [getDescription, setGetDescription] = useState();
+    const [error, setError] = useState(
+        {
+            seriesNameErr: '', 
+            seriesLinkErr : '',
+            seriesDateErr : '', 
+            zoomLinkErr : '',
+            pictureErr : '',
+            getDescriptionErr : '',
+        }
+    )
+
+    const [getDescription, setGetDescription] = useState('');
    
     
-    const [picture, setPicture] = useState();
+    const [picture, setPicture] = useState('');
     
 
     const imageInputRef = React.useRef();
@@ -47,7 +59,7 @@ const CreateWebSeries = () => {
 
      // Destructuring from Update Course State
     const {seriesName, seriesLink, seriesDate, zoomLink} = createWebSeriesList;
-
+    const {seriesNameErr, seriesLinkErr, seriesDateErr, zoomLinkErr, pictureErr, getDescriptionErr} = error
 
     // const [redrt, setRedrt] = useState(customPostMessageData);
     // const custom = useMemo(() => redrt, [redrt])
@@ -98,32 +110,88 @@ const CreateWebSeries = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let valid = true
 
-        // To Form Data before posting the Data
+        if (seriesName === '') {
+            setError({
+                seriesNameErr: 'series Name cannot be blank.'
+            })
+            valid = false
+        }
 
-        let upDateEvent = new FormData();
+        if (!stringsOnly.test(seriesName)) {
+            setError({
+                seriesNameErr: 'Only strings are valid.'
+            })
+            valid = false
+        }
 
-        upDateEvent.append('name', seriesName);
-        upDateEvent.append('image', picture);
-        upDateEvent.append('link', seriesLink);
-        upDateEvent.append('description', getDescription);
-        upDateEvent.append('date', seriesDate);
-        upDateEvent.append('zoomlink', zoomLink);
 
-        const updateURL = 'https://pluralcode.academy/academyAPI/api/create_series.php'
-        dispatch(customPostAction(updateURL, upDateEvent));
+        if (seriesLink === '') {
+            setError({
+                seriesLinkErr: 'Series Link cannot be blank.'
+            })
+            valid = false
+        }
 
-        setCreateWebSeriesList({
-            seriesName: '',
-            seriesLink : '', 
-            seriesDate : '',
-            zoomLink : '', 
-        });
+        if (seriesDate === '') {
+            setError({
+                seriesDateErr: 'Series Date cannot be blank.'
+            })
+            valid = false
+        }
+        
+        if (zoomLink === '') {
+            setError({
+                zoomLinkErr: 'Zoom Link cannot be blank.'
+            })
+            valid = false
+        }
 
-        setState({comments: ''});
+        if (getDescription === '') {
+            setError({
+                getDescriptionErr: 'Description cannot be blank.'
+            })
+            valid = false
+        }
 
-        imageInputRef.current.value = "";
-        setPicture(null);
+        if (picture === '') {
+            setError({
+                pictureErr: 'Image cannot be blank.'
+            })
+            valid = false
+        }
+
+        if (valid) {
+            // To Form Data before posting the Data
+
+            let upDateEvent = new FormData();
+
+            upDateEvent.append('name', seriesName);
+            upDateEvent.append('image', picture);
+            upDateEvent.append('link', seriesLink);
+            upDateEvent.append('description', getDescription);
+            upDateEvent.append('date', seriesDate);
+            upDateEvent.append('zoomlink', zoomLink);
+
+            const updateURL = 'https://pluralcode.academy/academyAPI/api/create_series.php'
+            dispatch(customPostAction(updateURL, upDateEvent));
+
+            setCreateWebSeriesList({
+                seriesName: '',
+                seriesLink : '', 
+                seriesDate : '',
+                zoomLink : '', 
+            });
+
+            setState({comments: ''});
+
+            imageInputRef.current.value = "";
+            setPicture(null);
+        }
+
+
+        
         
     }
 
@@ -163,6 +231,9 @@ const CreateWebSeries = () => {
                                             placeholder="e.g : Web Development"
                                             onChange={(e) => handleOnChange(e)}
                                         />
+                                        <div> 
+                                            <small id="seriesNameErr" class='text-danger text-sm'>{seriesNameErr}</small>
+                                        </div>
                                     </div>
                                 
 
@@ -172,6 +243,9 @@ const CreateWebSeries = () => {
                                             placeholder="Enter link"
                                             onChange={(e) => handleOnChange(e)}
                                         />
+                                        <div> 
+                                            <small id="seriesLinkErr" class='text-danger text-sm'>{seriesLinkErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -180,6 +254,9 @@ const CreateWebSeries = () => {
                                             placeholder="Enter link"
                                             onChange={(e) => handleOnChange(e)}
                                         />
+                                        <div> 
+                                            <small id="zoomLinkErr" class='text-danger text-sm'>{zoomLinkErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -188,6 +265,9 @@ const CreateWebSeries = () => {
                                             placeholder="Enter amount"
                                             onChange={(e) => handleOnChange(e)} 
                                         />
+                                        <div> 
+                                            <small id="seriesDateErr" class='text-danger text-sm'>{seriesDateErr}</small>
+                                        </div>
                                     </div>
 
                                 
@@ -203,6 +283,9 @@ const CreateWebSeries = () => {
                                             onChange={rteChange}
                                             preserveWhitespace
                                         />
+                                        <div> 
+                                            <small id="getDescriptionErr" class='text-danger text-sm'>{getDescriptionErr}</small>
+                                        </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -213,6 +296,9 @@ const CreateWebSeries = () => {
                                             className="form-control" 
                                             placeholder="Choose File" 
                                         />
+                                        <div> 
+                                            <small id="pictureErr" class='text-danger text-sm'>{pictureErr}</small>
+                                        </div>
                                     </div>
 
                                 </div>
