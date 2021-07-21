@@ -1,7 +1,7 @@
-import { CModal, CModalBody, CModalHeader } from '@coreui/react'
+import { CCallout, CModal, CModalBody} from '@coreui/react'
 import React from 'react'
 
-const Alert = ({modal, toggle, success, message}) => {
+const Alert = ({modal, success, message}) => {
     return (
         <>
         
@@ -10,8 +10,14 @@ const Alert = ({modal, toggle, success, message}) => {
             {
                 success ? (
                     <p>{message}</p>
-                ) : <p className='text-danger text-center'>{message}</p>
+                ) : (
+                    <CCallout color="danger">
+                        <p className='text-danger text-center'>{message}</p>
+                    </CCallout>
+                )
             }
+
+            
             </CModalBody>
 
         </CModal>

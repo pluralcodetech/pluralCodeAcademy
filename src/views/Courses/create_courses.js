@@ -52,7 +52,7 @@ const CreateCourses = () => {
     //  Modal Action  
     const [modal, setModal] = useState(true);
     const toggle = () =>{
-        setModal(!modal);
+        setModal(false);
     };
 
     // Global State
@@ -240,9 +240,11 @@ const CreateCourses = () => {
 
     if (customStatus?.status === 'failed') {
         alertMessage = <Alert modal={modal} 
-        // toggle={toggle}
-        message = "course already exist"
+            message = {customStatus?.message}
         />
+        setTimeout(() => toggle() , 3000);
+        setTimeout(() => dispatch(customStatusAction('')) , 3000)
+        
     }
 
     return (
@@ -252,7 +254,8 @@ const CreateCourses = () => {
             (
                 <>
  
-                    {redirect, alertMessage}
+                    {redirect}
+                    {alertMessage}
                     <div className="row" >
 
                         <div className="col-lg-6">
