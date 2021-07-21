@@ -233,7 +233,6 @@ const CreateCourses = () => {
 
     if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/pending_Course"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout(() => dispatch(customStatusAction('')) , 1000);
   
     };

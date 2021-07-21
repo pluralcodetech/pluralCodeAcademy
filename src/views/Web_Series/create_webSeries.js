@@ -15,6 +15,7 @@ import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 import { stringsOnly } from 'src/validations';
+import Alert from 'src/containers/Alert';
 
 
 const CreateWebSeries = () => {
@@ -52,6 +53,12 @@ const CreateWebSeries = () => {
    
     
     const [picture, setPicture] = useState('');
+
+     //  Modal Action  
+     const [modal, setModal] = useState(true);
+     const toggle = () =>{
+         setModal(false);
+     };
     
 
     const imageInputRef = React.useRef();
@@ -119,12 +126,12 @@ const CreateWebSeries = () => {
             valid = false
         }
 
-        if (!stringsOnly.test(seriesName)) {
-            setError({
-                seriesNameErr: 'Only strings are valid.'
-            })
-            valid = false
-        }
+        // if (!stringsOnly.test(seriesName)) {
+        //     setError({
+        //         seriesNameErr: 'Only strings are valid.'
+        //     })
+        //     valid = false
+        // }
 
 
         if (seriesLink === '') {
@@ -195,29 +202,38 @@ const CreateWebSeries = () => {
         
     }
 
-    // console.log(customPostMessageData[0]?.status)
     const handleCancel = (e) => {
         e.preventDefault();
         history.push('/webSeriesList');   
     };
 
     let redirect = null;
+    let alertMessage = null;
+
 
     if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/webSeriesList"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
     };
+
+    if (customStatus?.status === 'failed') {
+        alertMessage = <Alert modal={modal} 
+            message = {customStatus?.message}
+        />
+        setTimeout(() => toggle() , 3000);
+        setTimeout(() => dispatch(customStatusAction('')) , 3000)
+        
+    }
  
     return (
         <div>
-            {/* {redirect} */}
             {loading ? <Loading/> 
             :
             (
                 <>
                     {redirect}
+                    {alertMessage}
                     <div className="row" >
                     
                         <div className="col-lg-12">
