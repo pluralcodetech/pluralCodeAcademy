@@ -15,6 +15,7 @@ import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 import { stringsOnly } from 'src/validations';
+import Alert from 'src/containers/Alert';
 
 
 const CreateEvent = () => {
@@ -59,7 +60,13 @@ const CreateEvent = () => {
     console.log(getDescription)
     
     const [picture, setPicture] = useState('');
-    console.log(picture)
+    console.log(picture);
+
+    //  Modal Action  
+    const [modal, setModal] = useState(true);
+    const toggle = () =>{
+        setModal(false);
+    };
 
     const imageInputRef = React.useRef();
     // const describeInputRef = React.useRef();
@@ -141,12 +148,12 @@ const CreateEvent = () => {
             valid = false
         }
 
-        if (!stringsOnly.test(name)) {
-            setError({
-                nameErr: 'Only strings are valid.'
-            })
-            valid = false
-        }
+        // if (!stringsOnly.test(name)) {
+        //     setError({
+        //         nameErr: 'Only strings are valid.'
+        //     })
+        //     valid = false
+        // }
 
 
         if (venue === '') {
@@ -230,18 +237,29 @@ const CreateEvent = () => {
         
     }
 
-    console.log(customPostMessageData[0]?.status)
+    console.log(customPostMessageData?.status)
+    console.log(customStatus?.status)
     const handleCancel = (e) => {
         e.preventDefault();
         history.push('/event_dashBoard');   
     };
 
     let redirect = null;
+    let alertMessage = null;
 
-    if (customStatus[0]?.status === 'success') {
+    if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/event_dashBoard"/>;
         setTimeout(() => dispatch(customStatusAction('')) , 1000);
     };
+
+    if (customStatus?.status === 'failed') {
+        alertMessage = <Alert modal={modal} 
+            message = {customStatus?.message}
+        />
+        setTimeout(() => toggle() , 3000);
+        setTimeout(() => dispatch(customStatusAction('')) , 3000)
+        
+    }
 
  
     return (
@@ -251,6 +269,8 @@ const CreateEvent = () => {
             :
             (
                 <>
+                    {redirect}
+                    {alertMessage}
                     <div className="row">
                     
                         <div className="col-lg-12">
