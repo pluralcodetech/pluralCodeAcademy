@@ -143,6 +143,7 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                             </CModalBody>
                 
                         </CModal>
+                    
                     </CForm>
                 </CCol>
             </CRow>

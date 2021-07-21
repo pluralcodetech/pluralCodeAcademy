@@ -1,29 +1,22 @@
+import { CModal, CModalBody, CModalHeader } from '@coreui/react'
 import React from 'react'
 
-const Alert = ({success, message}) => {
+const Alert = ({modal, toggle, success, message}) => {
     return (
-        <div class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+        <>
+        
+        <CModal show={modal} >
+            <CModalBody>
+            {
+                success ? (
+                    <p>{message}</p>
+                ) : <p className='text-danger text-center'>{message}</p>
+            }
+            </CModalBody>
 
-                    <div class="modal-body">
-                        {
-                            success ? (
-                                <p>{message}</p>
-                            ) : <p>{message}</p>
-                        }
-                        
-                    </div>
-                    {/* <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div> */}
-                </div>
-            </div>
-        </div>
+        </CModal>
+                    
+      </>
     )
 }
 
