@@ -10,6 +10,7 @@ import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatu
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
 import { numbersOnly, stringsOnly } from 'src/validations';
+import Alert from 'src/containers/Alert';
 
 
 const CreateCourses = () => {
@@ -47,6 +48,12 @@ const CreateCourses = () => {
         comments : ''
     }); //ReactQuill
     const [getDescription, setGetDescription] = useState('');
+
+    //  Modal Action  
+    const [modal, setModal] = useState(true);
+    const toggle = () =>{
+        setModal(!modal);
+    };
 
     // Global State
     const customPostMain  = useSelector(state => state.customPostData);
@@ -141,12 +148,12 @@ const CreateCourses = () => {
             valid = false
         }
 
-        if (!stringsOnly.test(courseName)) {
-            setError({
-                courseNameErr: 'Only strings are valid.'
-            })
-            valid = false
-        }
+        // if (!stringsOnly.test(courseName)) {
+        //     setError({
+        //         courseNameErr: 'Only strings are valid.'
+        //     })
+        //     valid = false
+        // }
 
 
         if (price === '') {
@@ -156,12 +163,12 @@ const CreateCourses = () => {
             valid = false
         }
 
-        if (!numbersOnly.test(price)) {
-            setError({
-                priceErr: 'Only numbers are valid.'
-            })
-            valid = false
-        }
+        // if (!numbersOnly.test(price)) {
+        //     setError({
+        //         priceErr: 'Only numbers are valid.'
+        //     })
+        //     valid = false
+        // }
 
         if (start_Date === '') {
             setError({
@@ -211,6 +218,9 @@ const CreateCourses = () => {
             imageInputRef.current.value = "";
             setPicture(null);
             setFile(null);
+            
+            // setTimeout (() => { toggle() }, 3000);
+
 
         }
         
@@ -219,6 +229,7 @@ const CreateCourses = () => {
     }
 
     let redirect = null;
+    let alertMessage = null;
 
     if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/pending_Course"/>;
@@ -227,14 +238,23 @@ const CreateCourses = () => {
   
     };
 
+    if (customStatus?.status === 'failed') {
+        alertMessage = <Alert modal={modal} 
+        // toggle={toggle}
+        message = "course already exist"
+        />
+    }
+
     return (
         <div>
             {loading ? <Loading/> 
             : 
             (
                 <>
-                    {redirect}
+ 
+                    {redirect, alertMessage}
                     <div className="row" >
+
                         <div className="col-lg-6">
                             <div className="card">
                                 <div className="card-body">
