@@ -25,7 +25,8 @@ const CreateCourses = () => {
         end_Date : '', 
         discountPrice : '', 
         discount_StartDate : '', 
-        discount_EndDate : ''
+        discount_EndDate : '',
+        courseVideoLink : '',
     });
 
     // Handling Error Response with Hooks State
@@ -61,7 +62,7 @@ const CreateCourses = () => {
     
     
     // Destructuring 
-    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate} = createCourse
+    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate, courseVideoLink} = createCourse
     const {children} = description;
     const {customPost, loading} = customPostMain;
     const {customStatus} = customStatusMain;
@@ -112,6 +113,7 @@ const CreateCourses = () => {
     createForm.append('discountprice', discountPrice);
     createForm.append('discountstartdate', discount_StartDate);
     createForm.append('discountenddate', discount_EndDate);
+    createForm.append('courselink', courseVideoLink);
 
 
     //** Actions **\\
@@ -213,9 +215,11 @@ const CreateCourses = () => {
                 discountPrice : '',
                 discount_StartDate : '',
                 discount_EndDate : '',
+                courseVideoLink : '',
             });
 
             imageInputRef.current.value = "";
+            fileInputRef.current.value = "";
             setPicture(null);
             setFile(null);
             
@@ -227,6 +231,8 @@ const CreateCourses = () => {
        
         
     }
+
+    console.log(customStatus[0]?.status)
 
     let redirect = null;
     let alertMessage = null;
@@ -336,7 +342,8 @@ const CreateCourses = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Course Images <span className="text-danger">*</span></label>
-                                        <input type="file" accept="image/png, image/jpeg, image/jpg" ref={imageInputRef}   className="form-control" placeholder="Choose File" onChange={event => setPicture(event.target.files[0])} required/>
+                                        <input type="file"  ref={imageInputRef}   className="form-control" placeholder="Choose File" onChange={event => setPicture(event.target.files[0])} required/>
+                                        {/* accept="image/png, image/jpeg, image/jpg" */}
                                         <div> 
                                             <small id="pictureErrr" class='text-danger text-sm'>{pictureErr}</small>
                                         </div>
@@ -345,6 +352,13 @@ const CreateCourses = () => {
                                         <label className="form-label">Curriculum </label>
                                         <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])} required/>
                                         
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Couse Video Link</label>
+                                        <input type="url" value={courseVideoLink} name="courseVideoLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@ import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui
 import moment from 'moment'
 import React from 'react'
 
-const CourseDetailsCard = ({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum}) => {
+const CourseDetailsCard = ({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum, courselink}) => {
     return (
         <CCard>
             <CCardHeader >
@@ -34,7 +34,14 @@ const CourseDetailsCard = ({image, name, description, price, start_date, end_dat
                     <small>Start Date : <span>{moment(start_date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
                 </CCol>
                 <CCol lg={4} className="mt-2">
-                    <small>Curriculum : <span>{curriculum}</span></small>
+                    
+                    <div>
+                        <small>Curriculum : <a href={curriculum}>{curriculum}</a></small>
+                    </div>
+                    <div>
+                        <small>Course Video Link : <span>{courselink}</span></small>
+                    </div>
+                    
                 </CCol>
 
                 <CCol lg={12} className="mt-4">

@@ -13,6 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import moment from 'moment';
 
 
 const UpdateActiveCourses = () => {
@@ -27,7 +28,7 @@ const UpdateActiveCourses = () => {
     const {active} = compleCourseList;
    
     const  activeData = useMemo(() => active, [active]);
-    // console.log(completedCourseList)
+    console.log(activeData)
 
     const customPostMain  = useSelector(state => state.customPostData);
 
@@ -40,26 +41,30 @@ const UpdateActiveCourses = () => {
 
     const activeResult =  activeData.find(item => item.id === getCourseData.id); // To find object Id properties
     
-    const {id, image, name, price, description, discountprice, start_date, end_date} = activeResult;
+    const {id, image, name, price, description, discountprice, start_date, end_date, courselink, curriculum} = activeResult;
     const [createCourse, setCreateCourse] = useState({
             courseName : name, 
             coursePrice : price, 
-            startDate : start_date, 
-            endDate : end_date, 
-            discountPrice : discountprice
+            startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
+            endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
+            discountPrice : discountprice,
+            courseVideoLink : courselink
     });
 
     const [getDescription, setGetDescription] = useState();
     
 
     const [picture, setPicture] = useState(image);
+    const [file, setFile] = useState(curriculum);
     // console.log(picture)
 
     const imageInputRef = React.useRef();
+    const fileInputRef = React.useRef();
+    
     // const describeInputRef = React.useRef();
 
      // Destructuring from Update Course State
-    const { courseName, coursePrice, startDate, endDate, discountPrice } = createCourse;
+    const { courseName, coursePrice, startDate, endDate, discountPrice, courseVideoLink } = createCourse;
 
     const modules = {
         toolbar: [
@@ -119,6 +124,8 @@ const UpdateActiveCourses = () => {
         upDateCourse.append('price', coursePrice);
         upDateCourse.append('startdate', startDate);
         upDateCourse.append('enddate', endDate);
+        upDateCourse.append('file', file);
+        upDateCourse.append('courselink', courseVideoLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
@@ -129,9 +136,11 @@ const UpdateActiveCourses = () => {
             startDate : '',
             endDate : '',
             discountPrice : '',
+            courseVideoLink : '',
         });
 
         imageInputRef.current.value = "";
+        fileInputRef.current.value = "";
         setPicture(null);
         
     }
@@ -189,7 +198,7 @@ const UpdateActiveCourses = () => {
 
                                         <div className="mb-3">
                                             <label>End Date <span className="text-danger">*</span></label>
-                                            <input type="datetime-local" value={endDate} name="endDate" className="form-control"  
+                                            <input type="datetime-local"  value={endDate} name="endDate" className="form-control"  
                                                 placeholder="Enter amount"
                                                 onChange={(e) => handleOnChange(e)}
                                             />
@@ -224,6 +233,23 @@ const UpdateActiveCourses = () => {
                                             />
                                             
                                         </div>
+
+                                    <div className="mb-3">
+                                        <label>Couse Video Link</label>
+                                        <input type="url" value={courseVideoLink} name="courseVideoLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Curriculum </label>
+                                        <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])} required/>
+                                        <div> 
+                                            <small  class='text-danger text-sm'>{curriculum}</small>
+                                        </div>
+                                        
+                                    </div>
                                 
                                         <div className="mb-3">
                                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
@@ -233,7 +259,11 @@ const UpdateActiveCourses = () => {
                                                 onChange={event => setPicture(event.target.files[0])}  
                                                 className="form-control" 
                                                 placeholder="Choose File" 
+                                                defualtvalue={picture}
                                             />
+                                            <div> 
+                                                <small  class='text-danger text-sm'>{image}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

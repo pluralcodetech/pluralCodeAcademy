@@ -46,27 +46,31 @@ const UpdatePendingCourses = () => {
 
     const pendingResult =  pendingData.find(item => item.id === getCourseData.id); // To find object Id properties
     
-    const {id, image, name, price, description, discountprice, start_date, end_date} = pendingResult
+    const {id, image, name, price, description, discountprice, start_date, end_date, courselink, curriculum} = pendingResult
 
     const [createCourse, setCreateCourse] = useState({
         courseName : name, 
         coursePrice : price, 
         startDate : start_date, 
         endDate : end_date, 
-        discountPrice : discountprice
+        discountPrice : discountprice,
+        courseVideoLink : courselink
     });
 
     const [getDescription, setGetDescription] = useState();
     
 
     const [picture, setPicture] = useState(image);
+    const [file, setFile] = useState(curriculum);
+    
     // console.log(picture)
 
     const imageInputRef = React.useRef();
+    const fileInputRef = React.useRef();
     // const describeInputRef = React.useRef();
 
     // Destructuring from Update Course State
-    const { courseName, coursePrice, startDate, endDate, discountPrice } = createCourse;
+    const { courseName, coursePrice, startDate, endDate, discountPrice, courseVideoLink } = createCourse;
 
     const modules = {
         toolbar: [
@@ -126,6 +130,8 @@ const UpdatePendingCourses = () => {
         upDateCourse.append('price', coursePrice);
         upDateCourse.append('startdate', startDate);
         upDateCourse.append('enddate', endDate);
+        upDateCourse.append('file', file);
+        upDateCourse.append('courselink', courseVideoLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
@@ -136,9 +142,11 @@ const UpdatePendingCourses = () => {
             startDate : '',
             endDate : '',
             discountPrice : '',
+            courseVideoLink : '',
         });
 
         imageInputRef.current.value = "";
+        fileInputRef.current.value = "";
         setPicture(null);
         
     }
@@ -233,6 +241,23 @@ const UpdatePendingCourses = () => {
                                             />
                                             
                                         </div>
+
+                                    <div className="mb-3">
+                                        <label>Couse Video Link</label>
+                                        <input type="url" value={courseVideoLink} name="courseVideoLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Curriculum </label>
+                                        <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])} required/>
+                                        <div> 
+                                            <small  class='text-danger text-sm'>{curriculum}</small>
+                                        </div>
+                                        
+                                    </div>
                                 
                                         <div className="mb-3">
                                             <label className="form-label">Course Images <span className="text-danger">*</span></label>
@@ -243,6 +268,9 @@ const UpdatePendingCourses = () => {
                                                 className="form-control" 
                                                 placeholder="Choose File" 
                                             />
+                                            <div> 
+                                                <small  class='text-danger text-sm'>{image}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
