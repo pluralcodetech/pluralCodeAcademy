@@ -13,6 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import moment from 'moment';
 
 
 const UpdateCompletedCourses = () => {
@@ -38,27 +39,30 @@ const UpdateCompletedCourses = () => {
 
     const completedResult = completedData.find(item => item.id === getCourseData.id); // To find object Id properties
     
-    const {id, image, name, price, description, discountprice, start_date, end_date} = completedResult
+    const {id, image, name, price, description, discountprice, start_date, end_date, courselink, curriculum} = completedResult
 
     const [createCourse, setCreateCourse] = useState({
             courseName : name, 
             coursePrice : price, 
-            startDate : start_date, 
-            endDate : end_date, 
-            discountPrice : discountprice
+            startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
+            endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
+            discountPrice : discountprice,
+            courseVideoLink : courselink
     });
 
     const [getDescription, setGetDescription] = useState();
     
 
     const [picture, setPicture] = useState(image);
+    const [file, setFile] = useState(curriculum);
     // console.log(picture)
 
     const imageInputRef = React.useRef();
+    const fileInputRef = React.useRef();
     // const describeInputRef = React.useRef();
 
      // Destructuring from Update Course State
-    const { courseName, coursePrice, startDate, endDate, discountPrice } = createCourse;
+    const { courseName, coursePrice, startDate, endDate, discountPrice, courseVideoLink } = createCourse;
 
     const modules = {
         toolbar: [
@@ -109,6 +113,8 @@ const UpdateCompletedCourses = () => {
         // To Form Data before posting the Data
         let upDateCourse = new FormData();
 
+        // console.log(file);
+
         // Append all value to FormData
         upDateCourse.append('courseid', id);
         upDateCourse.append('course_name', courseName);
@@ -118,6 +124,8 @@ const UpdateCompletedCourses = () => {
         upDateCourse.append('price', coursePrice);
         upDateCourse.append('startdate', startDate);
         upDateCourse.append('enddate', endDate);
+        upDateCourse.append('file', file);
+        upDateCourse.append('courselink', courseVideoLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
@@ -128,9 +136,12 @@ const UpdateCompletedCourses = () => {
             startDate : '',
             endDate : '',
             discountPrice : '',
+            courseVideoLink : '',
+            
         });
 
         imageInputRef.current.value = "";
+        fileInputRef.current.value = "";
         setPicture(null);
         
     }
@@ -221,6 +232,23 @@ const UpdateCompletedCourses = () => {
                                             placeholder="Enter amount"
                                             onChange={(e) => handleOnChange(e)} 
                                         />
+                                    </div>
+
+                                    
+                                    <div className="mb-3">
+                                        <label>Couse Video Link</label>
+                                        <input type="url" value={courseVideoLink} name="courseVideoLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">Curriculum </label>
+                                        <input type="file" ref={fileInputRef}   className="form-control" placeholder="Choose File" onChange={event => setFile(event.target.files[0])} required/>
+                                        <div> 
+                                            <small  class='text-danger text-sm'>{curriculum}</small>
+                                        </div>
                                         
                                     </div>
                             
@@ -232,6 +260,10 @@ const UpdateCompletedCourses = () => {
                                             className="form-control" 
                                             placeholder="Choose File" 
                                         />
+                                        <div> 
+                                            <small  class='text-danger text-sm'>{image}</small>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

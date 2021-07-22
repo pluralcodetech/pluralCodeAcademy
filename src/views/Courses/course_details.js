@@ -42,7 +42,7 @@ const CourseDetails = () => {
             <CCol lg={8}>
                 {loading ? (<Loading/>
                     ) : (
-                        course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum}) => (
+                        course?.map(({image, name, description, price, start_date, end_date, discountprice, discountstartdate, discountenddate, community, curriculum, courselink}) => (
                             <CourseDetailsCard 
                                 image={image} 
                                 name={name} 
@@ -55,6 +55,7 @@ const CourseDetails = () => {
                                 discountenddate={discountenddate}
                                 community = {community}
                                 curriculum = {curriculum}
+                                courselink = {courselink}
                             />
                         ))
                     )
