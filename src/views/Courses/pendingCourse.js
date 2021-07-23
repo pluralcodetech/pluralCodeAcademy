@@ -26,6 +26,8 @@ import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction'
 import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
 import { Loading } from 'src/routes';
+import Alert from 'src/containers/Alert';
+
 
 const PendingCourse = () => {
     let history = useHistory();
@@ -41,6 +43,7 @@ const PendingCourse = () => {
     // console.log();
 
     const [modal, setModal] = useState(false);
+    const [alertModal, setAlertModal] = useState(false);
     const [getID, setGetID] = useState('');
     const [getAllCourses, setGetAllCourses] = useState('');
     
@@ -65,6 +68,7 @@ const PendingCourse = () => {
         const {id} = courseData;
         history.push(`/update_pending_course/${id}`)
     }
+
 
     const handleDeleteCourse = (courseData) => {
         const {id} = courseData;
@@ -131,13 +135,23 @@ const PendingCourse = () => {
         {title: 'Create Comunity', render: item => <CButton color="dark" size={'sm'} className="m-2 primary" onClick={() => toggle(item.id)}>Create Community</CButton>},
         {title: 'View More', render: item => <CButton color="info" size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
+
+    let alertMessage = null;
+    const callalert = () => {
+        setAlertModal(!alertModal);
+    }
+
     return (
         <div>
             { loading ? <Loading/> 
                 :
                 (
                     <CRow>
-                        {/* Active */}
+                        {
+                            <Alert modal={alertModal} 
+                                message = "Sorry Admin User! This course cannot be deleted because it has registered students."
+                            />
+                        }
                         <CCol xl={12}>
                             <CCard>
                                 <MaterialTable
@@ -175,8 +189,8 @@ const PendingCourse = () => {
                                         rowData => ({
                                             icon: DeleteOutline,
                                             tooltip: 'Delete User', 
-                                            onClick: (event, rowData) =>  handleDeleteCourse(rowData)
-                                            
+                                            onClick: (event, rowData) =>  (rowData.student > 0 ? callalert() : handleDeleteCourse(rowData)) ,
+                                            // handleDeleteCourse(rowData)
                                         })
                                     ]}
                                 
