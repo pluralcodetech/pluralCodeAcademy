@@ -37,7 +37,8 @@ const ActiveCourse = () => {
 
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
+    
+   
 
     const compleCourseList = useSelector(state => state.courseListData.courseList);
     const {active} = compleCourseList;
@@ -86,15 +87,7 @@ const ActiveCourse = () => {
         setIdFormDate.append('id', id)
         dispatch(customStatusUpdateAction(url, setIdFormDate));
         setTimeout (() => dispatch(courseListAction()) , 300);
-    }
-
-    // // Handle update State to Active
-    // const handleUpdatePending = (id) => {
-    //     const url = 'https://pluralcode.academy/academyAPI/api/updatepending.php'
-    //     let setIdFormDate = new FormData()
-    //     setIdFormDate.append('id', id)
-    //     dispatch(customStatusUpdateAction(url, setIdFormDate))
-    // }
+    };
     
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),

@@ -28,6 +28,7 @@ import { useHistory } from 'react-router-dom';
 import addEventAction from 'src/Redux Statement/actions/addEventAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
+import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 const EventDashBoard = () => {
     
@@ -77,6 +78,7 @@ const EventDashBoard = () => {
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deleteevent.php'
         dispatch(customPostAction(deleteURL, deleteID));
         setTimeout (() => dispatch(eventListAction()) , 300);
+        setTimeout (() => dispatch(customStatusAction('')) , 300);
     };
 
     const handleOPenDetails =(item) => {
@@ -102,6 +104,7 @@ const EventDashBoard = () => {
         // dispatch(customStatusUpdateAction(url, setIdFormDate));
         dispatch(customPostAction(url, setIdFormDate));
         setTimeout (() => dispatch(eventListAction()) , 300);
+        
     }
 
     
@@ -140,27 +143,11 @@ const EventDashBoard = () => {
                 />
             )
         },
-        {title: 'Name', field: 'name'},
-        {title: 'Venue', field: 'venue'},
-        {title: 'Category', field: 'categorytype'},
-        {title: 'Start Date', field: 'start_date', render : item => <h6>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
-            editComponent: editProps => (
-                <Input
-                    type="datetime-local"
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-         },
-        {title: 'End Date', field: 'end_date', render : item => <h6>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</h6>,
-            editComponent: editProps => (
-                <Input
-                    type="datetime-local"
-                    autoFocus={true}
-                    onChange={e => editProps.onChange(e.target.value)}
-                />
-            )
-        },
+        {title: 'Name', field: 'name', render : item => <small>{item.name}</small>},
+        {title: 'Venue', field: 'venue', render : item => <small>{item.venue}</small>},
+        {title: 'Category', field: 'categorytype', render : item => <small>{item.categorytype}</small>},
+        {title: 'Start Date', field: 'start_date', render : item => <small>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</small>},
+        {title: 'End Date', field: 'end_date', render : item => <small>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</small>},
         {title: 'Visible', field: 'visible', render : item => (
             <>
                 {

@@ -40,6 +40,7 @@ const CreateEvent = () => {
         venue : '',
         start_date : '', 
         end_date : '',
+        eventlink : '',
     });
 
      // Handling Error Response with Hooks State
@@ -72,7 +73,7 @@ const CreateEvent = () => {
     // const describeInputRef = React.useRef();
 
      // Destructuring from Update Course State
-    const { name, venue, start_date, end_date } = createEvent;
+    const { name, venue, start_date, end_date, eventlink } = createEvent;
     const { nameErr, venueErr, start_dateErr, end_dateErr, pictureErr, getDescriptionErr, selectedOptionErr} = error;
 
     const modules = {
@@ -215,6 +216,8 @@ const CreateEvent = () => {
             createCourse.append('cattype', value);
             createCourse.append('startdate', start_date);
             createCourse.append('enddate', end_date);
+            createCourse.append('eventlink', eventlink);
+
 
             const updateURL = 'https://pluralcode.academy/academyAPI/api/create_events.php'
             dispatch(customPostAction(updateURL, createCourse));
@@ -225,6 +228,7 @@ const CreateEvent = () => {
                 venue : '',
                 start_date : '', 
                 end_date : '',
+                eventlink : '',
             });
 
             setSelectState({ selectedOption: '' });
@@ -237,8 +241,8 @@ const CreateEvent = () => {
         
     }
 
-    console.log(customPostMessageData?.status)
-    console.log(customStatus?.status)
+    // console.log(customPostMessageData?.status)
+    // console.log(customStatus?.status)
     const handleCancel = (e) => {
         e.preventDefault();
         history.push('/event_dashBoard');   
@@ -340,6 +344,13 @@ const CreateEvent = () => {
                                         <div> 
                                             <small id="end_dateErr" class='text-danger text-sm'>{end_dateErr}</small>
                                         </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Event Link</label>
+                                        <input type="url" value={eventlink} name="eventlink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
                                     </div>
                                 
                                     <div className="mb-3">

@@ -14,6 +14,7 @@ import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import moment from 'moment';
 
 const UpdateEvent = () => {
 
@@ -36,36 +37,29 @@ const UpdateEvent = () => {
     const customStatusMain = useSelector(state => state.customStatusData)
     const {customStatus} = customStatusMain
     // const {status} = customStatus
-    console.log(customStatus[0]?.status)
+    // console.log(customStatus[0]?.status)
 
     const eventResult =  eventListData.find(item => item.id === getEventData.id); // To find object Id properties
     
-    const {id, image, name, description, venue, start_date, end_date, categorytype} = eventResult
+    const {id, image, name, description, venue, start_date, end_date, categorytype, eventlink} = eventResult
     console.log(id)
 
     const [createEvent, setCreateEvent] = useState({
         eventName: name, // Default Value
-        eventVenue : venue, // Default Value
-        startDate : start_date, // Default Value
-        endDate : end_date, // Default Value
+        eventVenue : venue,  // Default Value
+        startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), // Default Value
+        endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), // Default Value
+        eventLink : eventlink, // Default Value
     });
 
     const [getDescription, setGetDescription] = useState();
-    // console.log(getDescription)
     
     const [picture, setPicture] = useState(image);
-    // console.log(picture)
 
     const imageInputRef = React.useRef();
-    // const describeInputRef = React.useRef();
 
      // Destructuring from Update Course State
-    const { eventName, eventVenue, startDate, endDate } = createEvent;
-
-
-    // const [redrt, setRedrt] = useState(customPostMessageData);
-    // const custom = useMemo(() => redrt, [redrt])
-    // console.log(customPostMessageData, custom);
+    const { eventName, eventVenue, startDate, endDate, eventLink } = createEvent;
 
     const modules = {
         toolbar: [
@@ -109,7 +103,7 @@ const UpdateEvent = () => {
     
 
     const { selectedOption } = selectState;
-    // console.log(selectedOption)
+    console.log(selectedOption)
     
      const handleSelectChange = selectedOption => {
         setSelectState({ selectedOption });
@@ -135,6 +129,10 @@ const UpdateEvent = () => {
 
         const {value} = selectedOption //selectState main value
 
+        // !value ? (
+        //     console.log( selectedOption)
+        // ) : (console.log( value))
+
         // To Form Data before posting the Data
 
         let upDateEvent = new FormData();
@@ -145,8 +143,9 @@ const UpdateEvent = () => {
         upDateEvent.append('description', getDescription);
         upDateEvent.append('venue', eventVenue);
         upDateEvent.append('startdate', startDate);
-        upDateEvent.append('enddate', end_date);
+        upDateEvent.append('enddate', endDate);
         upDateEvent.append('cattype', value);
+        upDateEvent.append('eventvideo', eventLink);
         !value ? (
             upDateEvent.append('cattype', selectedOption)
         ) : (upDateEvent.append('cattype', value))
@@ -163,6 +162,7 @@ const UpdateEvent = () => {
             eventVenue : '', 
             startDate : '',
             endDate : '', 
+            eventLink : '',
         });
 
         setSelectState({ selectedOption: '' });
@@ -173,7 +173,6 @@ const UpdateEvent = () => {
         
     }
 
-    // console.log(customPostMessageData[0]?.status)
     const handleCancel = (e) => {
         e.preventDefault();
         history.push('/event_dashBoard');   
@@ -181,18 +180,12 @@ const UpdateEvent = () => {
 
     let redirect = null;
 
-    if (customStatus[0]?.status === 'success') {
+    if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/event_dashBoard"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
     };
 
-
-    
-
-    // 
-   
     return (
         <div>
             {loading ? <Loading/> 
@@ -250,6 +243,14 @@ const UpdateEvent = () => {
                                             onChange={(e) => handleOnChange(e)}
                                         />
                                     </div>
+
+                                    <div className="mb-3">
+                                        <label>Event Link</label>
+                                        <input type="url" value={eventLink} name="eventLink" className="form-control" 
+                                            placeholder="Enter link"
+                                            onChange={(e) => handleOnChange(e)}
+                                        />
+                                    </div>
                                 
                                     <div className="mb-3">
                                         <label className="form-label">Course Description <span className="text-danger">*</span></label>
@@ -273,6 +274,9 @@ const UpdateEvent = () => {
                                             className="form-control" 
                                             placeholder="Choose File" 
                                         />
+                                        <div> 
+                                            <small  class='text-danger text-sm'>{image}</small>
+                                        </div>
                                     </div>
 
                                 </div>

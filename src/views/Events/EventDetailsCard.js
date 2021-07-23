@@ -1,7 +1,8 @@
 import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui/react'
+import moment from 'moment'
 import React from 'react'
 
-const EventDetailsCard = ({image, name, category, description, venue, start_date, end_date}) => {
+const EventDetailsCard = ({image, name, category, description, venue, start_date, end_date, eventlink}) => {
     return (
         <CCard>
             <CCardHeader >
@@ -10,22 +11,27 @@ const EventDetailsCard = ({image, name, category, description, venue, start_date
           <CCardBody>
             <h4 class="mt-4 text-primary mb-3">{name}</h4>
             <CRow>
-                <CCol lg={6} >
+                <CCol lg={4} >
                     <div>
                         <small>Category : <span>{category}</span></small>
                     </div>
                     <div className="mt-3">
-                        <small>Start Date : <span>{start_date}</span></small>
+                        <small>Start Date : <span>{moment(start_date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
                     </div>   
                 </CCol>
-                <CCol lg={6} >
+                <CCol lg={4} >
                     <div>
                         <small>Venue : <span>{venue}</span></small>
                     </div>
                     <div className="mt-3">
-                        <small>End Date : <span>{end_date}</span></small>
+                        <small>End Date : <span>{moment(end_date).format('MMMM Do YYYY, h:mm:ss a')}</span></small>
                     </div>
                     
+                </CCol>
+                <CCol lg={4} >
+                    <div>
+                        <small>Event Video Link : <a href={eventlink}>{eventlink}</a> <span></span></small>
+                    </div>
                 </CCol>
                 
 
