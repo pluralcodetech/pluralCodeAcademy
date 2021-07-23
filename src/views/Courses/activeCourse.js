@@ -67,18 +67,18 @@ const ActiveCourse = () => {
     const handleEditCourse = (courseData) => {
         const {id} = courseData;
         history.push(`/update_active_course/${id}`)
-    }
+    };
 
-    const handleDeleteCourse = (courseData) => {
-        const {id} = courseData;
+    // const handleDeleteCourse = (courseData) => {
+    //     const {id} = courseData;
     
-        let deleteID = new FormData();
-        deleteID.append('courseid', id);
+    //     let deleteID = new FormData();
+    //     deleteID.append('courseid', id);
 
-        const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-        dispatch(customPostAction(deleteURL, deleteID));
-        setTimeout (() => dispatch(courseListAction()) , 300);
-    }
+    //     const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
+    //     dispatch(customPostAction(deleteURL, deleteID));
+    //     setTimeout (() => dispatch(courseListAction()) , 300);
+    // }
 
     // Handle Update Status to Completed
     const handleUpdateActive = (id) => {
@@ -169,12 +169,12 @@ const ActiveCourse = () => {
                                             tooltip: 'Edit Course',
                                             onClick: (event, rowData) =>  handleEditCourse(rowData)
                                         },
-                                        rowData => ({
-                                            icon: DeleteOutline,
-                                            tooltip: 'Delete User', 
-                                            onClick: (event, rowData) =>  handleDeleteCourse(rowData)
+                                        // rowData => ({
+                                        //     icon: DeleteOutline,
+                                        //     tooltip: 'Delete User', 
+                                        //     onClick: (event, rowData) =>  handleDeleteCourse(rowData)
                                             
-                                        })
+                                        // })
                                     ]}
                                 
                                 />
