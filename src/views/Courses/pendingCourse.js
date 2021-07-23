@@ -136,7 +136,6 @@ const PendingCourse = () => {
         {title: 'View More', render: item => <CButton color="info" size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
     ]
 
-    let alertMessage = null;
     const callalert = () => {
         setAlertModal(!alertModal);
     }
