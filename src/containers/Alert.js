@@ -17,7 +17,6 @@ const Alert = ({modal, success, message}) => {
                 )
             }
 
-            
             </CModalBody>
 
         </CModal>
