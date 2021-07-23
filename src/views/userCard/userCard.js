@@ -5,10 +5,10 @@ import React from 'react'
 const UserCard = ({name, lastname, email, phone_number}) => {
     return (
         <CRow className="mb-3">
-            <CCol lg={2}>
+            <CCol xs={4} sm={4} md={4} lg={2}>
                 <Avatar />
             </CCol>
-            <CCol lg={7} className="text-center">
+            <CCol xs={4} sm={4} md={4} lg={7} className="text-center">
                 <div>
                     <small>{name} <span>{lastname}</span></small>
                 </div>
@@ -16,7 +16,7 @@ const UserCard = ({name, lastname, email, phone_number}) => {
                     <small>{email}</small>
                 </div>
             </CCol>
-            <CCol lg={3}>
+            <CCol xs={4} sm={4}  md={4} lg={3}>
                 <small>{phone_number}</small>
             </CCol>
         </CRow>

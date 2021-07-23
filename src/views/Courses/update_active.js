@@ -43,12 +43,12 @@ const UpdateActiveCourses = () => {
     
     const {id, image, name, price, description, discountprice, start_date, end_date, courselink, curriculum} = activeResult;
     const [createCourse, setCreateCourse] = useState({
-            courseName : name, 
-            coursePrice : price, 
-            startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
-            endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
-            discountPrice : discountprice,
-            courseVideoLink : courselink
+        courseName : name, // Default Value
+        coursePrice : price, // Default Value
+        startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), // Default Value
+        endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), // Default Value
+        discountPrice : discountprice, // Default Value
+        courseVideoLink : courselink // Default Value
     });
 
     const [getDescription, setGetDescription] = useState();
@@ -125,7 +125,7 @@ const UpdateActiveCourses = () => {
         upDateCourse.append('startdate', startDate);
         upDateCourse.append('enddate', endDate);
         upDateCourse.append('file', file);
-        upDateCourse.append('courselink', courseVideoLink);
+        upDateCourse.append('coursevideo', courseVideoLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
@@ -152,10 +152,9 @@ const UpdateActiveCourses = () => {
 
     let redirect = null;
 
-    if (customStatus[0]?.status === 'success') {
+    if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/active_Course"/>;
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
-  
     };
  
     return (

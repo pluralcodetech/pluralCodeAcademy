@@ -125,11 +125,6 @@ const CreateCourses = () => {
 
         setCreateCourse(getValue);
 
-        // // Error
-        // const newError = {...error}
-        // newError[event.target.id + 'Err'] = ''
-        // setError(newError)
-
     }
 
     const handleCancel = (e) => {
@@ -150,14 +145,6 @@ const CreateCourses = () => {
             valid = false
         }
 
-        // if (!stringsOnly.test(courseName)) {
-        //     setError({
-        //         courseNameErr: 'Only strings are valid.'
-        //     })
-        //     valid = false
-        // }
-
-
         if (price === '') {
             setError({
                 priceErr: 'Price cannot be blank.'
@@ -165,12 +152,6 @@ const CreateCourses = () => {
             valid = false
         }
 
-        // if (!numbersOnly.test(price)) {
-        //     setError({
-        //         priceErr: 'Only numbers are valid.'
-        //     })
-        //     valid = false
-        // }
 
         if (start_Date === '') {
             setError({

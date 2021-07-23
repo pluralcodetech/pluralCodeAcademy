@@ -39,7 +39,7 @@ const CourseDetailsCard = ({image, name, description, price, start_date, end_dat
                         <small>Curriculum : <a href={curriculum}>{curriculum}</a></small>
                     </div>
                     <div>
-                        <small>Course Video Link : <span>{courselink}</span></small>
+                        <small>Course Video Link : <a href={courselink}>{courselink}</a> <span></span></small>
                     </div>
                     
                 </CCol>

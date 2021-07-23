@@ -35,7 +35,7 @@ const EventDetail = () => {
         <CCol lg={8}>
             {loading ? (<Loading/>
                 ) : (
-                    customPost.Events?.map(({image, name, category, description, venue, start_date, end_date}) => (
+                    customPost.Events?.map(({image, name, category, description, venue, start_date, end_date, eventlink}) => (
                         <EventDetailsCard 
                             image={image} 
                             name={name} 
@@ -44,6 +44,7 @@ const EventDetail = () => {
                             start_date={start_date} 
                             end_date={end_date} 
                             venue={venue} 
+                            eventlink = {eventlink}
                         />
                     ))
                 )

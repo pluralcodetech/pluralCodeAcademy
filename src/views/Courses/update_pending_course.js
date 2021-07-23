@@ -13,6 +13,7 @@ import { Spinner } from 'react-bootstrap';
 import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
+import moment from 'moment';
 
 
 const UpdatePendingCourses = () => {
@@ -51,8 +52,8 @@ const UpdatePendingCourses = () => {
     const [createCourse, setCreateCourse] = useState({
         courseName : name, 
         coursePrice : price, 
-        startDate : start_date, 
-        endDate : end_date, 
+        startDate : moment(start_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
+        endDate : moment(end_date).format("YYYY-MM-DD[T]HH:mm:ss"), 
         discountPrice : discountprice,
         courseVideoLink : courselink
     });
@@ -131,7 +132,7 @@ const UpdatePendingCourses = () => {
         upDateCourse.append('startdate', startDate);
         upDateCourse.append('enddate', endDate);
         upDateCourse.append('file', file);
-        upDateCourse.append('courselink', courseVideoLink);
+        upDateCourse.append('coursevideo', courseVideoLink);
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updatecourse.php'
         dispatch(customPostAction(updateURL, upDateCourse));
@@ -158,7 +159,7 @@ const UpdatePendingCourses = () => {
 
     let redirect = null;
 
-    if (customStatus[0]?.status === 'success') {
+    if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/pending_Course"/>;
         // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
