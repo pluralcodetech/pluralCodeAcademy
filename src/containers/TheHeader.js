@@ -47,10 +47,15 @@ const TheHeader = () => {
     
   }
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(loginStatusAction(""));
-    history.push('/'); 
+    // history.push('/dashboard');
+    setTimeout(() => refreshPage(), 300)
     
     
   };

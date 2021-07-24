@@ -75,7 +75,7 @@ const Login = () => {
             passwordErr: 'Password cannot be blank.'
           })
           valid = false
-      }
+      };
 
       if (valid) {
         let loginForm = new FormData();
@@ -84,91 +84,114 @@ const Login = () => {
 
         const loginURL = 'https://pluralcode.academy/academyAPI/api/adminlogin.php';
         dispatch(loginAction(loginURL, loginForm));
-      }
+      };
 
+      
+
+      
       
   }
 
+  let redirect = null;
+  if (status === "success") {
+    redirect = <Redirect to = {`/dashboard`} />;
+    history.push('/dashboard');
+  };
+
+
   return (
-    <>
+    <div>
       {status === "success" && <Redirect to = {`/dashboard`} />}
+      {/* {status === "success" && <Redirect to = {`/dashboard`} />} */}
       {/* {loading ? <Loading/> :  */}
       {/* {loading ? <Loading/> : null} */}
-        <div className="c-app c-default-layout flex-row align-items-center">
+      {
+        
+        loading ? <Loading/> 
+        :
+        (
+          <>
+            {/* {redirect} */}
+            {/* {status === "success" && <Redirect to = {`/dashboard`} />} */}
+            <div className="c-app c-default-layout flex-row align-items-center">
 
-          <CContainer>
-            <CRow className="justify-content-center">
-              <CCol md="8">
-                <CCardGroup>
-                  <CCard className="p-4">
-                  <img src={pluralCode_logo} className="m-auto" alt="pluralCode_icon" style={{width: '40%', color: 'white'}} />
-                    <CCardBody>
-                      <CForm>
-                        <h1>Login</h1>
-                        <p className="text-muted">Sign In to your account</p>
-                        <div className="mb-3">
-                          <CInputGroup>
-                            <CInputGroupPrepend>
-                              <CInputGroupText>
-                                <CIcon name="cil-user" />
-                              </CInputGroupText>
-                            </CInputGroupPrepend>
-                            <CInput type="text" name="adminName" value={adminName} placeholder="Admin Name" onChange={(e) => handleOnChange(e)} autoComplete="adminName" />
-                          </CInputGroup>
-                          <div> 
-                            <small class='text-danger text-sm'>{adminNameErr}</small>
-                          </div>
-                        </div>
-                        
-                        
-                        <div className="mb-4">
-                          <CInputGroup >
-                            <CInputGroupPrepend>
-                              <CInputGroupText>
-                                <CIcon name="cil-lock-locked" />
-                              </CInputGroupText>
-                            </CInputGroupPrepend>
-                            <CInput type="password" name="password" value={password} placeholder="Password" onChange={(e) => handleOnChange(e)} autoComplete="current-password" />
+              <CContainer>
+                <CRow className="justify-content-center">
+                  <CCol md="8">
+                    <CCardGroup>
+                      <CCard className="p-4">
+                      <img src={pluralCode_logo} className="m-auto" alt="pluralCode_icon" style={{width: '40%', color: 'white'}} />
+                        <CCardBody>
+                          <CForm>
+                            <h1>Login</h1>
+                            <p className="text-muted">Sign In to your account</p>
+                            <div className="mb-3">
+                              <CInputGroup>
+                                <CInputGroupPrepend>
+                                  <CInputGroupText>
+                                    <CIcon name="cil-user" />
+                                  </CInputGroupText>
+                                </CInputGroupPrepend>
+                                <CInput type="text" name="adminName" value={adminName} placeholder="Admin Name" onChange={(e) => handleOnChange(e)} autoComplete="adminName" />
+                              </CInputGroup>
+                              <div> 
+                                <small class='text-danger text-sm'>{adminNameErr}</small>
+                              </div>
+                            </div>
                             
-                          </CInputGroup>
-                          <div> 
-                              <small class='text-danger text-sm'>{passwordErr}</small>
+                            
+                            <div className="mb-4">
+                              <CInputGroup >
+                                <CInputGroupPrepend>
+                                  <CInputGroupText>
+                                    <CIcon name="cil-lock-locked" />
+                                  </CInputGroupText>
+                                </CInputGroupPrepend>
+                                <CInput type="password" name="password" value={password} placeholder="Password" onChange={(e) => handleOnChange(e)} autoComplete="current-password" />
+                                
+                              </CInputGroup>
+                              <div> 
+                                  <small class='text-danger text-sm'>{passwordErr}</small>
+                              </div>
+                            </div>
+                            
+                              
+                            <CRow>
+                              <CCol xs="6">
+                                <CButton color="primary" onClick={handleSubmit} className="px-4">Login</CButton>
+                              </CCol>
+                              <CCol xs="6" className="text-right">
+                                <CButton color="link" className="px-0">Forgot password?</CButton>
+                              </CCol>
+                            </CRow>
+                          </CForm>
+                        </CCardBody>
+                      </CCard>
+                      {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+                        <CCardBody className="text-center">
+                          <div>
+                            
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                              labore et dolore magna aliqua.</p>
+                            <Link to="/register">
+                              <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
+                            </Link>
                           </div>
-                        </div>
-                        
-                          
-                        <CRow>
-                          <CCol xs="6">
-                            <CButton color="primary" onClick={handleSubmit} className="px-4">Login</CButton>
-                          </CCol>
-                          <CCol xs="6" className="text-right">
-                            <CButton color="link" className="px-0">Forgot password?</CButton>
-                          </CCol>
-                        </CRow>
-                      </CForm>
-                    </CCardBody>
-                  </CCard>
-                  {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                    <CCardBody className="text-center">
-                      <div>
-                        
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua.</p>
-                        <Link to="/register">
-                          <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                        </Link>
-                      </div>
-                    </CCardBody>
-                  </CCard>
-                */}
-                </CCardGroup>
-              </CCol>
-            </CRow>
-          </CContainer>
-      </div>
-    
+                        </CCardBody>
+                      </CCard>
+                    */}
+                    </CCardGroup>
+                  </CCol>
+                </CRow>
+              </CContainer>
+            </div>
+
+          </>
+        )
+      }
+        
       {/* } */}
-    </>
+    </div>
     
   )
 }
