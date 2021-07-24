@@ -1,4 +1,7 @@
 import { combineReducers } from "redux";
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+
 import addEventReducer from "./reducers/addEventReducer";
 import calendarDataReducer from "./reducers/calendarDataReducer";
 import courseDetailsReducer from "./reducers/courseDetailsReducer";
@@ -19,6 +22,12 @@ import userManagementReducer from "./reducers/UserManagementReducer";
 import webSeriesListReducer from "./reducers/webSeriesListReducer";
 import loginReducer from "./reducers/loginReducer";
 import loginStatusReducer from "./reducers/loginStatusReducer";
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['loginStatusData']
+}
 
 
 const rootReducer = combineReducers({
@@ -46,4 +55,4 @@ const rootReducer = combineReducers({
     loginStatusData : loginStatusReducer,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer)
