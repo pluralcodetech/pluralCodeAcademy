@@ -1,0 +1,5 @@
+const LOGIN_STATUS = {
+    LOGIN_STATUS_READ: 'LOGIN_STATUS_READ'
+};
+
+export default LOGIN_STATUS;
