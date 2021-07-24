@@ -18,7 +18,7 @@ const loginAction = (loginURL, loginData) => async dispatch => {
             headers: { "Content-Type": "multipart/form-data" }
         });
         const {data} = response;
-        dispatch(loginStatusAction(data));
+        setTimeout(() => dispatch(loginStatusAction(data)), 300)
 
         dispatch(
             {

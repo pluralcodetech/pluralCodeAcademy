@@ -10,14 +10,19 @@ import * as serviceWorker from './serviceWorker';
 import { icons } from './assets/icons'
 
 import { Provider } from 'react-redux'
-import store from './Redux Statement/store';
+import { PersistGate } from 'redux-persist/integration/react'
+// import store from './Redux Statement/store';
+import { store, persistor } from './Redux Statement/store';
+
 
 
 React.icons = icons
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <PersistGate persistor={persistor}>
+      <App/>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );

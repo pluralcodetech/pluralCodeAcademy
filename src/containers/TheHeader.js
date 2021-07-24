@@ -26,6 +26,7 @@ import {
   TheHeaderDropdownTasks
 }  from './index'
 import sidebarShowAction from 'src/Redux Statement/actions/sidebarShowAction'
+import loginStatusAction from 'src/Redux Statement/actions/loginStatusAction'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
@@ -43,6 +44,12 @@ const TheHeader = () => {
     
     
   }
+
+  const logout = () => {
+    dispatch(loginStatusAction(""));
+  };
+
+
 
   return (
     <CHeader withSubheader>
@@ -94,9 +101,10 @@ const TheHeader = () => {
             <CLink 
               className="c-subheader-nav-link" 
               aria-current="page" 
-              to="/dashboard"
+              // to="/"
+              onClick={logout}
             >
-              <CIcon name="cil-graph" alt="Dashboard" />&nbsp;Dashboard
+              <CIcon name="cil-user" alt="log out" />&nbsp;Log out
             </CLink>
             
           </div>
