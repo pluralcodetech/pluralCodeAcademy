@@ -25,6 +25,7 @@ const loginReducer = (state = loginState, action) => {
                 ...state,
                 loading : false,
                 error : action.error,
+                login: []
             };
         default:
             return state;
