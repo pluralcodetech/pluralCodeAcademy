@@ -57,7 +57,7 @@ const WebSeriesList = () => {
         const {id} = webseriesData;
     
         let deleteID = new FormData();
-        deleteID.append('eventid', id);
+        deleteID.append('id', id);
 
         const deleteURL = 'https://pluralcode.academy/academyAPI/api/deleteseries.php'
         dispatch(customPostAction(deleteURL, deleteID));
