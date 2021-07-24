@@ -27,8 +27,10 @@ import {
 }  from './index'
 import sidebarShowAction from 'src/Redux Statement/actions/sidebarShowAction'
 import loginStatusAction from 'src/Redux Statement/actions/loginStatusAction'
+import { Redirect, useHistory } from 'react-router-dom'
 
 const TheHeader = () => {
+  let history = useHistory();
   const dispatch = useDispatch()
   const sidebarShow = useSelector(state => state.nav.sidebarShow)
 
@@ -45,8 +47,12 @@ const TheHeader = () => {
     
   }
 
-  const logout = () => {
+  const logout = (e) => {
+    e.preventDefault();
     dispatch(loginStatusAction(""));
+    history.push('/'); 
+    
+    
   };
 
 

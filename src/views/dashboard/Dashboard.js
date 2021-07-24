@@ -48,8 +48,8 @@ const Dashboard = () => {
             {
               customRead.coursetotal?.map((item) => (
                 <CCallout color="dark">
-                  <h4 id="traffic" className="card-title mb-0">Total Courses</h4>
-                  <div className="small text-muted">{item.total}</div>
+                  <h4 id="traffic" className="card-title mb-0">{item.total}</h4>
+                  <div className="small text-muted">Total Courses</div>
                 </CCallout>
               ))
             }
@@ -58,8 +58,8 @@ const Dashboard = () => {
               {
                 customRead.userstotal?.map(item => (
                   <CCallout color="info">
-                    <h4 id="traffic" className="card-title mb-0">Total Users</h4>
-                    <div className="small text-muted">{item.total}</div>
+                    <h4 id="traffic" className="card-title mb-0">{item.total}</h4>
+                    <div className="small text-muted">Total Users</div>
                   </CCallout>
                 ))
               }
@@ -69,8 +69,8 @@ const Dashboard = () => {
               {
                 customRead.eventtotal?.map(item => (
                   <CCallout color="success">
-                    <h4 id="traffic" className="card-title mb-0">Total Events</h4>
-                    <div className="small text-muted">{item.total}</div>
+                    <h4 id="traffic" className="card-title mb-0">{item.total}</h4>
+                    <div className="small text-muted">Total Events</div>
                   </CCallout>
                 ))
               }       

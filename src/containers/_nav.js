@@ -105,7 +105,12 @@ const _nav =  [
       }
     ],
   },
-  
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'User Management',
+    to: '/user_management',
+    icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilUser'} />
+  },
   
   {
     _tag: 'CSidebarNavTitle',
@@ -114,13 +119,9 @@ const _nav =  [
   
   {
     _tag: 'CSidebarNavItem',
-    name: 'User Management',
-    to: '/user_management',
-    icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    }
+    name: 'Settings',
+    to: '/adminUpdate',
+    icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} />
   }, 
 ]
 

@@ -92,7 +92,8 @@ const Login = () => {
   return (
     <>
       {status === "success" && <Redirect to = {`/dashboard`} />}
-      {loading ? <Loading/> : 
+      {/* {loading ? <Loading/> :  */}
+      {/* {loading ? <Loading/> : null} */}
         <div className="c-app c-default-layout flex-row align-items-center">
 
           <CContainer>
@@ -166,7 +167,7 @@ const Login = () => {
           </CContainer>
       </div>
     
-      }
+      {/* } */}
     </>
     
   )

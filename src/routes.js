@@ -105,6 +105,11 @@ const UpdateWebSeries = Loadable({
 const WebSeriesDetails = Loadable({
   loader: () => import('./views/Web_Series/webSeries_details'),
   loading: Loading,
+});
+
+const AdminUpadate = Loadable({
+  loader: () => import('./views/Settings/AdminDataUpdate'),
+  loading: Loading,
 })
 
 // const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
@@ -146,6 +151,7 @@ const routes = [
   {path: '/create_webSeries', name: 'Create Web Series', component: CreateWebSeries},
   {path: '/update_webSeries/:id', name: 'Update Web Series', component: UpdateWebSeries},
   {path: '/webSeries_details/:id', name: 'Web Series Details', component: WebSeriesDetails},
+  {path: '/adminUpdate', name: 'Admin Update', component: AdminUpadate},
 ];
 
 export default routes;
