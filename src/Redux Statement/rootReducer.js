@@ -28,6 +28,7 @@ import webDigitalListReducer from "./reducers/webDigitalListReducer";
 import WebDevListReducer from "./reducers/WebDevListReducer";
 import sandBoxReducer from "./reducers/sandBoxReducer";
 import serviceListReducer from "./reducers/serviceListReducer";
+import mentorReducer from "./reducers/mentorReducer";
 
 const persistConfig = {
     key: 'root',
@@ -66,6 +67,7 @@ const rootReducer = combineReducers({
     WebDevListData: WebDevListReducer,
     sandBoxData : sandBoxReducer,
     serviceListData : serviceListReducer,
+    mentorData : mentorReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer)
