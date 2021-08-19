@@ -67,7 +67,7 @@ const WebDevList = () => {
                     icons={tableIcons}
                     columns={columns}
                     data = {WebDevListContent}
-                    title="Web Digital List"
+                    title="Web Development List"
                     options={{
                         exportButton: true,
                         
