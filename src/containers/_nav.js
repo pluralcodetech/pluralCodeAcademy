@@ -113,11 +113,6 @@ const _nav =  [
     _children: [ 
       {
         _tag: 'CSidebarNavItem',
-        name: 'Admins List',
-        to: '/adminList',
-      },
-      {
-        _tag: 'CSidebarNavItem',
         name: 'Ui/Ux List',
         to: '/uiUx',
       },
