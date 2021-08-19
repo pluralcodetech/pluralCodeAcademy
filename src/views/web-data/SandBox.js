@@ -68,7 +68,7 @@ const SandBox = () => {
                     icons={tableIcons}
                     columns={columns}
                     data = {sandBoxContent}
-                    title="Web Digital List"
+                    title="Web SandBox List"
                     options={{
                         exportButton: true,
                         
