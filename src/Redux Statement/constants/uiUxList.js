@@ -1,0 +1,7 @@
+const UI_UX_LIST = {
+    UI_UX_LIST_DATA: 'UI_UX_LIST_DATA',
+    UI_UX_LIST_SUCCESS: 'UI_UX_LIST_SUCCESS',
+    UI_UX_LIST_ERROR: 'UI_UX_LIST_ERROR',
+};
+
+export default UI_UX_LIST;
