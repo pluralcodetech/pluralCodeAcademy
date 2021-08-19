@@ -21,24 +21,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     Link, useHistory
 } from "react-router-dom";
-import moment from 'moment';
-import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
-// import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
+
+import uiUxListAction from 'src/Redux Statement/actions/uiUxListAction';
+
 
 const  UiUx = () => {
-    const adminListContent = useSelector(state => state.customReadData.customRead);
-    console.log(adminListContent);
-
-    const adminData = useMemo(() => adminListContent, [adminListContent]);
+    const uiUxListContent = useSelector(state => state.uiUxListData.uiUxList);
+    
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const url = 'https://pluralcode.academy/academyAPI/api/websiteuiux.php'
-        dispatch(customReadAction(url));
+        dispatch(uiUxListAction());
     }, []);
 
-    let history = useHistory();
+    // let history = useHistory();
 
     // const handleOPenDetails =(item) => {
     //     history.push(`/course_details/${item}`);   
@@ -78,7 +75,7 @@ const  UiUx = () => {
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {adminData}
+                    data = {uiUxListContent}
                     title="Admin List"
                     options={{
                         exportButton: true,
