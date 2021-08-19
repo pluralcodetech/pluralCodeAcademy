@@ -35,11 +35,6 @@ const  UiUx = () => {
         dispatch(uiUxListAction());
     }, []);
 
-    // let history = useHistory();
-
-    // const handleOPenDetails =(item) => {
-    //     history.push(`/course_details/${item}`);   
-    // }
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
