@@ -12,7 +12,6 @@ const uiUxListAction = () => async dispatch => {
     try {
         const response = await axios.get('https://pluralcode.academy/academyAPI/api/websiteuiux.php')
         const {data} = response;
-        console.log(data);
         
         dispatch({
             type: UI_UX_LIST.UI_UX_LIST_SUCCESS,
