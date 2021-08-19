@@ -106,6 +106,54 @@ const _nav =  [
     ],
   },
   {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Web Data',
+    route: '/base',
+    icon: "cil-chart-pie",
+    _children: [ 
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Admins List',
+        to: '/adminList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Ui/Ux List',
+        to: '/uiUx',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Web Development List',
+        to: '/webDevList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Web Series List',
+        to: '/wWebSeriesList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Web Digital List',
+        to: '/webDigitalList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'SandBox List',
+        to: '/sandBoxList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Mentor List',
+        to: '/mentorList',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Services List',
+        to: '/serviceList',
+      }
+    ],
+  },
+  {
     _tag: 'CSidebarNavItem',
     name: 'User Management',
     to: '/user_management',
@@ -123,6 +171,13 @@ const _nav =  [
     to: '/adminUpdate',
     icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} />
   }, 
+
+  // {
+  //   _tag: 'CSubFooter',
+  //   name: 'Log out',
+  //   to: '/user_management',
+  //   icon: <CIcon customClasses="c-sidebar-nav-icon" name={'cilUser'} />
+  // }
 ]
 
 export default _nav
