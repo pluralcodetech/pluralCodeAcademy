@@ -25,6 +25,7 @@ import loginStatusReducer from "./reducers/loginStatusReducer";
 import uiUxListReducer from "./reducers/uiUxListReducer";
 import wWebSeriesListReducer from "./reducers/wWebSeriesListReducer";
 import webDigitalListReducer from "./reducers/webDigitalListReducer";
+import WebDevListReducer from "./reducers/WebDevListReducer";
 
 const persistConfig = {
     key: 'root',
@@ -60,6 +61,7 @@ const rootReducer = combineReducers({
     uiUxListData : uiUxListReducer,
     wWebSeriesListData : wWebSeriesListReducer,
     webDigitalListData : webDigitalListReducer,
+    WebDevListData: WebDevListReducer
 });
 
 export default persistReducer(persistConfig, rootReducer)
