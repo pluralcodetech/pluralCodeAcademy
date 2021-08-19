@@ -1,6 +1,6 @@
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useMemo } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -17,26 +17,31 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
 import { useDispatch, useSelector } from 'react-redux';
-import discountListAction from 'src/Redux Statement/actions/discountListAction';
+
 import {
     Link, useHistory
 } from "react-router-dom";
 import moment from 'moment';
+import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
 
-const DiscountList = () => {
-    const discountListContent = useSelector(state => state.discountListData.discountList);
+const  AdminList = () => {
+    const adminListContent = useSelector(state => state.customReadData.customRead);
+    console.log(adminListContent);
+
+    const adminData = useMemo(() => adminListContent, [adminListContent]);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(discountListAction());
+        const url = 'https://pluralcode.academy/academyAPI/api/adminprofile.php'
+        dispatch(customReadAction(url));
     }, []);
 
     let history = useHistory();
 
-    const handleOPenDetails =(item) => {
-        history.push(`/course_details/${item}`);   
-    }
+    // const handleOPenDetails =(item) => {
+    //     history.push(`/course_details/${item}`);   
+    // }
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -60,12 +65,9 @@ const DiscountList = () => {
 
     // Columns
     const columns = [
-        {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />},
-        {title: 'Name', field: 'name', render : item => <small>{item.name}</small>},
-        {title: 'Price', field: 'price', render: item => <small>{item.price}</small>},
-        {title: 'Start Date', field: 'start_date', render : item => <small>{moment(item.start_date).format('MMMM Do YYYY, h:mm:ss a')}</small> },
-        {title: 'End Date', field: 'end_date', render : item => <small>{moment(item.end_date).format('MMMM Do YYYY, h:mm:ss a')}</small>},
-        {title: 'View More', render: item => <CButton color='info' size={'sm'} className="m-2 primary" onClick={() => handleOPenDetails(item.id)}>Details</CButton>},
+        {title: 'Image', field: 'image', render: item => console.log(item)},
+        {title: 'Author Image', field: 'authorimage', render: item => <img src={item.authorimage} alt="" border="3" height="100" width="100" />},
+        {title: 'Name', field: 'name', render : item => <small>{item.name}</small>}
     ]
     return (
         <CRow>
@@ -74,8 +76,8 @@ const DiscountList = () => {
                     <MaterialTable
                     icons={tableIcons}
                     columns={columns}
-                    data = {discountListContent}
-                    title="Course List"
+                    data = {adminData}
+                    title="Admin List"
                     options={{
                         exportButton: true,
                         
@@ -98,4 +100,4 @@ const DiscountList = () => {
     )
 }
 
-export default DiscountList
+export default  AdminList

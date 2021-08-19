@@ -112,7 +112,46 @@ const AdminUpadate = Loadable({
   loading: Loading,
 })
 
-// const CourseLists = React.lazy(() => import('./views/Courses/course_lists'));
+// const AdminList = Loadable({
+//   loader: () => import('./views/web-data/AdminList'),
+//   loading: Loading,
+// })
+
+const UiUx = Loadable({
+  loader: () => import('./views/web-data/UiUx'),
+  loading: Loading,
+})
+
+const WebDevList = Loadable({
+  loader: () => import('./views/web-data/WebDevList'),
+  loading: Loading,
+})
+
+const WWebSeriesList = Loadable({
+  loader: () => import('./views/web-data/WebSeriesList'),
+  loading: Loading,
+})
+
+const WebDigitalList = Loadable({
+  loader: () => import('./views/web-data/WebDigitalList'),
+  loading: Loading,
+})
+
+const SandBoxList = Loadable({
+  loader: () => import('./views/web-data/SandBox'),
+  loading: Loading,
+})
+
+const MentorList = Loadable({
+  loader: () => import('./views/web-data/Mentor'),
+  loading: Loading,
+})
+
+const ServiceList = Loadable({
+  loader: () => import('./views/web-data/ServiceList'),
+  loading: Loading,
+})
+const AdminList = React.lazy(() => import('./views/web-data/AdminList'));
 // const CourseDetails = React.lazy(() => import('./views/Courses/course_details'));
 // const CreateCourses = React.lazy(() => import('./views/Courses/create_courses'));
 // const UpdateCousre = React.lazy(() => import('./views/Courses/update_completed_course'));
@@ -152,6 +191,14 @@ const routes = [
   {path: '/update_webSeries/:id', name: 'Update Web Series', component: UpdateWebSeries},
   {path: '/webSeries_details/:id', name: 'Web Series Details', component: WebSeriesDetails},
   {path: '/adminUpdate', name: 'Admin Update', component: AdminUpadate},
+  {path: '/adminList', name: 'Admin List', component: AdminList},
+  {path: '/uiUx', name: 'Ui / Ux', component: UiUx},
+  {path: '/webDevList', name: 'Web Dev List', component: WebDevList},
+  {path: '/wWebSeriesList', name: 'Web Series List', component: WWebSeriesList},
+  {path: '/webDigitalList', name: 'Web Digital List', component: WebDigitalList},
+  {path: '/sandBoxList', name: 'Sand Box List', component: SandBoxList},
+  {path: '/mentorList', name: 'Mentor List', component: MentorList},
+  {path: '/serviceList', name: 'Service List', component: ServiceList},
 ];
 
 export default routes;

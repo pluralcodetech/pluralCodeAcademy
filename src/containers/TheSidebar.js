@@ -11,6 +11,7 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
+  CSidebarFooter,
 } from '@coreui/react'
 
 import CIcon from '@coreui/icons-react'
@@ -54,7 +55,13 @@ const TheSidebar = () => {
           }}
         />
       </CSidebarNav>
+      
       <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarFooter className=" text-center">
+          {/* <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} /> */}
+          Log out
+      </CSidebarFooter>
+     
     </CSidebar>
   )
 }
