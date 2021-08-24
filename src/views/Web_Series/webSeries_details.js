@@ -13,22 +13,20 @@ const WebSeriesDetails = () => {
     const {id} = listDataId;
 
     // Appending  ListDataId Id Values before Sending to API
-    var listID = new FormData();
-    listID.append('id', id);
+    
 
     useEffect(() => {
+        var listID = new FormData();
+        listID.append('id', id);
+
         const webSeriesDetailsURL = 'https://pluralcode.academy/academyAPI/api/webseriesdetails.php'
         dispatch(customPostAction(webSeriesDetailsURL, listID));
-    }, []);
+    }, [dispatch]);
 
     const customPostMain  = useSelector(state => state.customPostData);
     const {customPost, loading} = customPostMain;
 
     const {image, name, description, date, youtubelink, zoomlink} = customPost;
-
-    console.log(image, name, description, date, youtubelink, zoomlink)
-
-    console.log(customPost)
 
     return (
         <CRow>
@@ -45,21 +43,7 @@ const WebSeriesDetails = () => {
                     date={date} 
                 />)
 
-            }
-            {/* {loading ? (<Loading/>
-                ) : (
-                    customPost?.map(({image, name, description, date, link}) => (
-                        <WebseriesDetailsCard
-                            image={image} 
-                            name={name} 
-                            description = {description} 
-                            link={link} 
-                            date={date} 
-                        />
-                    ))
-                )
-            }
-             */}
+            };
         </CCol>
         
     </CRow>

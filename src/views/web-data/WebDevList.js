@@ -1,6 +1,6 @@
-import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import {CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect} from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -23,13 +23,12 @@ import WebDevListAction from 'src/Redux Statement/actions/WebDevListAction';
 
 const WebDevList = () => {
     const WebDevListContent = useSelector(state => state.WebDevListData.WebDevList);
-    console.log(WebDevListContent);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(WebDevListAction());
-    }, []);
+    }, [dispatch]);
 
 
     const tableIcons = {

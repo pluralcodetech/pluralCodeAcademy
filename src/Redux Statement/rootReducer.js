@@ -29,6 +29,7 @@ import WebDevListReducer from "./reducers/WebDevListReducer";
 import sandBoxReducer from "./reducers/sandBoxReducer";
 import serviceListReducer from "./reducers/serviceListReducer";
 import mentorReducer from "./reducers/mentorReducer";
+import courseNameReducer from "./reducers/courseNameReducer";
 
 const persistConfig = {
     key: 'root',
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
     customStatusData : customStatusReducer,
 
     userManagementData : userManagementReducer,
+    courseNameData : courseNameReducer,
     webSeriesListData : webSeriesListReducer,
     loginData : loginReducer,
     loginStatusData : loginStatusReducer,

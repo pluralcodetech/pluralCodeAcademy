@@ -1,6 +1,6 @@
-import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect} from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -20,8 +20,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import mentorAction from 'src/Redux Statement/actions/mentorAction';
 
-
-
 const Mentor = () => {
     const mentorContent = useSelector(state => state.mentorData.mentor);
     
@@ -30,7 +28,7 @@ const Mentor = () => {
 
     useEffect(() => {
         dispatch(mentorAction());
-    }, []);
+    }, [dispatch]);
 
 
     const tableIcons = {

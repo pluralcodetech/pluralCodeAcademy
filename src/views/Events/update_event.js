@@ -2,25 +2,19 @@ import React, { useMemo, useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { Spinner } from 'react-bootstrap';
-import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 import moment from 'moment';
 
 const UpdateEvent = () => {
-
     const dispatch = useDispatch();
-    let history = useHistory();
 
+    let history = useHistory();
     let getEventData  = useParams();
     
     const eventListContent = useSelector(state => state.eventListData);
@@ -28,16 +22,11 @@ const UpdateEvent = () => {
 
     const  eventListData = useMemo(() => eventList, [eventList]);
 
-    // const eventListContent = useSelector(state => state.eventListData.eventList);
-    
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
+    const {loading} = customPostMain;
 
     const customStatusMain = useSelector(state => state.customStatusData)
-    const {customStatus} = customStatusMain
-    // const {status} = customStatus
-    // console.log(customStatus[0]?.status)
+    const {customStatus} = customStatusMain;
 
     const eventResult =  eventListData.find(item => item.id === getEventData.id); // To find object Id properties
     
@@ -100,8 +89,6 @@ const UpdateEvent = () => {
         selectedOption: categorytype, // Default Value
     })
 
-    
-
     const { selectedOption } = selectState;
     console.log(selectedOption)
     
@@ -113,7 +100,6 @@ const UpdateEvent = () => {
       };
 
     /** ACTIONS  **/
-
     const handleOnChange = (event) => {
         const getValue = {...createEvent}
         getValue[event.target.name]=event.target.value;
@@ -129,14 +115,7 @@ const UpdateEvent = () => {
 
         const {value} = selectedOption //selectState main value
 
-        // !value ? (
-        //     console.log( selectedOption)
-        // ) : (console.log( value))
-
-        // To Form Data before posting the Data
-
         let upDateEvent = new FormData();
-
         upDateEvent.append('eventid', id);
         upDateEvent.append('name', eventName);
         upDateEvent.append('image', picture);
@@ -153,9 +132,6 @@ const UpdateEvent = () => {
 
         const updateURL = 'https://pluralcode.academy/academyAPI/api/updateevent.php'
         dispatch(customPostAction(updateURL, upDateEvent));
-
-        
-
 
         setCreateEvent({
             eventName: '',
@@ -225,8 +201,6 @@ const UpdateEvent = () => {
                                             options={options}
                                         />
                                     </div>
-
-                                    
 
                                     <div className="mb-3">
                                         <label>Start Date <span className="text-danger">*</span></label>

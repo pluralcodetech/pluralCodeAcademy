@@ -3,7 +3,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,21 +22,16 @@ const UpdateWebSeries = () => {
 
     const  webSeriesListData = useMemo(() => webSeriesList, [webSeriesList]);
 
-    // const eventListContent = useSelector(state => state.eventListData.eventList);
-    
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
+    const {loading} = customPostMain;
     
 
     const customStatusMain = useSelector(state => state.customStatusData)
-    const {customStatus} = customStatusMain
-    // const {status} = customStatus
-    console.log(customStatus[0]?.status)
+    const {customStatus} = customStatusMain;
 
     const webSeriesListResult =  webSeriesListData.find(item => item.id === getEventData.id); // To find object Id properties
     
-    const {id, image, name, description, youtubelink, zoomlink, date} = webSeriesListResult
-    console.log(id)
+    const {id, image, name, description, youtubelink, zoomlink, date} = webSeriesListResult;
 
     const [upDateWebSeriesList, setUpDateWebSeriesList] = useState({
         seriesName: name, // Default Value
@@ -57,11 +51,6 @@ const UpdateWebSeries = () => {
 
      // Destructuring from Update Course State
     const {seriesName, seriesLink, zoomLink, seriesDate} = upDateWebSeriesList;
-
-
-    // const [redrt, setRedrt] = useState(customPostMessageData);
-    // const custom = useMemo(() => redrt, [redrt])
-    // console.log(customPostMessageData, custom);
 
     const modules = {
         toolbar: [
@@ -93,9 +82,6 @@ const UpdateWebSeries = () => {
         setGetDescription(editor.getText())
 	};
 
-    
-    
-
     /** ACTIONS  **/
 
     const handleOnChange = (event) => {
@@ -109,7 +95,6 @@ const UpdateWebSeries = () => {
     // Actions for Submit button
     const handleSubmit = (e) => {
         e.preventDefault();
-
 
         // To Form Data before posting the Data
 
@@ -140,7 +125,6 @@ const UpdateWebSeries = () => {
         
     }
 
-    // console.log(customPostMessageData[0]?.status)
     const handleCancel = (e) => {
         e.preventDefault();
         history.push('/webSeriesList');   
@@ -150,16 +134,10 @@ const UpdateWebSeries = () => {
 
     if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/webSeriesList"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
   
     };
 
-
-    
-
-    // 
-   
     return (
         <div>
             {loading ? <Loading/> 

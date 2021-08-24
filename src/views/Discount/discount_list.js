@@ -18,9 +18,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 import { useDispatch, useSelector } from 'react-redux';
 import discountListAction from 'src/Redux Statement/actions/discountListAction';
-import {
-    Link, useHistory
-} from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import moment from 'moment';
 
 const DiscountList = () => {
@@ -30,7 +28,7 @@ const DiscountList = () => {
 
     useEffect(() => {
         dispatch(discountListAction());
-    }, []);
+    }, [dispatch]);
 
     let history = useHistory();
 

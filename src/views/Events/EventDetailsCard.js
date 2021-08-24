@@ -1,4 +1,4 @@
-import { CBadge, CCard, CCardBody, CCardHeader, CCol, CImg, CRow } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import moment from 'moment'
 import React from 'react'
 

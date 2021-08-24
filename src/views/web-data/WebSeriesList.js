@@ -1,6 +1,6 @@
-import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect} from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -19,18 +19,14 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import { useDispatch, useSelector } from 'react-redux';
 import wWebSeriesListAction from 'src/Redux Statement/actions/wWebSeriesListAction';
 
-
-
 const  WebSeriesList = () => {
     const wWebSeriesListContent = useSelector(state => state.wWebSeriesListData.wWebSeriesList);
-    
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(wWebSeriesListAction());
-    }, []);
-
+    }, [dispatch]);
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),

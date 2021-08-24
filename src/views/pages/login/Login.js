@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Redirect, Link, useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -19,6 +20,7 @@ import pluralCode_logo from '../../../assets/logo/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import loginAction from 'src/Redux Statement/actions/loginAction'
 import { Loading } from 'src/routes'
+import Alert from 'src/containers/Alert'
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -84,12 +86,7 @@ const Login = () => {
 
         const loginURL = 'https://pluralcode.academy/academyAPI/api/adminlogin.php';
         dispatch(loginAction(loginURL, loginForm));
-      };
-
-      
-
-      
-      
+      };  
   }
 
   let redirect = null;
@@ -102,24 +99,22 @@ const Login = () => {
   return (
     <div>
       {status === "success" && <Redirect to = {`/dashboard`} />}
-      {/* {status === "success" && <Redirect to = {`/dashboard`} />} */}
-      {/* {loading ? <Loading/> :  */}
-      {/* {loading ? <Loading/> : null} */}
-      {
+      
+      {/* {
         
         loading ? <Loading/> 
         :
         (
-          <>
-            {/* {redirect} */}
-            {/* {status === "success" && <Redirect to = {`/dashboard`} />} */}
+          <> */}
             <div className="c-app c-default-layout flex-row align-items-center">
 
               <CContainer>
                 <CRow className="justify-content-center">
                   <CCol md="8">
                     <CCardGroup>
+                      
                       <CCard className="p-4">
+                      {status === "failed" ? <CAlert color="danger">Incorrect password!</CAlert> : null}
                       <img src={pluralCode_logo} className="m-auto" alt="pluralCode_icon" style={{width: '40%', color: 'white'}} />
                         <CCardBody>
                           <CForm>
@@ -185,12 +180,12 @@ const Login = () => {
                 </CRow>
               </CContainer>
             </div>
-
+{/* 
           </>
         )
-      }
+      } */}
         
-      {/* } */}
+    
     </div>
     
   )

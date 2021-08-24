@@ -1,9 +1,6 @@
 import React, { useState} from 'react';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
@@ -51,7 +48,7 @@ const AdminDataUpdate = () => {
     // Destructuring 
     const {name, paystack, adminphone, password} = updateAdmin;
     const {nameErr, paystackErr, adminphoneErr, passwordErr, imageErr, adminImageErr} = error;
-    const {customPost, loading} = customPostMain;
+    const { loading} = customPostMain;
     const {customStatus} = customStatusMain;
     
 
@@ -164,9 +161,7 @@ const AdminDataUpdate = () => {
         
        
         
-    }
-
-    console.log(customStatus[0]?.status)
+    };
 
     let redirect = null;
     let alertMessage = null;

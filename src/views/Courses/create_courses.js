@@ -1,15 +1,12 @@
 import React, { useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
-import { numbersOnly, stringsOnly } from 'src/validations';
 import Alert from 'src/containers/Alert';
 
 
@@ -42,7 +39,6 @@ const CreateCourses = () => {
         discountPriceErr : '', 
     });
 
-    const [description, setDescription] = useState('');
     const [picture, setPicture] = useState('');
     const [file, setFile] = useState(null);
     const [state, setState] = useState({
@@ -62,16 +58,14 @@ const CreateCourses = () => {
     
     
     // Destructuring 
-    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate, courseVideoLink} = createCourse
-    const {children} = description;
-    const {customPost, loading} = customPostMain;
+    const {courseName, price, start_Date, end_Date, discountPrice, discount_StartDate, discount_EndDate, courseVideoLink} = createCourse;
+    const {loading} = customPostMain;
     const {customStatus} = customStatusMain;
     const {courseNameErr, priceErr, start_DateErr, end_DateErr, pictureErr, getDescriptionErr, discountPriceErr} = error;
 
     // useRefs
     const imageInputRef = React.useRef();
     const fileInputRef = React.useRef();
-    const describeInputRef = React.useRef();
 
     const modules = {
         toolbar: [
@@ -181,9 +175,6 @@ const CreateCourses = () => {
             valid = false
         }
 
-        
-       
-
         if (valid) {
             const createURL = 'https://pluralcode.academy/academyAPI/api/create_courses.php'
             dispatch(customPostAction(createURL, createForm));
@@ -203,17 +194,9 @@ const CreateCourses = () => {
             fileInputRef.current.value = "";
             setPicture(null);
             setFile(null);
-            
-            // setTimeout (() => { toggle() }, 3000);
-
-
         }
-        
-       
-        
+   
     }
-
-    console.log(customStatus[0]?.status)
 
     let redirect = null;
     let alertMessage = null;
@@ -324,7 +307,6 @@ const CreateCourses = () => {
                                     <div className="mb-3">
                                         <label className="form-label">Course Images <span className="text-danger">*</span></label>
                                         <input type="file"  ref={imageInputRef}   className="form-control" placeholder="Choose File" onChange={event => setPicture(event.target.files[0])} required/>
-                                        {/* accept="image/png, image/jpeg, image/jpg" */}
                                         <div> 
                                             <small id="pictureErrr" class='text-danger text-sm'>{pictureErr}</small>
                                         </div>
