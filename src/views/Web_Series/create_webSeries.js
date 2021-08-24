@@ -1,22 +1,14 @@
-import React, { useMemo, useState} from 'react';
+import React, { useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory} from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorBoundary from '../ErrorBoundary';
-import { Spinner } from 'react-bootstrap';
-import { CSpinner } from '@coreui/react';
-import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
-import { stringsOnly } from 'src/validations';
 import Alert from 'src/containers/Alert';
-
 
 const CreateWebSeries = () => {
 
@@ -24,7 +16,7 @@ const CreateWebSeries = () => {
     let history = useHistory();
     
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
+    const {loading} = customPostMain;
     
     const customStatusMain = useSelector(state => state.customStatusData)
     const {customStatus} = customStatusMain
@@ -59,18 +51,12 @@ const CreateWebSeries = () => {
      const toggle = () =>{
          setModal(false);
      };
-    
 
     const imageInputRef = React.useRef();
-    
 
      // Destructuring from Update Course State
     const {seriesName, seriesLink, seriesDate, zoomLink} = createWebSeriesList;
     const {seriesNameErr, seriesLinkErr, seriesDateErr, zoomLinkErr, pictureErr, getDescriptionErr} = error
-
-    // const [redrt, setRedrt] = useState(customPostMessageData);
-    // const custom = useMemo(() => redrt, [redrt])
-    // console.log(customPostMessageData, custom);
 
     const modules = {
         toolbar: [
@@ -125,14 +111,6 @@ const CreateWebSeries = () => {
             })
             valid = false
         }
-
-        // if (!stringsOnly.test(seriesName)) {
-        //     setError({
-        //         seriesNameErr: 'Only strings are valid.'
-        //     })
-        //     valid = false
-        // }
-
 
         if (seriesLink === '') {
             setError({
@@ -328,7 +306,7 @@ const CreateWebSeries = () => {
                                     <button type="submit"  className="btn w-sm rounded-pill btn-success waves-effect waves-light ml-3" onClick={handleSubmit}>Save</button>
                                 </div>
                             </div> 
-                        </div>s
+                        </div>
                     </div>
                 </>
         

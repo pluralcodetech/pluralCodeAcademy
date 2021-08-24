@@ -14,71 +14,53 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable from 'material-table';
-import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
-import {
-    Link, useHistory
-  } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
-import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
 import { Loading } from 'src/routes';
+import ErrorBoundary from '../ErrorBoundary';
+// import {ErrorBoundary} from 'react-error-boundary'
+import Page404 from '../pages/page404/Page404';
 
 const ActiveCourse = () => {
     let history = useHistory();
     const dispatch = useDispatch();
 
+    // Call the action to get the list of courses
     useEffect(() => {
         dispatch(courseListAction());
-    }, []);
+    }, [dispatch]);
 
+    // Get the list of courses
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
+    const {loading} = customPostMain;
     
-   
-
     const compleCourseList = useSelector(state => state.courseListData.courseList);
     const {active} = compleCourseList;
+
     const activeData = useMemo(() => active, [active]);
-    // console.log();
 
     const [modal, setModal] = useState(false);
-    const [getID, setGetID] = useState('');
-    const [getAllCourses, setGetAllCourses] = useState('');
+    const [getID, setGetID] = useState('');;
     
     const toggle = (id) =>{
         setModal(!modal);
         setGetID(id)
     }
 
- 
-
+    // Handle Open Details Button
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   
     };
-
-    // const handleAddCourse =() => {
-    //     history.push(`/create_course`);   
-    // };
 
     const handleEditCourse = (courseData) => {
         const {id} = courseData;
         history.push(`/update_active_course/${id}`)
     };
-
-    // const handleDeleteCourse = (courseData) => {
-    //     const {id} = courseData;
-    
-    //     let deleteID = new FormData();
-    //     deleteID.append('courseid', id);
-
-    //     const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-    //     dispatch(customPostAction(deleteURL, deleteID));
-    //     setTimeout (() => dispatch(courseListAction()) , 300);
-    // }
 
     // Handle Update Status to Completed
     const handleUpdateActive = (id) => {
@@ -139,52 +121,51 @@ const ActiveCourse = () => {
             { loading ? <Loading/> 
                 :
                 (
-                    <CRow>
-                        {/* Active */}
-                        <CCol xl={12}>
-                            <CCard>
-                                <MaterialTable
-                                    icons={tableIcons}
-                                    columns={activeColumns}
-                                    data = {activeData}
-                                    title="Active Course List"
-                                    options={{
-                                        exportButton: true,
-                                        
-                                    }}
-
-                                    localization= {{
-                                        body: {
-                                            emptyDataSourceMessage: <CSpinner
-                                            color="primary"
-                                            style={{width:'4rem', height:'4rem'}}
-                                        />,
+                    
+                        <CRow>
+                            {/* Active */}
+                            <CCol xl={12}>
+                                <CCard>
+                                    <ErrorBoundary>
+                                    <MaterialTable
+                                        icons={tableIcons}
+                                        columns={activeColumns}
+                                        data = {activeData}
+                                        title="Active Course List"
+                                        options={{
+                                            exportButton: true,
                                             
-                                        }
-                                    }}
+                                        }}
 
-                                    actions={[
-                                        {
-                                            icon: Edit,
-                                            tooltip: 'Edit Course',
-                                            onClick: (event, rowData) =>  handleEditCourse(rowData)
-                                        },
-                                        // rowData => ({
-                                        //     icon: DeleteOutline,
-                                        //     tooltip: 'Delete User', 
-                                        //     onClick: (event, rowData) =>  handleDeleteCourse(rowData)
-                                            
-                                        // })
-                                    ]}
+                                        localization= {{
+                                            body: {
+                                                emptyDataSourceMessage: <CSpinner
+                                                color="primary"
+                                                style={{width:'4rem', height:'4rem'}}
+                                            />,
+                                                
+                                            }
+                                        }}
+
+                                        actions={[
+                                            {
+                                                icon: Edit,
+                                                tooltip: 'Edit Course',
+                                                onClick: (event, rowData) =>  handleEditCourse(rowData)
+                                            },
                                 
-                                />
-                            </CCard>
-                        </CCol>
-                        <CommunityModal modal={modal} 
-                            toggle={toggle}
-                            id={getID}
-                        />
-                    </CRow>
+                                        ]}
+                                    
+                                    />
+                                    </ErrorBoundary>
+                                </CCard>
+                            </CCol>
+                            <CommunityModal modal={modal} 
+                                toggle={toggle}
+                                id={getID}
+                            />
+                        </CRow>
+                    
     
                 )
             }

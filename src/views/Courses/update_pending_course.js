@@ -2,15 +2,11 @@ import React, { useMemo, useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBoundary from '../ErrorBoundary';
-import { Spinner } from 'react-bootstrap';
-import { CSpinner } from '@coreui/react';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 import moment from 'moment';
@@ -22,24 +18,14 @@ const UpdatePendingCourses = () => {
     let history = useHistory();
 
     let getCourseData  = useParams(); 
-    // console.log(getCourseData.id);
 
     const compleCourseList = useSelector(state => state.courseListData.courseList);
     const {pending} = compleCourseList;
    
     const  pendingData = useMemo(() => pending, [pending]);
-    // console.log(completedCourseList)
-
 
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
-
-
-    // console.log(loading)
-    // console.log(customPostMessageData);
-
-    // console.log(customPostMessageData[0]?.status)
+    const {loading} = customPostMain;
 
     const customStatusMain = useSelector(state => state.customStatusData)
     const {customStatus} = customStatusMain
@@ -59,16 +45,12 @@ const UpdatePendingCourses = () => {
     });
 
     const [getDescription, setGetDescription] = useState();
-    
 
     const [picture, setPicture] = useState(image);
     const [file, setFile] = useState(curriculum);
-    
-    // console.log(picture)
 
     const imageInputRef = React.useRef();
     const fileInputRef = React.useRef();
-    // const describeInputRef = React.useRef();
 
     // Destructuring from Update Course State
     const { courseName, coursePrice, startDate, endDate, discountPrice, courseVideoLink } = createCourse;
@@ -161,9 +143,7 @@ const UpdatePendingCourses = () => {
 
     if (customStatus?.status === 'success') {
         redirect = <Redirect to = "/pending_Course"/>;
-        // redirect = history.push('/event_dashBoard'); 
         setTimeout (() => dispatch(customStatusAction('')) , 1000);
-  
     };
  
     return (

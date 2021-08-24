@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useState} from 'react'
 import { CButton, CCol, CContainer, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalFooter, CModalHeader, CRow } from '@coreui/react';
 import { useDispatch} from 'react-redux';
 
@@ -22,7 +22,7 @@ const CommunityModal = ({modal, toggle, id}) => {
     createCourse.append('id', id );
     createCourse.append('link', link);
     
-    
+    // Handle value from form
     const handleOnChange = e => {
         const getValue = {...inputValues}
         getValue[e.target.name]=e.target.value
@@ -31,18 +31,11 @@ const CommunityModal = ({modal, toggle, id}) => {
         console.log(inputValues);
     };
 
-   
-
+    // Handle Submit
     const onSubmit = (e)=> {
         e.preventDefault();
-
-        console.log(link);
-
-        dispatch(customPostAction('https://pluralcode.academy/academyAPI/api/create_community.php', createCourse))
-        
-        // dispatch(eventListAction());
-        toggle();  
-        
+        dispatch(customPostAction('https://pluralcode.academy/academyAPI/api/create_community.php', createCourse));
+        toggle();   
     }
       
     return (

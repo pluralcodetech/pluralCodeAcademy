@@ -2,38 +2,27 @@ import React, { useMemo, useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import parse from 'html-react-parser';
 import "react-datetime/css/react-datetime.css";
-import axios from 'axios';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { useDispatch, useSelector } from 'react-redux';
-import ErrorBoundary from '../ErrorBoundary';
-import { Spinner } from 'react-bootstrap';
-import { CSpinner } from '@coreui/react';
 import Select from 'react-select';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
-import { stringsOnly } from 'src/validations';
 import Alert from 'src/containers/Alert';
 
 
 const CreateEvent = () => {
-
     const dispatch = useDispatch();
     let history = useHistory();
 
     const customPostMain  = useSelector(state => state.customPostData);
 
-    const {customPost, loading} = customPostMain;
+    const {loading} = customPostMain;
 
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
     const customStatusMain = useSelector(state => state.customStatusData);
     const {customStatus} = customStatusMain
-    // console.log(loading)
-    // console.log(customPostMessageData);
 
-    // console.log(customPostMessageData[0]?.status)
 
     const [createEvent, setCreateEvent] = useState({
         name: '', 
@@ -55,8 +44,6 @@ const CreateEvent = () => {
     
     });
 
-
-
     const [getDescription, setGetDescription] = useState('');
     console.log(getDescription)
     
@@ -70,7 +57,6 @@ const CreateEvent = () => {
     };
 
     const imageInputRef = React.useRef();
-    // const describeInputRef = React.useRef();
 
      // Destructuring from Update Course State
     const { name, venue, start_date, end_date, eventlink } = createEvent;
@@ -108,7 +94,7 @@ const CreateEvent = () => {
 
     const options = [
         { value: 'News', label: 'News' },
-        { value: 'Event', label: 'Event' },
+        { value: 'EVENT', label: 'Event' },
     ];
     
     const [selectState, setSelectState] = useState({
@@ -148,14 +134,6 @@ const CreateEvent = () => {
             })
             valid = false
         }
-
-        // if (!stringsOnly.test(name)) {
-        //     setError({
-        //         nameErr: 'Only strings are valid.'
-        //     })
-        //     valid = false
-        // }
-
 
         if (venue === '') {
             setError({

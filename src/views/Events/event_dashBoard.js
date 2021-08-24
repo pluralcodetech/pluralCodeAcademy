@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -14,31 +14,24 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import MaterialTable, { MTableBodyRow } from 'material-table';
+import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
-import AddEventModal from './AddEventModal';
 import eventListAction from 'src/Redux Statement/actions/eventListAction';
 import moment from 'moment';
-import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
-import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
 import { useHistory } from 'react-router-dom';
-import addEventAction from 'src/Redux Statement/actions/addEventAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
 import { customStatusAction } from 'src/Redux Statement/actions/CRUD/customStatusAction';
 
 const EventDashBoard = () => {
-    
-
     const dispatch = useDispatch();
     let history = useHistory();
 
     useEffect(() => {
         dispatch(eventListAction());
-    }, 3000);
+    }, [dispatch]);
     
 
     const eventListContent = useSelector(state => state.eventListData);
@@ -48,18 +41,7 @@ const EventDashBoard = () => {
 
 
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
-
-
-    const [modal, setModal] = useState(false);
-    
-
-    
-    const toggle = () =>{
-        setModal(!modal);
-        console.log(modal);
-    }
+    const {loading} = customPostMain;
 
     const handleAddCourse =() => {
         history.push(`/create_event`);   
@@ -89,8 +71,7 @@ const EventDashBoard = () => {
      const handleShowEvent = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/show.php'
         let setIdFormDate = new FormData()
-        setIdFormDate.append('id', id)
-        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        setIdFormDate.append('id', id);
         dispatch(customPostAction(url, setIdFormDate));
         setTimeout (() => dispatch(eventListAction()) , 300);
 
@@ -101,7 +82,6 @@ const EventDashBoard = () => {
         const url = 'https://pluralcode.academy/academyAPI/api/hide.php'
         let setIdFormDate = new FormData()
         setIdFormDate.append('id', id)
-        // dispatch(customStatusUpdateAction(url, setIdFormDate));
         dispatch(customPostAction(url, setIdFormDate));
         setTimeout (() => dispatch(eventListAction()) , 300);
         
@@ -208,8 +188,6 @@ const EventDashBoard = () => {
                                     })
                                     
                                 ]}
-                            
-                                
                                 />
                             </CCard>
                         </CCol>

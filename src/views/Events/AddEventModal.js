@@ -1,16 +1,8 @@
-import React, {useRef, useState} from 'react'
+import React, {useState} from 'react'
 import { CButton, CCol, CContainer, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalFooter, CModalHeader, CRow } from '@coreui/react';
-import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
-import DateTimePicker from 'react-datetime-picker';
-import { useDispatch, useSelector } from 'react-redux';
-import calendarDataAction from 'src/Redux Statement/actions/calendarDataAction';
-import moment from 'moment';
+import { useDispatch} from 'react-redux';
 import addEventAction from 'src/Redux Statement/actions/addEventAction';
-// import eventListAction from 'src/Redux Statement/actions/eventListAction';
-
-
-
 
 const AddEventModal = ({modal, toggle, onEventAdded}) => {
     const dispatch = useDispatch();
@@ -79,7 +71,6 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
             <CRow>
                 <CCol sm="12">
                     <CForm onSubmit={onSubmit}>
-                        {/* <CButton onClick={toggle} className="mr-1">Launch demo modal</CButton> */}
                         <CModal show={modal} >
                             <CModalHeader closeButton>Create Event</CModalHeader>
                             <CModalBody>
@@ -117,15 +108,9 @@ const AddEventModal = ({modal, toggle, onEventAdded}) => {
                                 </CFormGroup>
 
                                 <CFormGroup>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" 
-                                className="form-control" 
-                                placeholder="Choose File"  onChange={uploadImage}/>
-                                    {/* <CInput
-                                    type="file"
-                                    accept="image/png, image/jpeg, image/jpg"
-                                    value={image}
-                                    onChange={uploadImage}
-                                    /> */}
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg" 
+                                    className="form-control" 
+                                    placeholder="Choose File"  onChange={uploadImage}/>
                                 </CFormGroup>
 
                                 <CFormGroup>

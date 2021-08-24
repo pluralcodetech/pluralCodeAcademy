@@ -1,6 +1,6 @@
-import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import {CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect} from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -18,22 +18,17 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    Link, useHistory
-} from "react-router-dom";
-
 import uiUxListAction from 'src/Redux Statement/actions/uiUxListAction';
 
 
 const  UiUx = () => {
     const uiUxListContent = useSelector(state => state.uiUxListData.uiUxList);
-    
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(uiUxListAction());
-    }, []);
+    }, [dispatch]);
 
 
     const tableIcons = {

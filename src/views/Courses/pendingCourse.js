@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -14,7 +14,6 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable from 'material-table';
-import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
@@ -34,18 +33,15 @@ const PendingCourse = () => {
     const dispatch = useDispatch();
 
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
+    const {loading} = customPostMain;
 
     const compleCourseList = useSelector(state => state.courseListData.courseList);
     const {pending} = compleCourseList;
     const pendingData = useMemo(() => pending, [pending]);
-    // console.log();
 
     const [modal, setModal] = useState(false);
     const [alertModal, setAlertModal] = useState(false);
     const [getID, setGetID] = useState('');
-    const [getAllCourses, setGetAllCourses] = useState('');
     
     const toggle = (id) =>{
         setModal(!modal);
@@ -54,7 +50,7 @@ const PendingCourse = () => {
 
     useEffect(() => {
         dispatch(courseListAction());
-    }, []);
+    }, [dispatch]);
 
     const handleOPenDetails =(item) => {
         history.push(`/course_details/${item}`);   

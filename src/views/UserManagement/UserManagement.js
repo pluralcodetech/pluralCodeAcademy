@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import { AddBox, ArrowDownward } from "@material-ui/icons";
+import { ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
@@ -13,23 +13,15 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import MaterialTable, { MTableBodyRow } from 'material-table';
+import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
-// import AddEventModal from './AddEventModal';
-import eventListAction from 'src/Redux Statement/actions/eventListAction';
-import moment from 'moment';
-import deleteEventAction from 'src/Redux Statement/actions/deleteEventAction';
-import upDateEventAction from 'src/Redux Statement/actions/upDateEventAction';
-import { useHistory } from 'react-router-dom';
-import customStatusUpdateAction from 'src/Redux Statement/actions/customStatusUpdateAction';
-import customReadAction from 'src/Redux Statement/actions/CRUD/customReadAction';
-import {Redirect} from "react-router-dom"
 import userManagementAction from 'src/Redux Statement/actions/UserManagementAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
+import Select from 'react-select';
+import courseNameAction from '../../Redux Statement/actions/courseNameAction'
 
 const UserManagement = () => {
     const tableRef = React.createRef();
@@ -40,8 +32,7 @@ const UserManagement = () => {
     const {userManagement} = userManagementcontent;
 
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    // console.log(loading)
+    const {loading} = customPostMain;
 
     function refreshPage() {
         window.location.reload(false);
@@ -50,14 +41,14 @@ const UserManagement = () => {
     // userManagement
     useEffect(() => {
         dispatch(userManagementAction());
-    }, []);
+        dispatch(courseNameAction());
+    }, [dispatch]);
 
      // Handle active State to Active
      const handleActive = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/activateuser.php'
         let setIdFormDate = new FormData()
-        setIdFormDate.append('id', id)
-        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        setIdFormDate.append('id', id);
         dispatch(customPostAction(url, setIdFormDate));
         setTimeout (() => dispatch(userManagementAction()) , 300);
 
@@ -67,8 +58,7 @@ const UserManagement = () => {
      const handleSuspend = (id) => {
         const url = 'https://pluralcode.academy/academyAPI/api/suspend.php'
         let setIdFormDate = new FormData()
-        setIdFormDate.append('id', id)
-        // dispatch(customStatusUpdateAction(url, setIdFormDate));
+        setIdFormDate.append('id', id);
         dispatch(customPostAction(url, setIdFormDate));
         setTimeout (() => dispatch(userManagementAction()) , 300);
     }
@@ -91,6 +81,56 @@ const UserManagement = () => {
         ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
+
+    const courseNameContent = useSelector(state => state.courseNameData);
+    const {courseName} = courseNameContent;
+
+    // Getting Course Name Values
+    let options = [];
+
+    courseName?.map(({id, name}) => {
+        options = [
+            {
+                value: id,
+                label: name
+            },
+            ...options
+        ]
+    });
+
+    const [selectState, setSelectState] = useState({
+        selectedOption: null,
+    })
+
+    const { selectedOption } = selectState;
+
+    const handleSelectChange = selectedOption => {
+        setSelectState({ selectedOption });
+    };
+
+
+    // Handle Payment Update
+    const handlePaymentUpdate = (item) => {
+        if (selectedOption === null) {
+            alert('Please, select a course');
+
+        } else {
+            const {value} = selectedOption
+            console.log(value, item.id);
+            const url = 'https://pluralcode.academy/academyAPI/api/backdoor.php'
+            
+            let paymentUpdate = new FormData();
+            paymentUpdate.append('studentid', item.id);
+            paymentUpdate.append('courseid', value);
+
+            const submitData = prompt(`Are you sure you want to enroll ${item.name} ${item.lastname}`);
+            if (submitData === 'yes') {
+                dispatch(customPostAction(url, paymentUpdate));
+                setTimeout (() => dispatch(userManagementAction()) , 300);
+            }
+        };
+
+    }
 
       
     // Columns
@@ -122,6 +162,18 @@ const UserManagement = () => {
                     <CButton color='primary' size={'sm'} className="m-2" onClick={() => handleActive(item.id)}>{item.activate}</CButton> 
                 }
             </>
+        )},
+        {title: 'Payment Update', field: 'activate', render : item => (
+            <div className="text-center text-xs">
+                <Select
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={options}
+                    required
+                />
+
+                <CButton color='primary' size={'sm'} className="m-2" onClick={() => handlePaymentUpdate(item)}>Enroll</CButton>
+            </div>
         )}
     ]
     return (
@@ -134,27 +186,25 @@ const UserManagement = () => {
 
                             <CCard>
                                 <MaterialTable
-                                icons={tableIcons}
-                                columns={columns}
-                                data = {userManagement}
-                                tableRef={tableRef}
-                                localization= {{
-                                    body: {
-                                        emptyDataSourceMessage: <CSpinner
-                                        color="primary"
-                                        style={{width:'4rem', height:'4rem'}}
-                                    />,
+                                    icons={tableIcons}
+                                    columns={columns}
+                                    data = {userManagement}
+                                    tableRef={tableRef}
+                                    localization= {{
+                                        body: {
+                                            emptyDataSourceMessage: <CSpinner
+                                            color="primary"
+                                            style={{width:'4rem', height:'4rem'}}
+                                        />,
+                                            
+                                        }
+                                    }}
+                                
+                                    title="User Management" 
+                                    options={{
+                                        exportButton: true,
                                         
-                                    }
-                                }}
-                            
-                                title="User Management"
-                                options={{
-                                    exportButton: true,
-                                    
-                                }}
-                                
-                                
+                                    }}
                                 />
                             </CCard>
                         </CCol>

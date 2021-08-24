@@ -19,10 +19,24 @@ import CIcon from '@coreui/icons-react'
 // sidebar nav config
 import navigation from './_nav'
 import sidebarShowAction from 'src/Redux Statement/actions/sidebarShowAction'
+import loginStatusAction from 'src/Redux Statement/actions/loginStatusAction'
 
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.nav.sidebarShow);
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(loginStatusAction(""));
+    // history.push('/dashboard');
+    setTimeout(() => refreshPage(), 300)
+    
+    
+  };
 
   return (
     <CSidebar
@@ -57,9 +71,9 @@ const TheSidebar = () => {
       </CSidebarNav>
       
       <CSidebarMinimizer className="c-d-md-down-none"/>
-      <CSidebarFooter className=" text-center">
+      <CSidebarFooter className="d-flex align-items-center text-center cursor-pointer " onClick={logout}>
           {/* <CIcon customClasses="c-sidebar-nav-icon" name={'cilSettings'} /> */}
-          Log out
+          <CIcon name="cil-user" alt="log out" />&nbsp;Log out
       </CSidebarFooter>
      
     </CSidebar>

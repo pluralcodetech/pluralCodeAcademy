@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -14,36 +14,30 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import MaterialTable, { MTableBodyRow } from 'material-table';
+import MaterialTable from 'material-table';
 import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
 
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import addEventAction from 'src/Redux Statement/actions/addEventAction';
 import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
 import { Loading } from 'src/routes';
 import webSeriesListAction from 'src/Redux Statement/actions/webSeriesListAction';
 
 const WebSeriesList = () => {
-    
-
     const dispatch = useDispatch();
     let history = useHistory();
 
     useEffect(() => {
         dispatch(webSeriesListAction());
-    }, []);
+    }, [dispatch]);
     
     const webSeriesListContent = useSelector(state => state.webSeriesListData);
     const {webSeriesList} = webSeriesListContent;
-    console.log(webSeriesList)
-
-
-
+ 
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
+    const {loading} = customPostMain;
 
     const handleAddCourse =() => {
         history.push(`/create_webSeries`);   
@@ -68,8 +62,6 @@ const WebSeriesList = () => {
         history.push(`/webSeries_details/${item}`);   
     };
 
-    
-
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -91,7 +83,6 @@ const WebSeriesList = () => {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
-      
     // Columns
     const columns = [
         {title: 'Image', field: 'image', render: item => <img src={item.image} alt="" border="3" height="100" width="100" />,
@@ -156,9 +147,7 @@ const WebSeriesList = () => {
                                     })
                                     
                                 ]}
-                            
-                                
-                               
+
                                 />
                             </CCard>
                         </CCol>

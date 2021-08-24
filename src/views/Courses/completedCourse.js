@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -14,43 +14,35 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable from 'material-table';
-import { Input } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import courseListAction from 'src/Redux Statement/actions/courseListAction';
 import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
-import {
-    Link, useHistory
-  } from "react-router-dom";
-  
-import customPostAction from 'src/Redux Statement/actions/CRUD/customPostAction';
+import { useHistory} from "react-router-dom";
 import moment from 'moment';
 import CommunityModal from '../Community/CommunityModal';
-import Alert from 'src/containers/Alert';
 import { Loading } from 'src/routes';
 
   const CompletedCourse = () => {
-
+    // call the redux action to get the list of courses
     useEffect(() => {
         dispatch(courseListAction());
-    }, []);
+    }, [dispatch]);
     
     let history = useHistory();
     const dispatch = useDispatch();
 
+    // get the list of courses
     const customPostMain  = useSelector(state => state.customPostData);
-    const {customPost, loading} = customPostMain;
-    const customPostMessageData = useMemo(() => customPost, [customPost]);
-
+    const {loading} = customPostMain;
+    
     const compleCourseList = useSelector(state => state.courseListData.courseList);
     const {completed} = compleCourseList
-    // console.log(completed);
 
     const completedData = useMemo(() => completed, [completed]);
 
     //  Modal Action  
     const [modal, setModal] = useState(false);
     const [getID, setGetID] = useState('');
-    const [getAllCourses, setGetAllCourses] = useState('');
     
     const toggle = (id) =>{
         setModal(!modal);
@@ -67,17 +59,6 @@ import { Loading } from 'src/routes';
         history.push(`/update_completed_course/${id}`)
     };
 
-    // const handleDeleteCourse = (courseData) => {
-    //     const {id} = courseData;
-    
-    //     let deleteID = new FormData();
-    //     deleteID.append('courseid', id);
-
-    //     const deleteURL = 'https://pluralcode.academy/academyAPI/api/deletecourse.php'
-    //     dispatch(customPostAction(deleteURL, deleteID));
-    //     setTimeout (() => dispatch(courseListAction()) , 300);
-    // };
-    
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -152,11 +133,6 @@ import { Loading } from 'src/routes';
                                             tooltip: 'Edit Course',
                                             onClick: (event, rowData) =>  handleEditCourse(rowData)
                                         },
-                                        // rowData => ({
-                                        //     icon: DeleteOutline,
-                                        //     tooltip: 'Delete User', 
-                                        //     onClick: (event, rowData) =>  handleDeleteCourse(rowData)
-                                        // })
                                     ]}
             
                                     localization= {{

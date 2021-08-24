@@ -1,6 +1,6 @@
-import { CButton, CCard, CCol, CRow, CSpinner } from '@coreui/react';
+import { CCard, CCol, CRow, CSpinner } from '@coreui/react';
 import MaterialTable from 'material-table';
-import React, { forwardRef, useEffect, useMemo } from 'react';
+import React, { forwardRef, useEffect} from 'react';
 import { AddBox, ArrowDownward } from "@material-ui/icons";
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -20,17 +20,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import serviceListAction from 'src/Redux Statement/actions/serviceListAction';
 
-
-
 const SandBox = () => {
     const serviceListContent = useSelector(state => state.serviceListData.serviceList);
-    
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(serviceListAction());
-    }, []);
+    }, [dispatch]);
 
 
     const tableIcons = {
